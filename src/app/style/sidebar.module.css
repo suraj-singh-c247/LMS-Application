@@ -1,0 +1,29 @@
+.sideBarMain {
+  background-color: #fff;
+  flex-direction: column;
+  width: 100%;
+  max-width: 250px;
+  margin-bottom: 12px;
+  padding-block: 16px;
+  display: flex;
+  box-shadow: 0 7px 29px #64646f33;
+  position: fixed;
+  left: 0;
+  top: 89px;
+  z-index: 9;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+}
+.sidebarToggle {
+  transform: translateX(0px);
+}
+.sideBarInActive {
+  transform: translateX(-250px);
+}
+.sideBarMain .sideLogoBox {
+  margin-bottom: 40px;
+  padding-inline: 36px;
+}
+.sideBarMain .sideListBox {
+  padding-inline: 26px;
+}

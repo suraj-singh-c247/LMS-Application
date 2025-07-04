@@ -1,0 +1,16 @@
+.buttonContainer .btn {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: auto;
+  padding-inline: 12px;
+  padding-block: 10px;
+  border-radius: 40px;
+  text-transform: capitalize;
+  min-width: 110px;
+  justify-content: flex-start;
+}
+.buttonContainer .primaryButton {
+  background: #202020;
+  box-shadow: #202020 0 10px 20px -10px;
+  color: #ffffff;
+}

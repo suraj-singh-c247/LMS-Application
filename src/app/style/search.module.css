@@ -1,0 +1,28 @@
+.searchContainer {
+  width: 100%;
+}
+
+.searchContainer .searchForm {
+  position: relative;
+  width: 70%;
+}
+.searchContainer .searchForm .searchControl > div {
+  border-radius: 16px;
+  height: 42px;
+  padding-right: 0px;
+}
+
+.searchContainer .searchForm .clearButton {
+  position: absolute;
+  right: 0;
+  top: 0px;
+  background-color: transparent;
+}
+
+.searchContainer .searchButton {
+  background-color: #000;
+  color: #fff;
+  border-radius: 0px;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}

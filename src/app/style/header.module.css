@@ -1,0 +1,28 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0px;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  margin-right: 10px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding-block: 16px;
+  z-index: 99;
+}
+.header .logoBox {
+  padding-left: 20px;
+}
+.header .hamburgerMenu {
+  color: #702dff;
+}
+.header .notificationMenu {
+  color: #702dff;
+}
+
+.header .rightBox {
+  display: inline-flex;
+  gap: 16px;
+  justify-self: flex-end;
+}
