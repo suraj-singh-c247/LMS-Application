@@ -6,7 +6,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import Button from "../common/button/Button";
+import Button from "./common/button/Button";
 import styles from "@/app/style/page.module.css"
 const CustomCard = () => {
   return (

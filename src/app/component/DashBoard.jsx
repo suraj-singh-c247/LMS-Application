@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { memo } from "react";
 import styles from "@/app/style/page.module.css";
-import Button from "../common/button/Button";
+import Button from "./common/button/Button";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
@@ -23,7 +23,8 @@ const DashBoard = () => {
           </Grid>
           <Grid size={12}>
             <Button
-              type="button"             
+              type="button" 
+              variant={"primary"}
               label={"Join Now"}
               endIcon={<ArrowOutwardIcon />}
             />

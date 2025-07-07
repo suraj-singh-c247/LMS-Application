@@ -7,9 +7,15 @@
   border-radius: 40px;
   text-transform: capitalize;
   min-width: 110px;
-  justify-content: flex-start;
+  justify-content: center;
 }
 .buttonContainer .primaryButton {
+  background: #202020;
+  box-shadow: #202020 0 10px 20px -10px;
+  color: #ffffff;
+}
+.buttonContainer .secondaryButton {
+  width: 100%;
   background: #202020;
   box-shadow: #202020 0 10px 20px -10px;
   color: #ffffff;

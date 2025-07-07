@@ -1,15 +1,18 @@
+import Image from "next/image";
+
 import { Avatar, Badge, Box, Grid, IconButton, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
 import { memo, useState } from "react";
 //icons
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import Search from "../common/search/Search";
+import Search from "./common/search/Search";
 // style
 import searchStyles from "@/app/style/search.module.css";
 import headerStyle from "@/app/style/header.module.css";
-import Image from "next/image";
 
-const Header = ({ searchText, setSearchText, handleSearch,setSideBarToggle,sideBarToggle }) => {
+import ThemeToggle from "./common/ThemeToggle";
+
+const Header = ({ searchText, setSearchText, handleSearch,setSideBarToggle}) => {
   const [anchorElUser, setAnchorElUser] = useState(false);
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
   return (
@@ -24,7 +27,6 @@ const Header = ({ searchText, setSearchText, handleSearch,setSideBarToggle,sideB
             height={40}/>
         </Box>
       </Grid>
-      
         <Grid size={0.5}>
           <IconButton
             size="large"
@@ -40,15 +42,16 @@ const Header = ({ searchText, setSearchText, handleSearch,setSideBarToggle,sideB
           >
             <Search
               type={"text"}
-              searchTerm={searchText}
-              setSearchTerm={setSearchText}
-              handleSearch={handleSearch}
+              // searchText={searchText}
+              // setSearchText={setSearchText}
+              // handleSearch={handleSearch}
               className={searchStyles.searchControl}
             />
           </Box>
         </Grid>
         <Grid size={2.7} textAlign={"end"}>
           <Box className={headerStyle.rightBox}>
+            <ThemeToggle/>
             <IconButton className={headerStyle.notificationMenu}>
               <Badge badgeContent={100} color="secondary">
                 <NotificationsIcon />

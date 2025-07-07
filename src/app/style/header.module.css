@@ -26,3 +26,8 @@
   gap: 16px;
   justify-self: flex-end;
 }
+
+[data-theme="dark"] .header {
+  background-color: #333333;
+  color: #ffffff;
+}

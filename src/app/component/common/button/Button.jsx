@@ -3,13 +3,15 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import btnStyles from "./button.module.css";
 
-function CustomButton({ label, endIcon, onClick, ...props }) {
+function CustomButton({ label, endIcon, variant, onClick, ...props }) {
+  console.log(variant,"variant");
+  
   return (
     <Box className={btnStyles.buttonContainer}>
       <Button
-        className={`${btnStyles.btn} ${btnStyles.primaryButton}`}
+        className={`${btnStyles.btn} ${variant==="primary"?btnStyles.primaryButton:btnStyles.secondaryButton}`}
         onClick={onClick}
-        endIcon={endIcon}
+        endIcon={endIcon&&endIcon}
         {...props}
       >
         {label}

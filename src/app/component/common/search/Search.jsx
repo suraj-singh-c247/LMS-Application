@@ -10,8 +10,8 @@ const Search = ({
   label,
   variant,
   className,
-  searchTerm,
-  handleSearch,
+  // searchText,
+  // handleSearch,
 }) => {
   return (
     <Box
@@ -27,9 +27,9 @@ const Search = ({
         label={label}
         variant={variant}
         className={className}
-        value={searchTerm}
+        // value={searchText}
         placeholder={placeholder || "Search..."}
-        onChange={(e) => handleSearch(e.target.value)}
+        // onChange={(e) => handleSearch(e.target.value)}
         slotProps={{
           input: {
             startAdornment: (
@@ -47,11 +47,11 @@ const Search = ({
           },
         }}
       />
-      {searchTerm && searchTerm.length > 0 && (
+      {/* {searchText && searchText.length > 0 && (
         <IconButton aria-label="clear" className={searchStyles.clearButton}>
           <CloseIcon />
         </IconButton>
-      )}
+      )} */}
     </Box>
   );
 };

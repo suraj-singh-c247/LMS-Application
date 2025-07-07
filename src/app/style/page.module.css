@@ -22,6 +22,13 @@
     --button-secondary-hover: #1a1a1a;
   }
 }
+.mainBody {
+  background-color: #fff;
+}
+.mainBody[data-theme="dark"] {
+  background-color: #333333;
+  color: #ffffff;
+}
 .pageCollapse {
   margin-left: 290px;
 }

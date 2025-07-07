@@ -24,7 +24,7 @@ const SideBar = ({ sideBarToggle }) => {
         component="nav"
         aria-labelledby="nested-list-subheader"
       >
-        <Link href={"/"}>
+        <Link href={"/dashboard"}>
           <ListItemButton>
             <ListItemIcon>
               <DashboardIcon />
@@ -33,7 +33,6 @@ const SideBar = ({ sideBarToggle }) => {
           </ListItemButton>
         </Link>
         <Link href={"/course"}>
-          {" "}
           <ListItemButton>
             <ListItemIcon>
               <SubjectIcon />
