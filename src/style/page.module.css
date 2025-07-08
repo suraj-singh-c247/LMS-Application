@@ -41,7 +41,7 @@
   border-radius: 20px;
   padding-block: 20px;
   padding-inline: 24px;
-  background-image: url("../../../public/star.png");
+  background-image: url("../../public/star.png");
   background-repeat: no-repeat;
   background-position: right 0%;
   background-size: contain;
@@ -132,4 +132,27 @@
   font-size: 12px;
   line-height: auto;
   font-weight: 400;
+}
+
+[data-theme="dark"] .paperMainBox {
+  background-color: rgba(51, 51, 51, 0.5);
+  box-shadow: rgba(255, 255, 255, 0.16) 0px 10px 36px 0px,
+    rgba(255, 255, 255, 0.06) 0px 0px 0px 1px;
+}
+[data-theme="dark"] .paperMainBox .pageHeading,
+[data-theme="dark"] .cardMainBox .cardBox .cardContent .cardTitle,
+[data-theme="dark"] .cardMainBox .cardBox .cardContent .cardDescription {
+  color: #fff;
+}
+[data-theme="dark"] .cardMainBox .cardBox {
+  background-color: rgba(51, 51, 51, 1);
+  box-shadow: rgba(255, 255, 255, 0.16) 0px 10px 36px 0px,
+    rgba(255, 255, 255, 0.06) 0px 0px 0px 1px;
+}
+[data-theme="dark"] .cardMainBox .cardBox .cardContent .cardTitle {
+  color: #fff;
+}
+[data-theme="dark"] .cardMainBox .cardBox .cardContent .cardSubTitle {
+  background-color: rgba(112, 45, 255, 1);
+  color: #fff;
 }

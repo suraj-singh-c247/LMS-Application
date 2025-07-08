@@ -1,5 +1,5 @@
 "use client";
-import { signUpSchema } from "@/app/utilis/validation";
+import { signUpSchema } from "@/utilis/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
@@ -19,10 +19,11 @@ import {
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import authStyle from "../auth.module.css";
-import errorStyles from "@/app/style/error.module.css"
-import Button from "@/app/component/common/button/Button";
+import errorStyles from "@/style/error.module.css";
+import Button from "@/component/common/button/Button";
 import Link from "next/link";
 import Image from "next/image";
+import { authServices } from "@/service/auth/apiAuth";
 
 const countryCodes = [
   { code: "+1", label: "United States" },
@@ -52,6 +53,16 @@ export default function SignUp() {
   });
   const onSubmit = (data) => {
     console.log(data, "Data");
+    const { name, email, password, phoneNumber, countryCode } = data;
+    const userData = { name, email, password, phoneNumber, countryCode };
+    authServices
+      .register(userData)
+      .then((response) => {
+        console.log(response, "response");
+      })
+      .catch((error) => {
+        console.log(error, "error");
+      });
   };
   return (
     <Box component={"section"} className={authStyle.authPage}>
@@ -161,8 +172,8 @@ export default function SignUp() {
                     <FormControl
                       fullWidth
                       margin="normal"
-                          error={!!errors.countryCode}
-                          size="small"
+                      error={!!errors.countryCode}
+                      size="small"
                     >
                       <InputLabel>Select country code</InputLabel>
                       <Select

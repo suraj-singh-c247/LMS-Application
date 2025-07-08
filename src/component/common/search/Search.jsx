@@ -2,7 +2,7 @@ import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import { memo } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
-import searchStyles from "@/app/style/search.module.css";
+import searchStyles from "@/style/search.module.css";
 
 const Search = ({
   placeholder,
@@ -33,7 +33,10 @@ const Search = ({
         slotProps={{
           input: {
             startAdornment: (
-              <InputAdornment position="start">
+              <InputAdornment
+                position="start"
+                className={searchStyles.searchIcon}
+              >
                 <SearchIcon />
               </InputAdornment>
             ),

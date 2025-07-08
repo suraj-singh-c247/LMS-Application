@@ -26,3 +26,23 @@
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
 }
+
+[data-theme="dark"] .searchContainer .searchForm .searchControl > div {
+  border: 1px solid #fff;
+  color: #fff;
+}
+[data-theme="dark"]
+  .searchContainer
+  .searchForm
+  .searchControl
+  > div
+  input::placeholder {
+  color: #fff;
+}
+[data-theme="dark"] .searchContainer .searchButton {
+  background-color: #fff;
+  color: #000;
+}
+[data-theme="dark"] .searchContainer .searchIcon {
+  color: #fff;
+}

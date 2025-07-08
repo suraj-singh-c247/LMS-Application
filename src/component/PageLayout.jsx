@@ -1,6 +1,6 @@
 import { Paper, Typography } from "@mui/material";
 import { memo } from "react";
-import styles from "@/app/style/page.module.css";
+import styles from "@/style/page.module.css";
 
 const PageLayout = ({ title, children }) => {
   return (

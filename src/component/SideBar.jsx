@@ -1,3 +1,4 @@
+"use client";
 import {
   Box,
   List,
@@ -9,9 +10,12 @@ import {
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SubjectIcon from "@mui/icons-material/Subject";
 import { memo } from "react";
-import styles from "@/app/style/sidebar.module.css";
+import styles from "@/style/sidebar.module.css";
 import Link from "next/link";
+import { panelRole } from "@/service/api-helpers";
 const SideBar = ({ sideBarToggle }) => {
+  const role = panelRole();
+
   return (
     <Box
       component={"aside"}
@@ -24,20 +28,20 @@ const SideBar = ({ sideBarToggle }) => {
         component="nav"
         aria-labelledby="nested-list-subheader"
       >
-        <Link href={"/dashboard"}>
-          <ListItemButton>
+        <Link href={`${role === 1 ? "/admin/dashboard" : "/dashboard"}`}>
+          <ListItemButton className={styles.listButton}>
             <ListItemIcon>
-              <DashboardIcon />
+              <DashboardIcon className={styles.listIcon} />
             </ListItemIcon>
-            <ListItemText primary="DashBoard" />
+            <ListItemText primary="DashBoard" className={styles.listText} />
           </ListItemButton>
         </Link>
-        <Link href={"/course"}>
-          <ListItemButton>
+        <Link href={`${role === 1 ? "/admin/course" : "/course"}`}>
+          <ListItemButton className={styles.listButton}>
             <ListItemIcon>
-              <SubjectIcon />
+              <SubjectIcon className={styles.listIcon} />
             </ListItemIcon>
-            <ListItemText primary="Courses" />
+            <ListItemText primary="Courses" className={styles.listText} />
           </ListItemButton>
         </Link>
 

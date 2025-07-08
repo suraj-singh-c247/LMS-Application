@@ -4,14 +4,16 @@ import { Box } from "@mui/material";
 import btnStyles from "./button.module.css";
 
 function CustomButton({ label, endIcon, variant, onClick, ...props }) {
-  console.log(variant,"variant");
-  
   return (
     <Box className={btnStyles.buttonContainer}>
       <Button
-        className={`${btnStyles.btn} ${variant==="primary"?btnStyles.primaryButton:btnStyles.secondaryButton}`}
+        className={`${btnStyles.btn} ${
+          variant === "primary"
+            ? btnStyles.primaryButton
+            : btnStyles.secondaryButton
+        }`}
         onClick={onClick}
-        endIcon={endIcon&&endIcon}
+        endIcon={endIcon && endIcon}
         {...props}
       >
         {label}

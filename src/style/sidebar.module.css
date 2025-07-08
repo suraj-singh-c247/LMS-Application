@@ -27,3 +27,23 @@
 .sideBarMain .sideListBox {
   padding-inline: 26px;
 }
+.sideBarMain .listButton {
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+.sideBarMain .listText span {
+  font-size: 15px;
+  line-height: 18px;
+}
+
+[data-theme="dark"] .sideBarMain {
+  background-color: rgba(51, 51, 51, 1);
+  box-shadow: rgba(255, 255, 255, 0.16) 0px 10px 36px 0px,
+    rgba(255, 255, 255, 0.06) 0px 0px 0px 1px;
+}
+[data-theme="dark"] .sideBarMain .listButton:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+[data-theme="dark"] .sideBarMain .listIcon {
+  color: rgba(255, 255, 255, 1);
+}
