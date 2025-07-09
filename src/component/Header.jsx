@@ -15,9 +15,8 @@ import { memo, useState } from "react";
 //icons
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import Search from "./common/search/Search";
+
 // style
-import searchStyles from "@/style/search.module.css";
 import headerStyle from "@/style/header.module.css";
 
 import ThemeToggle from "./common/ThemeToggle";
@@ -67,7 +66,7 @@ const Header = ({
           </IconButton>
         </Grid>
         <Grid size={7}>
-          <Box
+          {/* <Box
             className={`${searchStyles.searchContainer} ${headerStyle.searchFlex}`}
           >
             <Search
@@ -77,7 +76,7 @@ const Header = ({
               // handleSearch={handleSearch}
               className={searchStyles.searchControl}
             />
-          </Box>
+          </Box> */}
         </Grid>
         <Grid size={2.7} textAlign={"end"}>
           <Box className={headerStyle.rightBox}>

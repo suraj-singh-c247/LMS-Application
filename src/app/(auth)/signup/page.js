@@ -47,8 +47,7 @@ export default function SignUp() {
       email: "",
       password: "",
       phoneNumber: "",
-      countryCode: "    ",
-      reminder: false,
+      countryCode: "",
     },
   });
   const onSubmit = (data) => {
@@ -102,7 +101,7 @@ export default function SignUp() {
                     <TextField
                       {...field}
                       className={authStyle.formControl}
-                      label="Name"
+                      label="Name*"
                       variant="outlined"
                       fullWidth
                       margin="normal"
@@ -119,7 +118,7 @@ export default function SignUp() {
                     <TextField
                       {...field}
                       className={authStyle.formControl}
-                      label="Email"
+                      label="Email*"
                       variant="outlined"
                       fullWidth
                       margin="normal"
@@ -137,7 +136,7 @@ export default function SignUp() {
                       {...field}
                       type="password"
                       className={authStyle.formControl}
-                      label="Password"
+                      label="Password*"
                       variant="outlined"
                       fullWidth
                       margin="normal"
@@ -154,7 +153,7 @@ export default function SignUp() {
                     <TextField
                       {...field}
                       className={authStyle.formControl}
-                      label="Phone Number"
+                      label="Phone Number*"
                       variant="outlined"
                       fullWidth
                       margin="normal"
@@ -175,7 +174,7 @@ export default function SignUp() {
                       error={!!errors.countryCode}
                       size="small"
                     >
-                      <InputLabel>Select country code</InputLabel>
+                      <InputLabel>Select country code*</InputLabel>
                       <Select
                         {...field}
                         label="Select Country Code"
@@ -198,17 +197,7 @@ export default function SignUp() {
                     </FormControl>
                   )}
                 />
-                <Controller
-                  name="reminder"
-                  control={control}
-                  render={({ field }) => (
-                    <FormControlLabel
-                      className={authStyle.reminder}
-                      control={<Checkbox {...field} />}
-                      label="I agree and accept the terms and conditions"
-                    />
-                  )}
-                />
+
                 <Button type="submit" label={"Sign up"} variant={"secondary"} />
                 <Typography variant="body1" className={authStyle.footerText}>
                   Already have an account?{" "}

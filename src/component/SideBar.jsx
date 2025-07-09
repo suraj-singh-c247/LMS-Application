@@ -33,7 +33,7 @@ const SideBar = ({ sideBarToggle }) => {
             <ListItemIcon>
               <DashboardIcon className={styles.listIcon} />
             </ListItemIcon>
-            <ListItemText primary="DashBoard" className={styles.listText} />
+            <ListItemText primary="Dashboard" className={styles.listText} />
           </ListItemButton>
         </Link>
         <Link href={`${role === 1 ? "/admin/course" : "/course"}`}>

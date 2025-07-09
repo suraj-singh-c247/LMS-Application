@@ -35,7 +35,6 @@ function SignIn() {
     defaultValues: {
       email: "",
       password: "",
-      reminder: false,
     },
   });
   const onSubmit = (data) => {
@@ -112,7 +111,7 @@ function SignIn() {
                     <TextField
                       {...field}
                       className={authStyle.formControl}
-                      label="Email"
+                      label="Email*"
                       variant="outlined"
                       fullWidth
                       margin="normal"
@@ -130,24 +129,13 @@ function SignIn() {
                       {...field}
                       type="password"
                       className={authStyle.formControl}
-                      label="Password"
+                      label="Password*  "
                       variant="outlined"
                       fullWidth
                       margin="normal"
                       error={!!errors.password}
                       helperText={errors.password?.message}
                       size="small"
-                    />
-                  )}
-                />
-                <Controller
-                  name="reminder"
-                  control={control}
-                  render={({ field }) => (
-                    <FormControlLabel
-                      className={authStyle.reminder}
-                      control={<Checkbox {...field} />}
-                      label="Remember me"
                     />
                   )}
                 />

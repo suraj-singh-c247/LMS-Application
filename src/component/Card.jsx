@@ -2,12 +2,13 @@ import { memo } from "react";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 import styles from "@/style/page.module.css";
-const CustomCard = () => {
+
+const CustomCard = ({ image, cartText, subTitle, desc }) => {
   return (
     <Card component={"a"} href="#" className={styles.cardBox}>
       <CardMedia
         sx={{ height: 140 }}
-        image="/static/images/cards/contemplative-reptile.jpg"
+        image={`${image}`}
         title="green iguana"
         className={styles.cardMedia}
       />
@@ -18,7 +19,7 @@ const CustomCard = () => {
           component="div"
           className={styles.cardSubTitle}
         >
-          Lizard
+          {subTitle}
         </Typography>
         <Typography
           gutterBottom
@@ -26,11 +27,10 @@ const CustomCard = () => {
           component="div"
           className={styles.cardTitle}
         >
-          Lizard
+          {cartText}
         </Typography>
         <Typography variant="body2" className={styles.cardDescription}>
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {desc ? desc : null}
         </Typography>
       </CardContent>
     </Card>

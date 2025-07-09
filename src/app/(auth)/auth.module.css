@@ -12,7 +12,7 @@
 }
 .authPage .formControl div,
 .authPage .formControl {
-  border-radius: 16px !important;
+  border-radius: 12px !important;
 }
 .authPage .formControl div input,
 .authPage .formControl div input::placeholder {
@@ -43,7 +43,11 @@
 }
 .authPage .cardContent .formControl,
 .authPage .cardContent .reminder {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+}
+.authPage .cardContent .formControl:has([type="password"]) {
+  margin-top: 10px;
+  margin-bottom: 28px;
 }
 .authPage .cardContent .reminder span {
   font-size: 16px;

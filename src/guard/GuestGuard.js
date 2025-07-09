@@ -20,7 +20,7 @@ export const GuestGuard = ({ children }) => {
       if (role === 1) {
         router.replace("admin/dashboard");
       } else {
-        router.push("/dashboard");
+        router.replace("/dashboard");
       }
     } else {
       setChecked(true);

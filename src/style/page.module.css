@@ -101,6 +101,7 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 12px;
   display: block;
+  height: 100%;
 }
 .cardMainBox .cardBox .cardMedia {
   border-radius: 12px;
