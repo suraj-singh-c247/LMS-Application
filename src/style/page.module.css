@@ -92,6 +92,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
 }
 .paperMainBox .pageHeading {
   font-size: 32px;
@@ -139,7 +140,54 @@
   line-height: auto;
   font-weight: 400;
 }
+.userDetails {
+  padding-block: 20px;
+}
+.userDetails .userDetailsBox {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #f4f7fc;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.userDetails .userDetailsTitle {
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 20px;
+}
+.userDetails .backButton {
+  margin-bottom: 5px;
+  padding: 0;
+  min-width: 28px;
+}
 
+.userDetails .userDetailsLabel {
+  font-weight: 600;
+  color: var(--gray-800);
+  font-size: 14px;
+  line-height: 18px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: inline-block;
+  margin-right: 8px;
+}
+.userDetails .userContent {
+  font-weight: 500;
+  color: var(--gray-500);
+  font-size: 14px;
+  line-height: 18px;
+  text-transform: capitalize;
+  margin-bottom: 8px;
+}
+.deleteText {
+  font-size: 16px;
+  line-height: 24px;
+  color: #1c1c1c;
+  margin-bottom: 8px;
+}
 [data-theme="dark"] .paperMainBox {
   background-color: rgba(51, 51, 51, 0.5);
   box-shadow: rgba(255, 255, 255, 0.16) 0px 10px 36px 0px,

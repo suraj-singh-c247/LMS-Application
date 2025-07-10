@@ -10,7 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { memo } from "react";
 import styles from "@/style/modal.module.css";
 
-const CustomModal = ({ open, onClose, title, children }) => {
+const ViewModal = ({ open, onClose, title, children }) => {
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -58,4 +58,4 @@ const CustomModal = ({ open, onClose, title, children }) => {
   );
 };
 
-export default memo(CustomModal);
+export default memo(ViewModal);

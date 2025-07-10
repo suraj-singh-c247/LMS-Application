@@ -1,7 +1,8 @@
 import { memo } from "react";
-import Card from "./card/Card";
+
 import { Grid } from "@mui/material";
 import styles from "@/style/page.module.css";
+import Card from "../card/Card";
 
 const CourseBoard = () => {
   return (

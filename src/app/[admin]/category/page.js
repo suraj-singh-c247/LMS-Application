@@ -4,10 +4,14 @@ import { useEffect, useState } from "react";
 import PageLayout from "@/component/common/PageLayout";
 import CustomTable from "@/component/common/table/CustomTable";
 import { categoryColumns } from "@/utilis/column";
-import { categoryServices } from "@/service/admin/apiCategory";
+import { categoryServices } from "@/service/apiCategory";
 import { toast } from "react-toastify";
-import AddEditModal from "@/component/common/button/modal/AddEditModal";
 import AddEditCategory from "@/component/category/AddEditCategory";
+import AddEditModal from "@/component/common/button/modal/AddEditModal";
+import ViewModal from "@/component/common/button/modal/ViewModal";
+import ViewCategory from "@/component/category/ViewCategory";
+import DeleteModal from "@/component/common/button/modal/DeleteModal";
+import DeleteCategory from "@/component/category/DeleteCategory";
 
 function AdminCategory() {
   const [categoryData, setCategoryData] = useState([]);
@@ -15,10 +19,14 @@ function AdminCategory() {
   const [rowPerPage, setRowsPerPage] = useState(10);
   const [loader, setLoader] = useState(true);
   const [addOpen, setAddOpen] = useState({ id: null, open: false });
+  const [viewOpen, setViewOpen] = useState({ id: null, open: false });
+  const [deleteModal, setDeleteModal] = useState({ id: null, open: false });
 
   useEffect(() => {
     handleGetData(page, rowPerPage);
   }, [page, rowPerPage]);
+
+  useEffect(() => {}, []);
 
   const handleGetData = (page, rowPerPage) => {
     categoryServices
@@ -45,7 +53,6 @@ function AdminCategory() {
   };
   // Function to handle page change
   const handlePageChange = (event, newPage) => {
-    console.log(newPage, "newPage");
     setPage(newPage);
   };
 
@@ -73,18 +80,18 @@ function AdminCategory() {
           onRowChange={handleRowPerPageChange}
           columns={categoryColumns}
           setAddOpen={setAddOpen}
+          setViewModal={setViewOpen}
+          setDeleteModal={setDeleteModal}
+          getDataTable={handleGetData}
         />
       </PageLayout>
       {/* This modal for add user */}
       <AddEditModal
         open={addOpen.open}
-        categoryData={categoryData.categories ?? []}
-        setCategoryData={setCategoryData}
         onClose={() => {
           setAddOpen({ id: null, open: false });
         }}
         title={addOpen?.id ? "Edit Categories" : "Add Categories"}
-        getDataTable={handleGetData}
       >
         <AddEditCategory
           id={addOpen.id}
@@ -95,6 +102,34 @@ function AdminCategory() {
           }}
         />
       </AddEditModal>
+      <ViewModal
+        open={viewOpen?.open}
+        title={"View Categories"}
+        onClose={() => {
+          setViewOpen({ id: null, open: false });
+        }}
+      >
+        <ViewCategory
+          id={viewOpen?.id}
+          categoryData={categoryData.categories ?? []}
+        />
+      </ViewModal>
+      <DeleteModal
+        title={"Delete Category"}
+        open={deleteModal.open}
+        onClose={() => {
+          setDeleteModal({ id: null, open: false });
+        }}
+      >
+        <DeleteCategory
+          id={deleteModal?.id}
+          text={"Are you sure you want to delete this category?"}
+          handleGetData={handleGetData}
+          onClose={() => {
+            setDeleteModal({ id: null, open: false });
+          }}
+        />
+      </DeleteModal>
     </>
   );
 }

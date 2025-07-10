@@ -20,3 +20,8 @@
   box-shadow: #202020 0 10px 20px -10px;
   color: #ffffff;
 }
+.buttonContainer .errorButton {
+  background: #c21111;
+  box-shadow: #dd1212 0 10px 20px -10px;
+  color: #ffffff;
+}

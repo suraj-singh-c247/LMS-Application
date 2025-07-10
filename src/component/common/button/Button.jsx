@@ -4,14 +4,17 @@ import { Box } from "@mui/material";
 import btnStyles from "./button.module.css";
 
 function CustomButton({ label, variant, onClick, ...props }) {
-
   return (
     <Box className={btnStyles.buttonContainer}>
       <Button
         className={`${btnStyles.btn} ${
           variant === "primary"
             ? btnStyles.primaryButton
-            : btnStyles.secondaryButton
+            : variant === "secondary"
+            ? btnStyles.secondaryButton
+            : variant === "error"
+            ? btnStyles.errorButton
+            : btnStyles.infoButton
         }`}
         onClick={onClick}
         {...props}

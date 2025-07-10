@@ -8,7 +8,7 @@ import { categoryServices } from "@/service/apiCategory";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 
-const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
+const AddCourseForm = ({ id, categoryData, getDataTable, onClose }) => {
   const {
     handleSubmit,
     setValue,
@@ -19,6 +19,10 @@ const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
     resolver: yupResolver(catergorySchema),
     defaultValues: {
       name: "",
+      description: "",
+      coverImage: "",
+      visibility: "",
+      categoryId: "",
     },
   });
   // It's use for edit
@@ -103,6 +107,24 @@ const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
           />
         )}
       />{" "}
+      <Controller
+        name="description"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            {...field}
+            className={formStyles.formControl}
+            label="description*"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            error={!!errors.description}
+            helperText={errors.description?.message}
+            size="small"
+            sx={{ mb: 2 }}
+          />
+        )}
+      />{" "}
       <Box sx={{ display: "flex", alignItems: "center", gap: "16px" }}>
         <Button
           type="submit"
@@ -113,4 +135,4 @@ const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
     </Box>
   );
 };
-export default memo(AddEditCategory);
+export default memo(AddCourseForm);

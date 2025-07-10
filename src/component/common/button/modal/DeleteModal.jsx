@@ -10,7 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { memo } from "react";
 import styles from "@/style/modal.module.css";
 
-const CustomModal = ({ open, onClose, title, children }) => {
+const DeleteModal = ({ title, open, onClose, children }) => {
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -29,10 +29,11 @@ const CustomModal = ({ open, onClose, title, children }) => {
         <Box className={styles.modalStyle}>
           <Box className={styles.modalHeader}>
             <Typography
-              className={styles.modalHeading}
               id="modal-modal-title"
               variant="h6"
               component="h2"
+              mb={1}
+              className={styles.modalHeading}
             >
               {title}
             </Typography>
@@ -58,4 +59,4 @@ const CustomModal = ({ open, onClose, title, children }) => {
   );
 };
 
-export default memo(CustomModal);
+export default memo(DeleteModal);

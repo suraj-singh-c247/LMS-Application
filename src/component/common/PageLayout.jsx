@@ -17,6 +17,7 @@ const PageLayout = ({ title, btnText, setAddOpen, children }) => {
         {btnText && (
           <Button
             label={btnText}
+            variant={"primary"}
             startIcon={<AddOutlinedIcon />}
             onClick={() => setAddOpen({ open: true })}
           />

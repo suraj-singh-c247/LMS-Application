@@ -19,6 +19,7 @@ const CustomTable = ({
   setViewModal,
   setAddOpen,
   setDeleteModal,
+  getDataTable,
 }) => {
   return (
     <>
@@ -35,6 +36,7 @@ const CustomTable = ({
             setViewModal={setViewModal}
             setAddOpen={setAddOpen}
             setDeleteModal={setDeleteModal}
+            getDataTable={getDataTable}
           />
         </Table>
       </TableContainer>

@@ -1,19 +1,17 @@
 import {
-  Chip,
-  Fade,
-  IconButton,
+  FormControlLabel,
+  Switch,
   TableBody,
   TableCell,
   TableRow,
-  Tooltip,
 } from "@mui/material";
-import { memo } from "react";
-import PreviewIcon from "@mui/icons-material/Preview";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { memo, useState } from "react";
 
 import tableStyle from "./Table.module.css";
 import Loader from "../Loader/Loader";
+import ActionCell from "../actioncell/ActionCell";
+import { categoryServices } from "@/service/apiCategory";
+import { toast } from "react-toastify";
 
 const CustomTableBody = ({
   categoryData,
@@ -21,7 +19,34 @@ const CustomTableBody = ({
   setAddOpen,
   setDeleteModal,
   loader,
+  getDataTable,
 }) => {
+  // handle modal toggle
+  const handleView = (row) => setViewModal({ id: row.id, open: true });
+  const handleOpen = (row) => setAddOpen({ id: row.id, open: true });
+  const handleDelete = (row) => setDeleteModal({ id: row.id, open: true });
+  const handleStatusChange = (e, id) => {
+    const active = e.target.checked;
+    categoryServices
+      .updateStatusCategory(id, active)
+      .then((response) => {
+        if (response?.status === 200) {
+          const { message } = response?.data;
+          getDataTable();
+          toast.success(message);
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          toast.error(error.response.data?.message);
+          return;
+        } else if (error.request) {
+          toast.error(error.request);
+          return;
+        }
+      });
+  };
   return (
     <TableBody className={tableStyle.tableBody}>
       {loader && (
@@ -35,61 +60,25 @@ const CustomTableBody = ({
         categoryData.map((row) => (
           <TableRow hover key={row.id}>
             <TableCell>{row.name}</TableCell>
-            <TableCell>{row?.isActive.toString()}</TableCell>
+            <TableCell>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={row?.isActive}
+                    onChange={(e) => handleStatusChange(e, row.id)}
+                  />
+                }
+              />
+            </TableCell>
             <TableCell>{row.isDeleted}</TableCell>
             <TableCell>{row.deletedAt}</TableCell>
             <TableCell style={{ display: "flex", gap: "4px" }}>
-              <Tooltip
-                title="View"
-                arrow
-                placement="top"
-                slots={{
-                  transition: Fade,
-                }}
-                slotProps={{
-                  transition: { timeout: 600 },
-                }}
-              >
-                <IconButton
-                  onClick={() => setViewModal({ id: row.id, open: true })}
-                >
-                  <PreviewIcon color="secondary" />
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                title="Edit"
-                arrow
-                placement="top"
-                slots={{
-                  transition: Fade,
-                }}
-                slotProps={{
-                  transition: { timeout: 600 },
-                }}
-              >
-                <IconButton
-                  onClick={() => setAddOpen({ id: row.id, open: true })}
-                >
-                  <EditIcon color="info" />
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                title="Delete"
-                arrow
-                placement="top"
-                slots={{
-                  transition: Fade,
-                }}
-                slotProps={{
-                  transition: { timeout: 600 },
-                }}
-              >
-                <IconButton
-                  onClick={() => setDeleteModal({ id: row.id, open: true })}
-                >
-                  <DeleteIcon color="error" />
-                </IconButton>
-              </Tooltip>
+              <ActionCell
+                row={row}
+                onView={handleView}
+                onOpen={handleOpen}
+                onDelete={handleDelete}
+              />
             </TableCell>
           </TableRow>
         ))}
