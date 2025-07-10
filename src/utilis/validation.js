@@ -38,3 +38,7 @@ export const signUpSchema = yup.object().shape({
     .required("Phone number is required"),
   countryCode: yup.string().required("Country code is required"),
 });
+
+export const catergorySchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+});

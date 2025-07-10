@@ -19,7 +19,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 // style
 import headerStyle from "@/style/header.module.css";
 
-import ThemeToggle from "./common/ThemeToggle";
+import ThemeToggle from "./ThemeToggle";
 import { removeToken } from "@/service/api-helpers";
 
 import { useRouter } from "next/navigation";

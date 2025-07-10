@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Base_URL, getToken } from "../api-helpers";
+import { Base_URL, getToken } from "../../api-helpers";
 
 const token = getToken();
 

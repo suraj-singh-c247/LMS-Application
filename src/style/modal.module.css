@@ -1,0 +1,38 @@
+.modalStyle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+.modalStyle .modalHeading {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+}
+.modalStyle .deleteText {
+  font-size: 16px;
+  line-height: 24px;
+  color: #1c1c1c;
+  margin-bottom: 8px;
+}
+
+@media screen and (max-width: 767px) {
+  .modalStyle {
+    max-width: 400px;
+    max-height: 100vh;
+  }
+}
+@media screen and (max-width: 399px) {
+  .modalStyle {
+    max-width: 350px;
+    max-height: 100vh;
+  }
+}

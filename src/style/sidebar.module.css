@@ -31,8 +31,9 @@
   border-radius: 12px;
   margin-bottom: 8px;
 }
-.sideBarMain .listText span {
-  font-size: 15px;
+.sideBarMain .listText span,
+.sideBarMain .listButton span {
+  font-size: 14px;
   line-height: 18px;
 }
 

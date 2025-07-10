@@ -1,5 +1,5 @@
 import { memo } from "react";
-import Card from "./Card";
+import Card from "./card/Card";
 import { Grid } from "@mui/material";
 import styles from "@/style/page.module.css";
 

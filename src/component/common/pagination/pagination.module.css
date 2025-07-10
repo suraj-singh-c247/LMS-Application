@@ -1,0 +1,6 @@
+.tablePagination div + p {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #171c26;
+}

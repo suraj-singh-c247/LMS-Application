@@ -6,7 +6,7 @@ import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { panelRole } from "@/service/api-helpers";
-import Card from "./Card";
+import Card from "./card/Card";
 
 // images
 import ChatGptImage from "@/images/chatGPTCourse.jpg";

@@ -3,7 +3,8 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import btnStyles from "./button.module.css";
 
-function CustomButton({ label, endIcon, variant, onClick, ...props }) {
+function CustomButton({ label, variant, onClick, ...props }) {
+
   return (
     <Box className={btnStyles.buttonContainer}>
       <Button
@@ -13,7 +14,6 @@ function CustomButton({ label, endIcon, variant, onClick, ...props }) {
             : btnStyles.secondaryButton
         }`}
         onClick={onClick}
-        endIcon={endIcon && endIcon}
         {...props}
       >
         {label}

@@ -51,7 +51,6 @@ export default function SignUp() {
     },
   });
   const onSubmit = (data) => {
-    console.log(data, "Data");
     const { name, email, password, phoneNumber, countryCode } = data;
     const userData = { name, email, password, phoneNumber, countryCode };
     authServices

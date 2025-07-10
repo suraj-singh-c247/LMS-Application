@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import Header from "@/component/Header";
-import SideBar from "@/component/SideBar";
+import Header from "@/component/common/Header";
+import SideBar from "@/component/common/SideBar";
 
 import ThemeProviderWrapper from "@/context/ThemProviderWrapper";
 import styles from "@/style/page.module.css";
