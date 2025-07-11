@@ -10,6 +10,7 @@ import AddEditModal from "@/component/common/button/modal/AddEditModal";
 import CourseBoard from "@/component/course/CourseBoard";
 import AddCourseForm from "@/component/course/AddCourseForm";
 import CustomPagination from "@/component/common/pagination/CustomPagination";
+import CustomTable from "@/component/common/table/CustomTable";
 
 export default function CoursePage() {
   const [data, setData] = useState([]);
@@ -27,6 +28,8 @@ export default function CoursePage() {
       .then((response) => {
         if (response?.status === 200) {
           const { data } = response?.data;
+          console.log(data, "data");
+
           setData(data);
           setLoader(false);
         }
@@ -63,6 +66,20 @@ export default function CoursePage() {
       setAddOpen={setAddOpen}
     >
       <CourseBoard data={data?.courses} />
+      {/* <CustomTable
+        loader={loader}
+        page={page}
+        rowsPerPage={rowPerPage}
+        count={data?.total}
+        categoryData={data?.courses ?? []}
+        onPageChange={handlePageChange}
+        onRowChange={handleRowPerPageChange}
+        columns={categoryColumns}
+        setAddOpen={setAddOpen}
+        setViewModal={setViewOpen}
+        setDeleteModal={setDeleteModal}
+        getDataTable={handleGetData}
+      /> */}
       <CustomPagination
         count={data?.total}
         page={page}
@@ -70,6 +87,7 @@ export default function CoursePage() {
         onPageChange={handlePageChange}
         onRowChange={handleRowPerPageChange}
       />
+
       <AddEditModal
         open={addOpen.open}
         onClose={() => {

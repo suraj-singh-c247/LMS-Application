@@ -6,4 +6,8 @@ const categoryColumns = [
   { id: "action", label: "Action", minWidth: 170 },
 ];
 
+const courseColumns = [
+  {}
+]
+
 export { categoryColumns };

@@ -1,16 +1,25 @@
 import { memo } from "react";
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Typography,
+} from "@mui/material";
 
 import styles from "@/style/page.module.css";
 
-const CustomCard = ({ image, cartText, subTitle, desc }) => {
-  console.log(image, "image");
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
+const CustomCard = ({ image, cartText, subTitle, desc }) => {
   return (
     <Card component={"a"} href="#" className={styles.cardBox}>
+      <IconButton className={styles.editIcon}>
+        <EditOutlinedIcon />
+      </IconButton>
       <CardMedia
         sx={{ height: 140 }}
-        image={`${image}`}
+        image={image}
         title="green iguana"
         className={styles.cardMedia}
       />
