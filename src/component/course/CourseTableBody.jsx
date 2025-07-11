@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { memo } from "react";
 
-import tableStyle from "@/style/Table.module.css";
+import tableStyle from "@/style/table.module.css";
 
 import { toast } from "react-toastify";
 import Loader from "../common/Loader/Loader";

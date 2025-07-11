@@ -14,22 +14,22 @@ const ViewCategory = ({ id, categoryData }) => {
     }
   }, []);
   return (
-    <Grid container spacing={1} className={style.userDetails}>
+    <Grid container spacing={1} className={style.viewDetails}>
       <Grid size={12}>
-        <Box className={style.userDetailsBox}>
+        <Box className={style.viewDetailsBox}>
           <PersonIcon color="success" />
           <Box>
             <Typography
               variant="subtitle2"
               component="strong"
-              className={style.userDetailsLabel}
+              className={style.viewDetailsLabel}
             >
               Name:{" "}
             </Typography>
             <Typography
               variant="body1"
               component="span"
-              className={style.userContent}
+              className={style.viewContent}
             >
               {singleCategary?.name}
             </Typography>
@@ -38,13 +38,13 @@ const ViewCategory = ({ id, categoryData }) => {
       </Grid>
 
       <Grid size={12}>
-        <Box className={style.userDetailsBox}>
+        <Box className={style.viewDetailsBox}>
           <PanoramaFishEyeIcon color="success" />
           <Box>
             <Typography
               variant="subtitle2"
               component="strong"
-              className={style.userDetailsLabel}
+              className={style.viewDetailsLabel}
             >
               Active:{" "}
             </Typography>

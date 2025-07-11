@@ -15,17 +15,11 @@ export default function UserDashBoardLayout({ children }) {
       {" "}
       <ThemeProviderWrapper>
         <Header
-          // searchTerm={searchText}
-          // setSearchTerm={setSearchText}
-          // handleSearch={handleSearch}
-          setSideBarToggle={setSideBarToggle}
-          sideBarToggle={sideBarToggle}
+        // searchTerm={searchText}
+        // setSearchTerm={setSearchText}
+        // handleSearch={handleSearch}
         />
-        <section
-          className={`${styles.page} ${
-            sideBarToggle ? styles.pageExpand : styles.pageCollapse
-          }`}
-        >
+        <section className={`${styles.page} ${styles.pageExpand}`}>
           {children}
         </section>
       </ThemeProviderWrapper>

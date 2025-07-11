@@ -4,3 +4,8 @@
   font-weight: 500;
   color: #171c26;
 }
+[data-theme="dark"] .tablePagination div + p,
+[data-theme="dark"] .tablePagination div,
+[data-theme="dark"] .tablePagination div svg {
+  color: #fff !important;
+}

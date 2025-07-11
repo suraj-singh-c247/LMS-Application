@@ -1,6 +1,6 @@
 "use client";
 
-import DashBoard from "@/component/DashBoard";
+import DashBoard from "@/component/adminDashboard/DashBoard";
 import styles from "@/style/page.module.css";
 
 export default function AdminDashboard(params) {

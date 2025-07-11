@@ -36,7 +36,9 @@
   font-size: 14px;
   line-height: 18px;
 }
-
+.sideBarActive {
+  background-color: #ccc !important;
+}
 [data-theme="dark"] .sideBarMain {
   background-color: rgba(51, 51, 51, 1);
   box-shadow: rgba(255, 255, 255, 0.16) 0px 10px 36px 0px,

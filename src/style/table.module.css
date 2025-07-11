@@ -36,3 +36,14 @@
   font-weight: 500;
   color: #171c26;
 }
+
+[data-theme="dark"] .table .tableBody {
+  background-color: #333;
+}
+[data-theme="dark"] .table .tableHeading,
+[data-theme="dark"] .table .tableHead tr th,
+[data-theme="dark"] .table .tableBody tr td {
+  color: #fff;
+}
+
+

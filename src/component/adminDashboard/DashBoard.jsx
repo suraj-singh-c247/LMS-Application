@@ -1,12 +1,12 @@
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { memo } from "react";
 import styles from "@/style/page.module.css";
-import Button from "./common/button/Button";
+import Button from "../common/button/Button";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { panelRole } from "@/service/api-helpers";
-import Card from "./card/Card";
+import Card from "../card/Card";
 
 // images
 import ChatGptImage from "@/images/chatGPTCourse.jpg";
@@ -80,6 +80,7 @@ const DashBoard = () => {
                   image={item?.image.src}
                   cartText={item?.cartText}
                   subTitle={item?.subTitle}
+                  isActive={false}
                 />
               </Grid>
             );

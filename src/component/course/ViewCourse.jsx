@@ -15,8 +15,9 @@ const ViewCourse = ({ id, data }) => {
       {" "}
       <Card
         image={`http://localhost:8000/${singleData?.coverImage}`}
-        cartText={singleData?.description}
-        subTitle={singleData?.title}
+        id={singleData?.id}
+        visibility={singleData?.visibility}
+        title={singleData?.title}
         desc={singleData?.description}
         category={singleData?.category?.title}
         isActive={singleData?.isActive}

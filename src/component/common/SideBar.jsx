@@ -10,18 +10,29 @@ import {
 // icons
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SubjectIcon from "@mui/icons-material/Subject";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import { memo, useState } from "react";
 import styles from "@/style/sidebar.module.css";
 import Link from "next/link";
 import { panelRole } from "@/service/api-helpers";
 import { ExpandLess, ExpandMore, StarBorder } from "@mui/icons-material";
+import { usePathname } from "next/navigation";
+
 const SideBar = ({ sideBarToggle }) => {
   const role = panelRole();
+  const [active, setActive] = useState(false);
   const [open, setOpen] = useState(true);
-
+  const pathname = usePathname();
   const handleClick = () => {
     setOpen(!open);
   };
+  const handleActive = () => {
+    setActive((active) => !active);
+  };
+  console.log(pathname, "pathname");
+  // helper get path
+  const getPath = (path) => (role === 1 ? `/admin/${path}` : path);
   return (
     <Box
       component={"aside"}
@@ -34,8 +45,12 @@ const SideBar = ({ sideBarToggle }) => {
         component="nav"
         aria-labelledby="nested-list-subheader"
       >
-        <Link href={`${role === 1 ? "/admin/dashboard" : "/dashboard"}`}>
-          <ListItemButton className={styles.listButton}>
+        <Link onClick={handleActive} href={getPath("dashboard")}>
+          <ListItemButton
+            className={`${styles.listButton} ${
+              pathname === getPath("dashboard") && styles.sideBarActive
+            }`}
+          >
             <ListItemIcon>
               <DashboardIcon className={styles.listIcon} />
             </ListItemIcon>
@@ -53,18 +68,28 @@ const SideBar = ({ sideBarToggle }) => {
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <Link href={`${role === 1 ? "/admin/category" : "/category"}`}>
-              <ListItemButton sx={{ pl: 4 }} className={styles.listButton}>
+            <Link href={getPath("category")}>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                className={`${styles.listButton} ${
+                  pathname === getPath("category") && styles.sideBarActive
+                }`}
+              >
                 <ListItemIcon>
-                  <StarBorder />
+                  <CategoryOutlinedIcon className={styles.listIcon} />
                 </ListItemIcon>
                 <ListItemText primary="Category" className={styles.listText} />
               </ListItemButton>
             </Link>
-            <Link href={`${role === 1 ? "/admin/course" : "/course"}`}>
-              <ListItemButton sx={{ pl: 4 }} className={styles.listButton}>
+            <Link href={getPath("course")}>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                className={`${styles.listButton} ${
+                  pathname === getPath("course") && styles.sideBarActive
+                }`}
+              >
                 <ListItemIcon>
-                  <StarBorder />
+                  <MenuBookOutlinedIcon className={styles.listIcon} />
                 </ListItemIcon>
                 <ListItemText primary="Courses" className={styles.listText} />
               </ListItemButton>

@@ -2,3 +2,17 @@
 .formControl {
   border-radius: 12px !important;
 }
+
+[data-theme="dark"] .formControl div,
+[data-theme="dark"] .formControl {
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+[data-theme="dark"] .formControl label {
+  color: #fff;
+}
+
+[data-theme="dark"] .formControl svg {
+  color: #fff;
+}

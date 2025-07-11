@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { memo } from "react";
 
-import tableStyle from "@/style/Table.module.css";
+import tableStyle from "@/style/table.module.css";
 import Loader from "../Loader/Loader";
 import ActionCell from "../actioncell/ActionCell";
 import { categoryServices } from "@/service/apiCategory";

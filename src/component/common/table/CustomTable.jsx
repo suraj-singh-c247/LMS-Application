@@ -5,7 +5,7 @@ import CustomTableHead from "./CustomTableHead";
 import CustomTableBody from "./CustomTableBody";
 import CustomPagination from "../pagination/CustomPagination";
 
-import tableStyle from "@/style/Table.module.css";
+import tableStyle from "@/style/table.module.css";
 
 const CustomTable = ({
   data,

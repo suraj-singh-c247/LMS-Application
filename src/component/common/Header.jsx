@@ -20,7 +20,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import headerStyle from "@/style/header.module.css";
 
 import ThemeToggle from "./ThemeToggle";
-import { removeToken } from "@/service/api-helpers";
+import { panelRole, removeToken } from "@/service/api-helpers";
 
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -32,7 +32,7 @@ const Header = ({
   setSideBarToggle,
 }) => {
   const router = useRouter();
-
+  const role = panelRole();
   const [anchorElUser, setAnchorElUser] = useState(false);
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -57,13 +57,15 @@ const Header = ({
           </Box>
         </Grid>
         <Grid size={0.5}>
-          <IconButton
-            size="large"
-            className={headerStyle.hamburgerMenu}
-            onClick={() => setSideBarToggle((toggle) => !toggle)}
-          >
-            <MenuIcon fontSize="3rem" />
-          </IconButton>
+          {role === 1 && (
+            <IconButton
+              size="large"
+              className={headerStyle.hamburgerMenu}
+              onClick={() => setSideBarToggle((toggle) => !toggle)}
+            >
+              <MenuIcon fontSize="3rem" />
+            </IconButton>
+          )}{" "}
         </Grid>
         <Grid size={7}>
           {/* <Box

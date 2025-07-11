@@ -39,7 +39,7 @@ async function createCourse(data) {
 async function updateCourse(id, data) {
   console.log(id, data, "data api");
 
-  return await axios.post(`${Base_URL}/course/${id}`, data, {
+  return await axios.put(`${Base_URL}/course/${id}`, data, {
     method: "PUT",
     headers: {
       "Content-Type": "multipart/form-data",

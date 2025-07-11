@@ -11,10 +11,11 @@ import {
 import styles from "@/style/page.module.css";
 
 const CustomCard = ({
+  id,
   category,
   image,
-  cartText,
-  subTitle,
+  visibility,
+  title,
   desc,
   isActive,
 }) => {
@@ -34,38 +35,45 @@ const CustomCard = ({
             component="div"
             className={styles.cardSubTitle}
           >
-            {subTitle}
+            {visibility}
           </Typography>
-          <Box sx={{ marginBottom: 1 }}>
-            <Typography
-              variant="subtitle2"
-              component="strong"
-              sx={{ fontWeight: "600" }}
-            >
-              Status:{" "}
-            </Typography>
-
-            <Chip
-              color={isActive ? "success" : "warning"}
-              label={isActive === "Active" ? "Active" : "InActive"}
-            />
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Typography
-              component="strong"
-              variant="body2"
-              sx={{ fontWeight: "600" }}
-            >
-              Category:
-            </Typography>
-            <Typography
-              component="span"
-              variant="body2"
-              sx={{ fontWeight: "500" }}
-            >
-              {category}
-            </Typography>
-          </Box>
+          {id && (
+            <Box sx={{ marginBottom: 1 }}>
+              {" "}
+              <Typography
+                variant="subtitle2"
+                component="strong"
+                sx={{ fontWeight: "600" }}
+                className={styles.statusTitle}
+              >
+                Status:{" "}
+              </Typography>
+              <Chip
+                color={isActive ? "success" : "warning"}
+                label={isActive ? "Active" : "InActive"}
+              />
+            </Box>
+          )}
+          {id && (
+            <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <Typography
+                component="strong"
+                variant="body2"
+                sx={{ fontWeight: "600" }}
+                className={styles.categoryTitle}
+              >
+                Category:
+              </Typography>
+              <Typography
+                component="span"
+                variant="body2"
+                sx={{ fontWeight: "500" }}
+                className={styles.categoryTitle}
+              >
+                {category}
+              </Typography>
+            </Box>
+          )}
         </Box>
         <Typography
           gutterBottom
@@ -73,7 +81,7 @@ const CustomCard = ({
           component="div"
           className={styles.cardTitle}
         >
-          {cartText}
+          {title}
         </Typography>
         <Typography variant="body2" className={styles.cardDescription}>
           {desc ? desc : null}

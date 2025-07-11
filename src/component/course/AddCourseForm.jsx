@@ -75,14 +75,12 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
   }, [open, data, id]);
 
   const onSubmit = (data) => {
-    console.log(data, "data");
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("coverImage", data.coverImage[0]);
     formData.append("visibility", data.visibility);
     formData.append("categoryId", data.categoryId);
-    console.log(formData.getAll("coverImage"));
 
     if (!id) {
       courseServices
@@ -111,18 +109,15 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
       courseServices
         .updateCourse(id, formData)
         .then((response) => {
-          console.log(response, "response");
           if (response?.status === 200) {
             const { message } = response?.data;
-            getDataTable();
+            getCourseData();
             toast.success(message);
             onClose();
             reset();
           }
         })
         .catch((error) => {
-          console.log(error, "error");
-
           if (error.response) {
             toast.error(error.response.data?.message);
             return;
@@ -208,13 +203,10 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
             error={!!errors.visibility}
             size="small"
             sx={{ mb: 2 }}
+            className={formStyles.formControl}
           >
             <InputLabel>Select Visibility*</InputLabel>
-            <Select
-              {...field}
-              label="Select Visibility*"
-              className={formStyles.formControl}
-            >
+            <Select {...field} label="Select Visibility*">
               <MenuItem value="public">Public</MenuItem>
               <MenuItem value="private">Private</MenuItem>
               <MenuItem value="draft">Draft</MenuItem>
@@ -237,6 +229,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
             error={!!errors.categoryId}
             size="small"
             sx={{ mb: 2 }}
+            className={formStyles.formControl}
           >
             <InputLabel>Select Category ID*</InputLabel>
             <Select

@@ -74,7 +74,7 @@
   gap: 40px;
   align-items: center;
   border-radius: 16px;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .productBox .productDesign .productAvatar {
   background-color: rgba(112, 45, 255, 0.3);
@@ -114,6 +114,12 @@
   align-items: center;
   justify-content: space-between;
 }
+.cardMainBox .cardBox .statusTitle,
+.cardMainBox .cardBox .categoryTitle {
+  font-size: 14px;
+  line-height: 24px;
+  color: #333;
+}
 .cardMainBox .cardBox .cardMedia {
   border-radius: 12px;
 }
@@ -145,10 +151,10 @@
   line-height: auto;
   font-weight: 400;
 }
-.userDetails {
+.viewDetails {
   padding-block: 20px;
 }
-.userDetails .userDetailsBox {
+.viewDetails .viewDetailsBox {
   display: flex;
   gap: 10px;
   padding: 12px;
@@ -158,18 +164,18 @@
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
-.userDetails .userDetailsTitle {
+.viewDetails .viewDetailsTitle {
   font-weight: 600;
   color: var(--gray-800);
   margin-bottom: 20px;
 }
-.userDetails .backButton {
+.viewDetails .backButton {
   margin-bottom: 5px;
   padding: 0;
   min-width: 28px;
 }
 
-.userDetails .userDetailsLabel {
+.viewDetails .viewDetailsLabel {
   font-weight: 600;
   color: var(--gray-800);
   font-size: 14px;
@@ -179,7 +185,7 @@
   display: inline-block;
   margin-right: 8px;
 }
-.userDetails .userContent {
+.viewDetails .viewContent {
   font-weight: 500;
   color: var(--gray-500);
   font-size: 14px;
@@ -213,5 +219,10 @@
 }
 [data-theme="dark"] .cardMainBox .cardBox .cardContent .cardSubTitle {
   background-color: rgba(112, 45, 255, 1);
+  color: #fff;
+}
+[data-theme="dark"] .deleteText,
+[data-theme="dark"] .cardMainBox .cardBox .statusTitle,
+[data-theme="dark"] .cardMainBox .cardBox .categoryTitle {
   color: #fff;
 }
