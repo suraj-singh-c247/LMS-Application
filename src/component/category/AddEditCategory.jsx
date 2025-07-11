@@ -55,12 +55,13 @@ const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
           }
         });
     }
+
     if (id) {
       categoryServices
-        .updateCategory(id, data)
+        .updateCategory(id, data?.name)
         .then((response) => {
           if (response?.status === 200) {
-            const { message, data } = response?.data;
+            const { message } = response?.data;
             getDataTable();
             toast.success(message);
             onClose();

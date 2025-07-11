@@ -42,3 +42,23 @@ export const signUpSchema = yup.object().shape({
 export const catergorySchema = yup.object().shape({
   name: yup.string().required("Name is required"),
 });
+
+export const courseSchema = yup.object().shape({
+  title: yup.string().required("Name is required"),
+  description: yup.string().required("Description is required"),
+  coverImage: yup
+    .mixed()
+    .required("Cover image is required")
+    .test(
+      "fileFormat",
+      "Only jpeg, jpg, and png files are allowed",
+      (value) => {
+        if (!value) return false;
+        const fileName = value[0] || "";
+        const ext = fileName?.name?.split(".").pop()?.toLowerCase();
+        return ["jpg", "jpeg", "png"].includes(ext);
+      }
+    ),
+  visibility: yup.string().required("Visibility is required"),
+  categoryId: yup.string().required("CategoryId is required"),
+});

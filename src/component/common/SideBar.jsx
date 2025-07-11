@@ -53,6 +53,14 @@ const SideBar = ({ sideBarToggle }) => {
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
+            <Link href={`${role === 1 ? "/admin/category" : "/category"}`}>
+              <ListItemButton sx={{ pl: 4 }} className={styles.listButton}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText primary="Category" className={styles.listText} />
+              </ListItemButton>
+            </Link>
             <Link href={`${role === 1 ? "/admin/course" : "/course"}`}>
               <ListItemButton sx={{ pl: 4 }} className={styles.listButton}>
                 <ListItemIcon>
@@ -60,17 +68,6 @@ const SideBar = ({ sideBarToggle }) => {
                 </ListItemIcon>
                 <ListItemText primary="Courses" className={styles.listText} />
               </ListItemButton>
-              <Link href={`${role === 1 ? "/admin/category" : "/course"}`}>
-                <ListItemButton sx={{ pl: 4 }} className={styles.listButton}>
-                  <ListItemIcon>
-                    <StarBorder />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Category"
-                    className={styles.listText}
-                  />
-                </ListItemButton>
-              </Link>
             </Link>
           </List>
         </Collapse>

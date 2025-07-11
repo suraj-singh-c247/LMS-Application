@@ -46,7 +46,7 @@ const ViewCategory = ({ id, categoryData }) => {
               component="strong"
               className={style.userDetailsLabel}
             >
-              Status:{" "}
+              Active:{" "}
             </Typography>
             {singleCategary?.isActive.toString() && (
               <Chip

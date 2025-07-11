@@ -35,7 +35,8 @@ async function category(data) {
   });
 }
 async function updateCategory(id, data) {
-  return await axios.put(`${Base_URL}/category/${id}`, data, {
+  const updateData = { name: data };
+  return await axios.put(`${Base_URL}/category/${id}`, updateData, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

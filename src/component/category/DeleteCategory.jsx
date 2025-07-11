@@ -10,8 +10,6 @@ const DeleteCategory = ({ text, id, handleGetData, onClose }) => {
     categoryServices
       .deleteCategory(id)
       .then((response) => {
-        console.log(response, "delete response");
-
         if (response?.status === 204) {
           const { message } = response?.data;
           toast.success(message);

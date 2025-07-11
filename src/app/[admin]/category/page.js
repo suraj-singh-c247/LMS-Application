@@ -23,19 +23,16 @@ function AdminCategory() {
   const [deleteModal, setDeleteModal] = useState({ id: null, open: false });
 
   useEffect(() => {
-    handleGetData(page, rowPerPage);
+    handleGetData();
   }, [page, rowPerPage]);
 
-  useEffect(() => {}, []);
-
-  const handleGetData = (page, rowPerPage) => {
+  const handleGetData = () => {
     categoryServices
       .getAllCategory(page, rowPerPage)
       .then((response) => {
         if (response?.status === 200) {
-          const { data, message } = response?.data;
+          const { data } = response?.data;
           setCategoryData(data);
-          toast.success(message);
           setLoader(false);
         }
       })
@@ -65,8 +62,8 @@ function AdminCategory() {
   return (
     <>
       <PageLayout
-        title={"Category"}
-        btnText={"Add Categories"}
+        title={"Categories"}
+        btnText={"Add Category"}
         addOpen={addOpen}
         setAddOpen={setAddOpen}
       >
@@ -91,7 +88,7 @@ function AdminCategory() {
         onClose={() => {
           setAddOpen({ id: null, open: false });
         }}
-        title={addOpen?.id ? "Edit Categories" : "Add Categories"}
+        title={addOpen?.id ? "Edit Category" : "Add Category"}
       >
         <AddEditCategory
           id={addOpen.id}
@@ -104,7 +101,7 @@ function AdminCategory() {
       </AddEditModal>
       <ViewModal
         open={viewOpen?.open}
-        title={"View Categories"}
+        title={"View Category"}
         onClose={() => {
           setViewOpen({ id: null, open: false });
         }}

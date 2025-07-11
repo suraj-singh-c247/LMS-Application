@@ -10,12 +10,10 @@ import styles from "@/style/page.module.css";
 import { AuthGuard } from "@/guard/AuthGuard";
 
 export default function UserDashBoardLayout({ children }) {
-  const [sideBarToggle, setSideBarToggle] = useState(false);
   return (
     <AuthGuard>
       {" "}
       <ThemeProviderWrapper>
-        <SideBar sideBarToggle={sideBarToggle} />
         <Header
           // searchTerm={searchText}
           // setSearchTerm={setSearchText}

@@ -4,6 +4,8 @@ import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import styles from "@/style/page.module.css";
 
 const CustomCard = ({ image, cartText, subTitle, desc }) => {
+  console.log(image, "image");
+
   return (
     <Card component={"a"} href="#" className={styles.cardBox}>
       <CardMedia
