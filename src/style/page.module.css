@@ -109,6 +109,11 @@
   display: block;
   height: 100%;
 }
+.cardMainBox .cardBox .titleBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .cardMainBox .cardBox .cardMedia {
   border-radius: 12px;
 }

@@ -7,8 +7,8 @@ export const courseServices = {
   getAllCourse,
   createCourse,
   updateCourse,
-  //   updateStatusCategory,
-  //   deleteCategory,
+  updateStatusCourse,
+  deleteCourse,
 };
 
 async function getAllCourse(page, rowPerPage) {
@@ -26,6 +26,8 @@ async function getAllCourse(page, rowPerPage) {
 }
 
 async function createCourse(data) {
+  console.log(data, "createcourse");
+
   return await axios.post(`${Base_URL}/course`, data, {
     method: "POST",
     headers: {
@@ -34,11 +36,36 @@ async function createCourse(data) {
     },
   });
 }
-async function updateCourse(data) {
-  return await axios.post(`${Base_URL}/course`, data, {
+async function updateCourse(id, data) {
+  console.log(id, data, "data api");
+
+  return await axios.post(`${Base_URL}/course/${id}`, data, {
     method: "PUT",
     headers: {
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+async function updateStatusCourse(id, data) {
+  const isActive = { isActive: data };
+  return await axios.put(`${Base_URL}/course/change-status/${id}`, isActive, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+async function deleteCourse(id) {
+  return await axios.delete(`${Base_URL}/course/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   });

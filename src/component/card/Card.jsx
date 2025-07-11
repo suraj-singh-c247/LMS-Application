@@ -1,22 +1,25 @@
 import { memo } from "react";
 import {
+  Box,
   Card,
   CardContent,
   CardMedia,
-  IconButton,
+  Chip,
   Typography,
 } from "@mui/material";
 
 import styles from "@/style/page.module.css";
 
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-
-const CustomCard = ({ image, cartText, subTitle, desc }) => {
+const CustomCard = ({
+  category,
+  image,
+  cartText,
+  subTitle,
+  desc,
+  isActive,
+}) => {
   return (
     <Card component={"a"} href="#" className={styles.cardBox}>
-      <IconButton className={styles.editIcon}>
-        <EditOutlinedIcon />
-      </IconButton>
       <CardMedia
         sx={{ height: 140 }}
         image={image}
@@ -24,14 +27,46 @@ const CustomCard = ({ image, cartText, subTitle, desc }) => {
         className={styles.cardMedia}
       />
       <CardContent className={styles.cardContent}>
-        <Typography
-          gutterBottom
-          variant="h6"
-          component="div"
-          className={styles.cardSubTitle}
-        >
-          {subTitle}
-        </Typography>
+        <Box className={styles.titleBox}>
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="div"
+            className={styles.cardSubTitle}
+          >
+            {subTitle}
+          </Typography>
+          <Box sx={{ marginBottom: 1 }}>
+            <Typography
+              variant="subtitle2"
+              component="strong"
+              sx={{ fontWeight: "600" }}
+            >
+              Status:{" "}
+            </Typography>
+
+            <Chip
+              color={isActive ? "success" : "warning"}
+              label={isActive === "Active" ? "Active" : "InActive"}
+            />
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <Typography
+              component="strong"
+              variant="body2"
+              sx={{ fontWeight: "600" }}
+            >
+              Category:
+            </Typography>
+            <Typography
+              component="span"
+              variant="body2"
+              sx={{ fontWeight: "500" }}
+            >
+              {category}
+            </Typography>
+          </Box>
+        </Box>
         <Typography
           gutterBottom
           variant="h5"

@@ -11,25 +11,32 @@ import CourseBoard from "@/component/course/CourseBoard";
 import AddCourseForm from "@/component/course/AddCourseForm";
 import CustomPagination from "@/component/common/pagination/CustomPagination";
 import CustomTable from "@/component/common/table/CustomTable";
+import AdminCourseTable from "@/component/course/AdminCourseTable";
+import { courseColumns } from "@/utilis/column";
+import ViewModal from "@/component/common/button/modal/ViewModal";
+import ViewCourse from "@/component/course/ViewCourse";
+import DeleteModal from "@/component/common/button/modal/DeleteModal";
+import DeleteCourse from "@/component/course/DeleteCourse";
 
 export default function CoursePage() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowPerPage, setRowsPerPage] = useState(10);
   const [addOpen, setAddOpen] = useState({ id: null, open: false });
+  const [viewOpen, setViewOpen] = useState({ id: null, open: false });
+  const [deleteModal, setDeleteModal] = useState({ id: null, open: false });
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     handleGetData();
   }, [page, rowPerPage]);
 
-  const handleGetData = (page, rowPerPage) => {
+  const handleGetData = () => {
     courseServices
       .getAllCourse(page, rowPerPage)
       .then((response) => {
         if (response?.status === 200) {
           const { data } = response?.data;
           console.log(data, "data");
-
           setData(data);
           setLoader(false);
         }
@@ -46,7 +53,6 @@ export default function CoursePage() {
         setLoader(false);
       });
   };
-  console.log(data, "data");
 
   // Function to handle page change
   const handlePageChange = (event, newPage) => {
@@ -58,6 +64,7 @@ export default function CoursePage() {
     setRowsPerPage(newRowPerPage);
     setPage(page);
   };
+
   return (
     <PageLayout
       title={"Courses"}
@@ -65,27 +72,19 @@ export default function CoursePage() {
       addOpen={addOpen}
       setAddOpen={setAddOpen}
     >
-      <CourseBoard data={data?.courses} />
-      {/* <CustomTable
+      <AdminCourseTable
         loader={loader}
         page={page}
         rowsPerPage={rowPerPage}
         count={data?.total}
-        categoryData={data?.courses ?? []}
+        data={data?.courses ?? []}
         onPageChange={handlePageChange}
         onRowChange={handleRowPerPageChange}
-        columns={categoryColumns}
+        columns={courseColumns}
         setAddOpen={setAddOpen}
         setViewModal={setViewOpen}
         setDeleteModal={setDeleteModal}
         getDataTable={handleGetData}
-      /> */}
-      <CustomPagination
-        count={data?.total}
-        page={page}
-        rowsPerPage={rowPerPage}
-        onPageChange={handlePageChange}
-        onRowChange={handleRowPerPageChange}
       />
 
       <AddEditModal
@@ -97,12 +96,38 @@ export default function CoursePage() {
       >
         <AddCourseForm
           id={addOpen?.id}
+          data={data?.courses ?? []}
           getCourseData={handleGetData}
           onClose={() => {
             setAddOpen({ id: null, open: false });
           }}
         />
       </AddEditModal>
+      <ViewModal
+        open={viewOpen?.open}
+        title={"View Course"}
+        onClose={() => {
+          setViewOpen({ id: null, open: false });
+        }}
+      >
+        <ViewCourse id={viewOpen?.id} data={data?.courses} />
+      </ViewModal>
+      <DeleteModal
+        title={"Delete Course"}
+        open={deleteModal.open}
+        onClose={() => {
+          setDeleteModal({ id: null, open: false });
+        }}
+      >
+        <DeleteCourse
+          id={deleteModal?.id}
+          text={"Are you sure you want to delete this course?"}
+          handleGetData={handleGetData}
+          onClose={() => {
+            setDeleteModal({ id: null, open: false });
+          }}
+        />
+      </DeleteModal>
     </PageLayout>
   );
 }

@@ -1,13 +1,13 @@
 import { Table, TableContainer } from "@mui/material";
 import { memo } from "react";
 // Components
-import CustomTableHead from "./CustomTableHead";
-import CustomTableBody from "./CustomTableBody";
-import CustomPagination from "../pagination/CustomPagination";
 
 import tableStyle from "@/style/Table.module.css";
+import CustomTableHead from "../common/table/CustomTableHead";
+import CourseTableBody from "./CourseTableBody";
+import CustomPagination from "../common/pagination/CustomPagination";
 
-const CustomTable = ({
+const AdminCourseTable = ({
   data,
   page,
   loader,
@@ -32,7 +32,7 @@ const CustomTable = ({
           className={tableStyle.table}
         >
           <CustomTableHead columns={columns} />
-          <CustomTableBody
+          <CourseTableBody
             loader={loader}
             data={data}
             setViewModal={setViewModal}
@@ -53,4 +53,4 @@ const CustomTable = ({
   );
 };
 
-export default memo(CustomTable);
+export default memo(AdminCourseTable);

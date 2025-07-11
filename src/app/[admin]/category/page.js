@@ -72,7 +72,7 @@ function AdminCategory() {
           page={page}
           rowsPerPage={rowPerPage}
           count={categoryData.total}
-          categoryData={categoryData.categories ?? []}
+          data={categoryData.categories ?? []}
           onPageChange={handlePageChange}
           onRowChange={handleRowPerPageChange}
           columns={categoryColumns}

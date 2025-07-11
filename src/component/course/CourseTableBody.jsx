@@ -8,12 +8,13 @@ import {
 import { memo } from "react";
 
 import tableStyle from "@/style/Table.module.css";
-import Loader from "../Loader/Loader";
-import ActionCell from "../actioncell/ActionCell";
-import { categoryServices } from "@/service/apiCategory";
-import { toast } from "react-toastify";
 
-const CustomTableBody = ({
+import { toast } from "react-toastify";
+import Loader from "../common/Loader/Loader";
+import ActionCell from "../common/actioncell/ActionCell";
+import { courseServices } from "@/service/apiCourse";
+
+const CourseTableBody = ({
   data,
   setViewModal,
   setAddOpen,
@@ -27,8 +28,8 @@ const CustomTableBody = ({
   const handleDelete = (row) => setDeleteModal({ id: row.id, open: true });
   const handleStatusChange = (e, id) => {
     const active = e.target.checked;
-    categoryServices
-      .updateStatusCategory(id, active)
+    courseServices
+      .updateStatusCourse(id, active)
       .then((response) => {
         if (response?.status === 200) {
           const { message } = response?.data;
@@ -59,7 +60,8 @@ const CustomTableBody = ({
       {data &&
         data.map((row) => (
           <TableRow hover key={row.id}>
-            <TableCell>{row.name}</TableCell>
+            <TableCell>{row?.title}</TableCell>
+            <TableCell>{row?.description}</TableCell>
             <TableCell>
               <FormControlLabel
                 control={
@@ -70,8 +72,12 @@ const CustomTableBody = ({
                 }
               />
             </TableCell>
-            <TableCell>{row.isDeleted}</TableCell>
-            <TableCell>{row.deletedAt}</TableCell>
+            <TableCell>{row?.visibility}</TableCell>
+            <TableCell>{row?.category?.title}</TableCell>
+            <TableCell>{row?.slug}</TableCell>
+            <TableCell>{row?.tags}</TableCell>
+            <TableCell>{row?.learningOutcomes}</TableCell>
+            <TableCell>{row?.prerequisites}</TableCell>
             <TableCell style={{ display: "flex", gap: "4px" }}>
               <ActionCell
                 row={row}
@@ -93,4 +99,4 @@ const CustomTableBody = ({
   );
 };
 
-export default memo(CustomTableBody);
+export default memo(CourseTableBody);

@@ -2,7 +2,7 @@ import { TableCell, TableHead, TableRow } from "@mui/material";
 
 import { memo } from "react";
 
-import tableStyle from "./Table.module.css";
+import tableStyle from "@/style/Table.module.css";
 
 const CustomTableHead = ({ columns }) => {
   return (

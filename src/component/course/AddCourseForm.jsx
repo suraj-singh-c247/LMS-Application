@@ -18,7 +18,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { courseServices } from "@/service/apiCourse";
 
-const AddCourseForm = ({ id, getCourseData, onClose }) => {
+const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
   const [getCatergoryId, setCategoryId] = useState([]);
   const {
     handleSubmit,
@@ -62,68 +62,76 @@ const AddCourseForm = ({ id, getCourseData, onClose }) => {
 
   // It's use for edit
 
-  //   useEffect(() => {
-  //     if (categoryData && id) {
-  //       const findUser = categoryData.find((user) => user.id === id);
-  //       setValue("name", findUser?.name || "");
-  //     } else {
-  //       reset();
-  //     }
-  //   }, [open, categoryData, id]);
-  console.log(errors, "errors");
+  useEffect(() => {
+    if (data && id) {
+      const findUser = data.find((user) => user.id === id);
+      setValue("title", findUser?.title || "");
+      setValue("description", findUser?.description || "");
+      setValue("visibility", findUser?.visibility || "");
+      setValue("categoryId", findUser?.category?.id || "");
+    } else {
+      reset();
+    }
+  }, [open, data, id]);
 
   const onSubmit = (data) => {
+    console.log(data, "data");
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("coverImage", data.coverImage[0]);
     formData.append("visibility", data.visibility);
     formData.append("categoryId", data.categoryId);
-    console.log(formData.get("coverImage"), "formdata");
+    console.log(formData.getAll("coverImage"));
 
-    courseServices
-      .createCourse(formData)
-      .then((response) => {
-        if (response?.status === 201) {
-          const { message } = response?.data;
-          getCourseData();
-          toast.success(message);
-          onClose();
-          reset();
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
-      });
+    if (!id) {
+      courseServices
+        .createCourse(formData)
+        .then((response) => {
+          if (response?.status === 201) {
+            const { message } = response?.data;
+            getCourseData();
+            toast.success(message);
+            onClose();
+            reset();
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            toast.error(error.response.data?.message);
+            return;
+          } else if (error.request) {
+            toast.error(error.request);
+            return;
+          }
+        });
+    }
 
-    // if (id) {
-    //   categoryServices
-    //     .updateCategory(id, data)
-    //     .then((response) => {
-    //       if (response?.status === 200) {
-    //         const { message, data } = response?.data;
-    //         getDataTable();
-    //         toast.success(message);
-    //         onClose();
-    //         reset();
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       if (error.response) {
-    //         toast.error(error.response.data?.message);
-    //         return;
-    //       } else if (error.request) {
-    //         toast.error(error.request);
-    //         return;
-    //       }
-    //     });
-    // }
+    if (id) {
+      courseServices
+        .updateCourse(id, formData)
+        .then((response) => {
+          console.log(response, "response");
+          if (response?.status === 200) {
+            const { message } = response?.data;
+            getDataTable();
+            toast.success(message);
+            onClose();
+            reset();
+          }
+        })
+        .catch((error) => {
+          console.log(error, "error");
+
+          if (error.response) {
+            toast.error(error.response.data?.message);
+            return;
+          } else if (error.request) {
+            toast.error(error.request);
+            return;
+          }
+        });
+    }
   };
 
   return (
@@ -233,7 +241,7 @@ const AddCourseForm = ({ id, getCourseData, onClose }) => {
             <InputLabel>Select Category ID*</InputLabel>
             <Select
               {...field}
-              label="Select Category ID"
+              label="Select Category ID*"
               className={formStyles.formControl}
             >
               {getCatergoryId?.categories?.map((item) => (

@@ -11,7 +11,7 @@ const CourseBoard = ({ data }) => {
         data.map((item) => (
           <Grid key={item?.id} size={4} className={styles.cardMainBox}>
             <Card
-              image={`localhost:8000/${item?.coverImage}`}
+              image={`http://localhost:8000/${item?.coverImage}`}
               cartText={item?.description}
               subTitle={item?.title}
               desc={item?.description}
