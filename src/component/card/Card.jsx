@@ -24,7 +24,7 @@ const CustomCard = ({
       <CardMedia
         sx={{ height: 140 }}
         image={image}
-        title="green iguana"
+        title={image.split("course-images/").pop()}
         className={styles.cardMedia}
       />
       <CardContent className={styles.cardContent}>
