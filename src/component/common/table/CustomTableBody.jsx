@@ -37,8 +37,7 @@ const CustomTableBody = ({
         }
       })
       .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
+        if (error.response) {      
           toast.error(error.response.data?.message);
           return;
         } else if (error.request) {

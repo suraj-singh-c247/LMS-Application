@@ -26,8 +26,6 @@ const UserDashBoard = () => {
     categoryServices
       .getAllCategory(page, rowPerPage)
       .then((response) => {
-        console.log(response, "response");
-
         if (response?.status === 200) {
           const { data } = response?.data;
           setTabList(data);
@@ -35,7 +33,6 @@ const UserDashBoard = () => {
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response);
           toast.error(error.response.data?.message);
           return;
         } else if (error.request) {

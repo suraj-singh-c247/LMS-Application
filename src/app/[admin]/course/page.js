@@ -36,14 +36,12 @@ export default function CoursePage() {
       .then((response) => {
         if (response?.status === 200) {
           const { data } = response?.data;
-          console.log(data, "data");
           setData(data);
           setLoader(false);
         }
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response);
           toast.error(error.response.data?.message);
           return;
         } else if (error.request) {
