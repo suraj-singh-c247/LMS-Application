@@ -3,18 +3,20 @@ import Button from "../common/button/Button";
 import { Box, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import styles from "@/style/page.module.css";
-import { categoryServices } from "@/service/apiCategory";
+import { tagsServices } from "@/service/apiTags";
 
-const DeleteCategory = ({ text, id, handleGetData, onClose }) => {
-  const handleDelete = (e, id) => {
+const TagStatus = ({ text, id, handleGetData, singleData, onClose }) => {
+  // handle status change
+  const handleStatusChange = (e, id) => {
     e.preventDefault();
-    categoryServices
-      .deleteCategory(id)
+    const active = !singleData?.isActive;
+    tagsServices
+      .updateStatusTag(id, active)
       .then((response) => {
         if (response?.status === 200) {
           const { message } = response?.data;
-          toast.success(message);
           handleGetData();
+          toast.success(message);
           onClose();
         }
       })
@@ -33,17 +35,17 @@ const DeleteCategory = ({ text, id, handleGetData, onClose }) => {
       component="form"
       noValidate
       autoComplete="off"
-      onSubmit={(e) => handleDelete(e, id)}
+      onSubmit={(e) => handleStatusChange(e, id)}
     >
       <Typography variant="body1" className={styles.deleteText}>
         {text}
       </Typography>
 
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button type="submit" variant={"error"} label={"Delete"} />
+        <Button type="submit" variant={"primary"} label={"Okay"} />
       </Box>
     </Box>
   );
 };
 
-export default memo(DeleteCategory);
+export default memo(TagStatus);

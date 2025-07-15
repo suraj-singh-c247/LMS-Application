@@ -7,17 +7,16 @@ export function getTagTableColumns({
   setDeleteModal,
   setStatusModal,
   tableData,
-  setSingleData,
 } = {}) {
   // handle modal toggle
-  const handleView = (row) => setViewOpen({ id: row.id, open: true });
-  const handleOpen = (row) => setAddOpen({ id: row.id, open: true });
-  const handleDelete = (row) => setDeleteModal({ id: row.id, open: true });
+  const handleView = (row) =>
+    setViewOpen({ id: row?.id, open: true, data: row });
+  const handleOpen = (row) => setAddOpen({ id: row?.id, open: true });
+  const handleDelete = (row) => setDeleteModal({ id: row?.id, open: true });
 
   return [
     { name: "name", label: "Name", options: { sort: true } },
-    { name: "isDeleted", label: "Delete", options: { sort: false } },
-    { name: "deletedAt", label: "DeletedAt", options: { sort: false } },
+    { name: "createdAt", label: "CreatedAt", options: { sort: false } },
     {
       name: "isActive",
       label: "Active",
@@ -28,11 +27,11 @@ export function getTagTableColumns({
           return (
             <Button
               onClick={() => {
-                setStatusModal({ id: rowData.id, open: true, data: rowData });
+                setStatusModal({ id: rowData?.id, open: true, data: rowData });
               }}
-              variant={rowData.isActive ? "active" : "InActive"}
-              label={rowData.isActive ? "Active" : "InActive"}
-              sx={{ backgroundColor: `${rowData.isActive ? "green" : ""}` }}
+              variant={rowData?.isActive ? "active" : "InActive"}
+              label={rowData?.isActive ? "Active" : "InActive"}
+              sx={{ backgroundColor: `${rowData?.isActive ? "green" : ""}` }}
             />
           );
         },
@@ -45,7 +44,6 @@ export function getTagTableColumns({
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           const rowData = tableData[tableMeta.rowIndex];
-          setSingleData(rowData);
           return (
             <ActionCell
               row={rowData}

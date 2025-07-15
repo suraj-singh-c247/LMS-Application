@@ -2,18 +2,16 @@
 
 import { useEffect, useState } from "react";
 import PageLayout from "@/component/common/PageLayout";
-import CustomTable from "@/component/common/table/CustomTable";
-import { categoryColumns } from "@/utilis/column";
 import { categoryServices } from "@/service/apiCategory";
 import { toast } from "react-toastify";
 import AddEditCategory from "@/component/category/AddEditCategory";
-import ViewCategory from "@/component/category/ViewCategory";
 import DeleteCategory from "@/component/category/DeleteCategory";
 import Modal from "@/component/common/modal/Modal";
 import MuiDataTable from "@/component/common/table/MuiDataTable";
 import { getCategoryTableColumns } from "@/component/category/columns";
 import { getTableOptions } from "@/utilis/options";
 import CategoryStatus from "@/component/category/CategoryStatus";
+import ViewData from "@/component/common/viewData/ViewData";
 
 function AdminCategory() {
   const [data, setData] = useState([]);
@@ -125,7 +123,7 @@ function AdminCategory() {
           setViewOpen({ id: null, open: false });
         }}
       >
-        <ViewCategory id={viewOpen?.id} singleData={viewOpen?.data} />
+        <ViewData id={viewOpen?.id} singleData={viewOpen?.data} />
       </Modal>
       <Modal
         title={"Delete Category"}

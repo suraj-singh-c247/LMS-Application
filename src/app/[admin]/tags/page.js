@@ -2,24 +2,19 @@
 
 import { useEffect, useState } from "react";
 import PageLayout from "@/component/common/PageLayout";
-import CustomTable from "@/component/common/table/CustomTable";
-import { categoryColumns } from "@/utilis/column";
-import { categoryServices } from "@/service/apiCategory";
-import { toast } from "react-toastify";
-import AddEditCategory from "@/component/category/AddEditCategory";
-import ViewCategory from "@/component/category/ViewCategory";
-import DeleteCategory from "@/component/category/DeleteCategory";
 import Modal from "@/component/common/modal/Modal";
 import MuiDataTable from "@/component/common/table/MuiDataTable";
-import { getCategoryTableColumns } from "@/component/category/columns";
 import { getTableOptions } from "@/utilis/options";
-import CategoryStatus from "@/component/category/CategoryStatus";
 import { getTagTableColumns } from "@/component/tags/columns";
 import { tagsServices } from "@/service/apiTags";
+import AddEditTag from "@/component/tags/AddEditTag";
+import ViewData from "@/component/common/viewData/ViewData";
+import DeleteTag from "@/component/tags/DeleteTag";
+import TagStatus from "@/component/tags/TagStatus";
+import { toast } from "react-toastify";
 
-function AdminCategory() {
+function Tags() {
   const [data, setData] = useState([]);
-  const [singleData, setSingleData] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchText, setSearchText] = useState("");
@@ -31,6 +26,7 @@ function AdminCategory() {
   const [viewOpen, setViewOpen] = useState({
     id: null,
     open: false,
+    data: null,
   });
   const [deleteModal, setDeleteModal] = useState({
     id: null,
@@ -86,10 +82,8 @@ function AdminCategory() {
     setViewOpen: setViewOpen,
     setDeleteModal: setDeleteModal,
     setStatusModal: setStatusModal,
-    tableData: data?.categories ?? [],
-    setSingleData: setSingleData,
+    tableData: data?.tags ?? [],
   });
-  console.log(data, "tag data");
 
   return (
     <>
@@ -114,9 +108,9 @@ function AdminCategory() {
         }}
         title={addOpen?.id ? "Edit Tag" : "Add Tag"}
       >
-        <AddEditCategory
-          id={addOpen.id}
-          categoryData={data?.tags ?? []}
+        <AddEditTag
+          id={addOpen?.id}
+          tagData={data?.tags ?? []}
           getDataTable={handleGetData}
           onClose={() => {
             setAddOpen({ id: null, open: false });
@@ -130,7 +124,7 @@ function AdminCategory() {
           setViewOpen({ id: null, open: false });
         }}
       >
-        <ViewCategory id={viewOpen?.id} categoryData={data?.tags ?? []} />
+        <ViewData id={viewOpen?.id} singleData={viewOpen?.data} />
       </Modal>
       <Modal
         title={"Delete Tag"}
@@ -139,7 +133,7 @@ function AdminCategory() {
           setDeleteModal({ id: null, open: false });
         }}
       >
-        <DeleteCategory
+        <DeleteTag
           id={deleteModal?.id}
           text={"Are you sure you want to delete this tag?"}
           handleGetData={handleGetData}
@@ -149,15 +143,15 @@ function AdminCategory() {
         />
       </Modal>
       <Modal
-        title={"Change Category Status"}
+        title={"Change Tag Status"}
         open={statusModal.open}
         onClose={() => {
           setStatusModal({ id: null, open: false });
         }}
       >
-        <CategoryStatus
+        <TagStatus
           id={statusModal?.id}
-          text={"Are you sure you want to change this category status?"}
+          text={"Are you sure you want to change this tag status?"}
           handleGetData={handleGetData}
           singleData={statusModal?.data}
           onClose={() => {
@@ -169,4 +163,4 @@ function AdminCategory() {
   );
 }
 
-export default AdminCategory;
+export default Tags;

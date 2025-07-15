@@ -3,13 +3,12 @@ import Button from "../common/button/Button";
 import { Box, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import styles from "@/style/page.module.css";
-import { categoryServices } from "@/service/apiCategory";
-
-const DeleteCategory = ({ text, id, handleGetData, onClose }) => {
+import { tagsServices } from "@/service/apiTags";
+const DeleteTag = ({ text, id, handleGetData, onClose }) => {
   const handleDelete = (e, id) => {
     e.preventDefault();
-    categoryServices
-      .deleteCategory(id)
+    tagsServices
+      .deleteTag(id)
       .then((response) => {
         if (response?.status === 200) {
           const { message } = response?.data;
@@ -46,4 +45,4 @@ const DeleteCategory = ({ text, id, handleGetData, onClose }) => {
   );
 };
 
-export default memo(DeleteCategory);
+export default memo(DeleteTag);

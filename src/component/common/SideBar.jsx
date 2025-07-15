@@ -83,19 +83,6 @@ const SideBar = ({ sideBarToggle }) => {
                 <ListItemText primary="Category" className={styles.listText} />
               </ListItemButton>
             </Link>
-            <Link href={getPath("course")}>
-              <ListItemButton
-                sx={{ pl: 4 }}
-                className={`${styles.listButton} ${
-                  pathname === getPath("course") && styles.sideBarActive
-                }`}
-              >
-                <ListItemIcon>
-                  <MenuBookOutlinedIcon className={styles.listIcon} />
-                </ListItemIcon>
-                <ListItemText primary="Courses" className={styles.listText} />
-              </ListItemButton>
-            </Link>
             <Link href={getPath("tags")}>
               <ListItemButton
                 sx={{ pl: 4 }}
@@ -107,6 +94,19 @@ const SideBar = ({ sideBarToggle }) => {
                   <TagOutlinedIcon className={styles.listIcon} />
                 </ListItemIcon>
                 <ListItemText primary="Tags" className={styles.listText} />
+              </ListItemButton>
+            </Link>
+            <Link href={getPath("course")}>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                className={`${styles.listButton} ${
+                  pathname === getPath("course") && styles.sideBarActive
+                }`}
+              >
+                <ListItemIcon>
+                  <MenuBookOutlinedIcon className={styles.listIcon} />
+                </ListItemIcon>
+                <ListItemText primary="Courses" className={styles.listText} />
               </ListItemButton>
             </Link>
           </List>

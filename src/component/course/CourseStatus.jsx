@@ -6,8 +6,6 @@ import styles from "@/style/page.module.css";
 import { courseServices } from "@/service/apiCourse";
 
 const CourseStatus = ({ text, id, handleGetData, singleData, onClose }) => {
-  console.log(singleData, "singleData coursestat");
-
   // handle status change
   const handleStatusChange = (e, id) => {
     e.preventDefault();

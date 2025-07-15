@@ -3,22 +3,16 @@
 import { useEffect, useState } from "react";
 
 import PageLayout from "@/component/common/PageLayout";
-
-import styles from "@/style/page.module.css";
 import { courseServices } from "@/service/apiCourse";
-import AddEditModal from "@/component/common/modal/Modal";
-import CourseBoard from "@/component/course/CourseBoard";
 import AddCourseForm from "@/component/course/AddCourseForm";
-import CustomPagination from "@/component/common/pagination/CustomPagination";
-import CustomTable from "@/component/common/table/CustomTable";
-import AdminCourseTable from "@/component/course/AdminCourseTable";
-import { courseColumns } from "@/utilis/column";
 import ViewCourse from "@/component/course/ViewCourse";
 import DeleteCourse from "@/component/course/DeleteCourse";
 import { getCourseTableColumns } from "@/component/course/columns";
 import { getTableOptions } from "@/utilis/options";
+
 import Modal from "@/component/common/modal/Modal";
 import CourseStatus from "@/component/course/CourseStatus";
+
 import MuiDataTable from "@/component/common/table/MuiDataTable";
 
 export default function CoursePage() {

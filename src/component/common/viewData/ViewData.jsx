@@ -1,11 +1,11 @@
 import { Box, Chip, Grid, Typography } from "@mui/material";
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 import style from "@/style/page.module.css";
 
 import PersonIcon from "@mui/icons-material/Person";
 import PanoramaFishEyeIcon from "@mui/icons-material/PanoramaFishEye";
 
-const ViewCategory = ({ id, singleData }) => {
+const ViewData = ({ id, singleData }) => {
   const isActive = singleData?.isActive;
 
   const chipColor =
@@ -59,4 +59,4 @@ const ViewCategory = ({ id, singleData }) => {
   );
 };
 
-export default memo(ViewCategory);
+export default memo(ViewData);

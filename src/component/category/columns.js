@@ -16,8 +16,7 @@ export function getCategoryTableColumns({
 
   return [
     { name: "name", label: "Name", options: { sort: true } },
-    { name: "isDeleted", label: "Delete", options: { sort: false } },
-    { name: "deletedAt", label: "DeletedAt", options: { sort: false } },
+    { name: "createdAt", label: "CreatedAt", options: { sort: false } },
     {
       name: "isActive",
       label: "Active",

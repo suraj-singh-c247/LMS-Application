@@ -10,8 +10,6 @@ import {
   TextField,
   Card,
   Typography,
-  FormControlLabel,
-  Checkbox,
   FormControl,
   InputLabel,
   Select,

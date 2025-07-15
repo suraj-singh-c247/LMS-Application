@@ -49,8 +49,15 @@ export const catergorySchema = yup.object().shape({
 export const tagSchema = yup.object().shape({
   name: yup
     .string()
-    .required("Name is required")
-    .max(50, "Tag name cannot exceed 50 characters."),
+    .required("Tag name is required")
+    .trim()
+    .min(2, "Tag name must be at least 2 characters")
+    .max(50, "Tag name cannot exceed 50 characters")
+    .matches(/^[^\s].*[^\s]$/, "Tag name should not start or end with a space")
+    .matches(
+      /^[\S ]+$/,
+      "Tag name should not contain multiple consecutive spaces"
+    ),
 });
 
 export const courseSchema = yup.object().shape({

@@ -20,7 +20,7 @@ const UserDashBoard = () => {
   useEffect(() => {
     // handleGetCategory();
     handleGetCourse();
-  }, [page, rowPerPage]);
+  }, [page, rowPerPage, value]);
 
   // const handleGetCategory = () => {
   //   categoryServices
