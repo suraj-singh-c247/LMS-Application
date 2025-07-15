@@ -18,29 +18,29 @@ const UserDashBoard = () => {
   const [rowPerPage, setRowsPerPage] = useState(10);
   const [loader, setLoader] = useState(true);
   useEffect(() => {
-    handleGetCategory();
+    // handleGetCategory();
     handleGetCourse();
   }, [page, rowPerPage]);
 
-  const handleGetCategory = () => {
-    categoryServices
-      .getAllCategory(page, rowPerPage)
-      .then((response) => {
-        if (response?.status === 200) {
-          const { data } = response?.data;
-          setTabList(data);
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
-      });
-  };
+  // const handleGetCategory = () => {
+  //   categoryServices
+  //     .getAllCategory(page, rowPerPage)
+  //     .then((response) => {
+  //       if (response?.status === 200) {
+  //         const { data } = response?.data;
+  //         setTabList(data);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         toast.error(error.response.data?.message);
+  //         return;
+  //       } else if (error.request) {
+  //         toast.error(error.request);
+  //         return;
+  //       }
+  //     });
+  // };
 
   const handleGetCourse = () => {
     courseServices

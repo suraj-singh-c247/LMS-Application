@@ -40,12 +40,25 @@ export const signUpSchema = yup.object().shape({
 });
 
 export const catergorySchema = yup.object().shape({
-  name: yup.string().required("Name is required"),
+  name: yup
+    .string()
+    .required("Name is required")
+    .max(50, "Category name cannot exceed 50 characters."),
+});
+
+export const tagSchema = yup.object().shape({
+  name: yup
+    .string()
+    .required("Name is required")
+    .max(50, "Tag name cannot exceed 50 characters."),
 });
 
 export const courseSchema = yup.object().shape({
   title: yup.string().required("Name is required"),
-  description: yup.string().required("Description is required"),
+  description: yup
+    .string()
+    .required("Description is required")
+    .max(50, "Description cannot exceed 50 characters."),
   coverImage: yup
     .mixed()
     .required("Cover image is required")

@@ -10,6 +10,8 @@ import {
 
 import styles from "@/style/page.module.css";
 
+import DummyImage from "@/images/DummyImage.jpeg";
+
 const CustomCard = ({
   id,
   category,
@@ -23,7 +25,7 @@ const CustomCard = ({
     <Card component={"a"} href="#" className={styles.cardBox}>
       <CardMedia
         sx={{ height: 140 }}
-        image={image}
+        image={image ? image : DummyImage}
         title={image.split("course-images/").pop()}
         className={styles.cardMedia}
       />

@@ -35,7 +35,7 @@ const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
   const onSubmit = (data) => {
     if (!id) {
       categoryServices
-        .category(data)
+        .createCategory(data)
         .then((response) => {
           if (response?.status === 201) {
             const { message } = response?.data;

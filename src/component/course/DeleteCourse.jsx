@@ -11,7 +11,7 @@ const DeleteCourse = ({ text, id, handleGetData, onClose }) => {
     courseServices
       .deleteCourse(id)
       .then((response) => {
-        if (response?.status === 204) {
+        if (response?.status === 200) {
           const { message } = response?.data;
           toast.success(message);
           handleGetData();

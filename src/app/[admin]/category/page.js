@@ -7,32 +7,51 @@ import { categoryColumns } from "@/utilis/column";
 import { categoryServices } from "@/service/apiCategory";
 import { toast } from "react-toastify";
 import AddEditCategory from "@/component/category/AddEditCategory";
-import AddEditModal from "@/component/common/button/modal/AddEditModal";
-import ViewModal from "@/component/common/button/modal/ViewModal";
 import ViewCategory from "@/component/category/ViewCategory";
-import DeleteModal from "@/component/common/button/modal/DeleteModal";
 import DeleteCategory from "@/component/category/DeleteCategory";
+import Modal from "@/component/common/modal/Modal";
+import MuiDataTable from "@/component/common/table/MuiDataTable";
+import { getCategoryTableColumns } from "@/component/category/columns";
+import { getTableOptions } from "@/utilis/options";
+import CategoryStatus from "@/component/category/CategoryStatus";
 
 function AdminCategory() {
-  const [categoryData, setCategoryData] = useState([]);
+  const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchText, setSearchText] = useState("");
+  const [sortOrder, setSortOrder] = useState({});
+  const [addOpen, setAddOpen] = useState({
+    id: null,
+    open: false,
+  });
+  const [viewOpen, setViewOpen] = useState({
+    id: null,
+    open: false,
+    data: null,
+  });
+  const [deleteModal, setDeleteModal] = useState({
+    id: null,
+    open: false,
+  });
+  const [statusModal, setStatusModal] = useState({
+    id: null,
+    open: false,
+    data: null,
+  });
   const [loader, setLoader] = useState(true);
-  const [addOpen, setAddOpen] = useState({ id: null, open: false });
-  const [viewOpen, setViewOpen] = useState({ id: null, open: false });
-  const [deleteModal, setDeleteModal] = useState({ id: null, open: false });
 
   useEffect(() => {
     handleGetData();
-  }, [page, rowPerPage]);
+  }, [page, rowsPerPage, searchText, sortOrder]);
 
   const handleGetData = () => {
     categoryServices
-      .getAllCategory(page, rowPerPage)
+      .getAllCategory(page, rowsPerPage, searchText, sortOrder)
       .then((response) => {
         if (response?.status === 200) {
           const { data } = response?.data;
-          setCategoryData(data);
+          setData(data);
           setLoader(false);
         }
       })
@@ -47,16 +66,26 @@ function AdminCategory() {
         setLoader(false);
       });
   };
-  // Function to handle page change
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
 
-  const handleRowPerPageChange = (event) => {
-    const newRowPerPage = parseInt(event.target.value, 10);
-    setRowsPerPage(newRowPerPage);
-    setPage(page);
-  };
+  const options = getTableOptions({
+    count: data?.total,
+    page: page,
+    rowsPerPage: rowsPerPage,
+    search: true,
+    searchText: searchText,
+    setSearchText: setSearchText,
+    setPage: setPage,
+    setRowsPerPage: setRowsPerPage,
+    setSortOrder: setSortOrder,
+  });
+
+  const columns = getCategoryTableColumns({
+    setAddOpen: setAddOpen,
+    setViewOpen: setViewOpen,
+    setDeleteModal: setDeleteModal,
+    setStatusModal: setStatusModal,
+    tableData: data?.categories ?? [],
+  });
 
   return (
     <>
@@ -66,23 +95,14 @@ function AdminCategory() {
         addOpen={addOpen}
         setAddOpen={setAddOpen}
       >
-        <CustomTable
-          loader={loader}
-          page={page}
-          rowsPerPage={rowPerPage}
-          count={categoryData.total}
-          data={categoryData.categories ?? []}
-          onPageChange={handlePageChange}
-          onRowChange={handleRowPerPageChange}
-          columns={categoryColumns}
-          setAddOpen={setAddOpen}
-          setViewModal={setViewOpen}
-          setDeleteModal={setDeleteModal}
-          getDataTable={handleGetData}
+        <MuiDataTable
+          data={data?.categories ?? []}
+          columns={columns}
+          options={options}
         />
       </PageLayout>
       {/* This modal for add user */}
-      <AddEditModal
+      <Modal
         open={addOpen.open}
         onClose={() => {
           setAddOpen({ id: null, open: false });
@@ -91,26 +111,23 @@ function AdminCategory() {
       >
         <AddEditCategory
           id={addOpen.id}
-          categoryData={categoryData.categories ?? []}
+          categoryData={data.categories ?? []}
           getDataTable={handleGetData}
           onClose={() => {
             setAddOpen({ id: null, open: false });
           }}
         />
-      </AddEditModal>
-      <ViewModal
+      </Modal>
+      <Modal
         open={viewOpen?.open}
         title={"View Category"}
         onClose={() => {
           setViewOpen({ id: null, open: false });
         }}
       >
-        <ViewCategory
-          id={viewOpen?.id}
-          categoryData={categoryData.categories ?? []}
-        />
-      </ViewModal>
-      <DeleteModal
+        <ViewCategory id={viewOpen?.id} singleData={viewOpen?.data} />
+      </Modal>
+      <Modal
         title={"Delete Category"}
         open={deleteModal.open}
         onClose={() => {
@@ -125,7 +142,24 @@ function AdminCategory() {
             setDeleteModal({ id: null, open: false });
           }}
         />
-      </DeleteModal>
+      </Modal>
+      <Modal
+        title={"Change Category Status"}
+        open={statusModal.open}
+        onClose={() => {
+          setStatusModal({ id: null, open: false });
+        }}
+      >
+        <CategoryStatus
+          id={statusModal?.id}
+          text={"Are you sure you want to change this category status?"}
+          handleGetData={handleGetData}
+          singleData={statusModal?.data}
+          onClose={() => {
+            setStatusModal({ id: null, open: false });
+          }}
+        />
+      </Modal>
     </>
   );
 }

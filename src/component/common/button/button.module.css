@@ -25,3 +25,13 @@
   box-shadow: #dd1212 0 10px 20px -10px;
   color: #ffffff;
 }
+.buttonContainer .activeButton {
+  background: #15bd15;
+  box-shadow: #15bd15 0 10px 20px -10px;
+  color: #ffffff;
+}
+.buttonContainer .inActiveButton {
+  background: #c85000;
+  box-shadow: #c85000 0 10px 20px -10px;
+  color: #ffffff;
+}

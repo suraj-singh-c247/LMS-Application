@@ -5,14 +5,15 @@ import style from "@/style/page.module.css";
 import PersonIcon from "@mui/icons-material/Person";
 import PanoramaFishEyeIcon from "@mui/icons-material/PanoramaFishEye";
 
-const ViewCategory = ({ id, categoryData }) => {
-  const [singleCategary, setSingleCategary] = useState(null);
-  useEffect(() => {
-    if (categoryData) {
-      const findCategory = categoryData.find((item) => item?.id === id);
-      setSingleCategary(findCategory);
-    }
-  }, []);
+const ViewCategory = ({ id, singleData }) => {
+  const isActive = singleData?.isActive;
+
+  const chipColor =
+    isActive === true ? "success" : isActive === false ? "warning" : "info";
+
+  const chipLabel =
+    isActive === true ? "true" : isActive === false ? "false" : "unknown";
+
   return (
     <Grid container spacing={1} className={style.viewDetails}>
       <Grid size={12}>
@@ -31,7 +32,7 @@ const ViewCategory = ({ id, categoryData }) => {
               component="span"
               className={style.viewContent}
             >
-              {singleCategary?.name}
+              {singleData?.name}
             </Typography>
           </Box>
         </Box>
@@ -48,23 +49,8 @@ const ViewCategory = ({ id, categoryData }) => {
             >
               Active:{" "}
             </Typography>
-            {singleCategary?.isActive.toString() && (
-              <Chip
-                color={
-                  singleCategary?.isActive.toString() === "true"
-                    ? "success"
-                    : singleCategary?.isActive.toString() === "false"
-                    ? "warning"
-                    : "info"
-                }
-                label={
-                  singleCategary?.isActive.toString() === "true"
-                    ? "true"
-                    : singleCategary?.isActive.toString() === "false"
-                    ? "false"
-                    : null
-                }
-              />
+            {typeof isActive !== "undefined" && (
+              <Chip color={chipColor} label={chipLabel} />
             )}
           </Box>
         </Box>

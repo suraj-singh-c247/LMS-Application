@@ -12,6 +12,8 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import SubjectIcon from "@mui/icons-material/Subject";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
+import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
+
 import { memo, useState } from "react";
 import styles from "@/style/sidebar.module.css";
 import Link from "next/link";
@@ -30,7 +32,7 @@ const SideBar = ({ sideBarToggle }) => {
   const handleActive = () => {
     setActive((active) => !active);
   };
-  console.log(pathname, "pathname");
+
   // helper get path
   const getPath = (path) => (role === 1 ? `/admin/${path}` : path);
   return (
@@ -92,6 +94,19 @@ const SideBar = ({ sideBarToggle }) => {
                   <MenuBookOutlinedIcon className={styles.listIcon} />
                 </ListItemIcon>
                 <ListItemText primary="Courses" className={styles.listText} />
+              </ListItemButton>
+            </Link>
+            <Link href={getPath("tags")}>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                className={`${styles.listButton} ${
+                  pathname === getPath("tags") && styles.sideBarActive
+                }`}
+              >
+                <ListItemIcon>
+                  <TagOutlinedIcon className={styles.listIcon} />
+                </ListItemIcon>
+                <ListItemText primary="Tags" className={styles.listText} />
               </ListItemButton>
             </Link>
           </List>

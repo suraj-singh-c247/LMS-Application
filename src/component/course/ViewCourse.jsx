@@ -2,21 +2,14 @@ import { memo, useEffect, useState } from "react";
 import Card from "../card/Card";
 import { Box } from "@mui/material";
 import style from "@/style/page.module.css";
-const ViewCourse = ({ id, data }) => {
-  const [singleData, setSingleData] = useState(null);
-
-  useEffect(() => {
-    const findSingle = data?.find((item) => item?.id === id);
-    setSingleData(findSingle);
-  }, []);
-
+const ViewCourse = ({ id, singleData }) => {
   return (
     <Box className={style.cardMainBox}>
       {" "}
       <Card
         image={`http://localhost:8000/${singleData?.coverImage}`}
-        id={singleData?.id}
-        visibility={singleData?.visibility}
+        id={id}
+        visibility={singleData?.visibility ?? ""}
         title={singleData?.title}
         desc={singleData?.description}
         category={singleData?.category?.title}

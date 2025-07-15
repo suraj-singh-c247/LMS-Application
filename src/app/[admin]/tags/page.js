@@ -1,28 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import PageLayout from "@/component/common/PageLayout";
-
-import styles from "@/style/page.module.css";
-import { courseServices } from "@/service/apiCourse";
-import AddEditModal from "@/component/common/modal/Modal";
-import CourseBoard from "@/component/course/CourseBoard";
-import AddCourseForm from "@/component/course/AddCourseForm";
-import CustomPagination from "@/component/common/pagination/CustomPagination";
 import CustomTable from "@/component/common/table/CustomTable";
-import AdminCourseTable from "@/component/course/AdminCourseTable";
-import { courseColumns } from "@/utilis/column";
-import ViewCourse from "@/component/course/ViewCourse";
-import DeleteCourse from "@/component/course/DeleteCourse";
-import { getCourseTableColumns } from "@/component/course/columns";
-import { getTableOptions } from "@/utilis/options";
+import { categoryColumns } from "@/utilis/column";
+import { categoryServices } from "@/service/apiCategory";
+import { toast } from "react-toastify";
+import AddEditCategory from "@/component/category/AddEditCategory";
+import ViewCategory from "@/component/category/ViewCategory";
+import DeleteCategory from "@/component/category/DeleteCategory";
 import Modal from "@/component/common/modal/Modal";
-import CourseStatus from "@/component/course/CourseStatus";
 import MuiDataTable from "@/component/common/table/MuiDataTable";
+import { getCategoryTableColumns } from "@/component/category/columns";
+import { getTableOptions } from "@/utilis/options";
+import CategoryStatus from "@/component/category/CategoryStatus";
+import { getTagTableColumns } from "@/component/tags/columns";
+import { tagsServices } from "@/service/apiTags";
 
-export default function CoursePage() {
+function AdminCategory() {
   const [data, setData] = useState([]);
+  const [singleData, setSingleData] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchText, setSearchText] = useState("");
@@ -34,7 +31,6 @@ export default function CoursePage() {
   const [viewOpen, setViewOpen] = useState({
     id: null,
     open: false,
-    data: null,
   });
   const [deleteModal, setDeleteModal] = useState({
     id: null,
@@ -52,8 +48,8 @@ export default function CoursePage() {
   }, [page, rowsPerPage, searchText, sortOrder]);
 
   const handleGetData = () => {
-    courseServices
-      .getAllCourse(page, rowsPerPage, searchText, sortOrder)
+    tagsServices
+      .getAllTags(page, rowsPerPage, searchText, sortOrder)
       .then((response) => {
         if (response?.status === 200) {
           const { data } = response?.data;
@@ -85,38 +81,43 @@ export default function CoursePage() {
     setSortOrder: setSortOrder,
   });
 
-  const columns = getCourseTableColumns({
+  const columns = getTagTableColumns({
     setAddOpen: setAddOpen,
     setViewOpen: setViewOpen,
     setDeleteModal: setDeleteModal,
     setStatusModal: setStatusModal,
-    tableData: data?.courses ?? [],
+    tableData: data?.categories ?? [],
+    setSingleData: setSingleData,
   });
+  console.log(data, "tag data");
 
   return (
-    <PageLayout
-      title={"Courses"}
-      btnText={"Add Course"}
-      addOpen={addOpen}
-      setAddOpen={setAddOpen}
-    >
-      <MuiDataTable
-        data={data?.courses ?? []}
-        columns={columns}
-        options={options}
-      />
+    <>
+      <PageLayout
+        title={"Tags"}
+        btnText={"Add Tag"}
+        addOpen={addOpen}
+        setAddOpen={setAddOpen}
+      >
+        <MuiDataTable
+          data={data?.tags ?? []}
+          columns={columns}
+          options={options}
+        />
+      </PageLayout>
 
+      {/* This modal for add user */}
       <Modal
         open={addOpen.open}
         onClose={() => {
           setAddOpen({ id: null, open: false });
         }}
-        title={addOpen?.id ? "Edit Course" : "Add Course"}
+        title={addOpen?.id ? "Edit Tag" : "Add Tag"}
       >
-        <AddCourseForm
-          id={addOpen?.id}
-          data={data?.courses ?? []}
-          getCourseData={handleGetData}
+        <AddEditCategory
+          id={addOpen.id}
+          categoryData={data?.tags ?? []}
+          getDataTable={handleGetData}
           onClose={() => {
             setAddOpen({ id: null, open: false });
           }}
@@ -124,23 +125,23 @@ export default function CoursePage() {
       </Modal>
       <Modal
         open={viewOpen?.open}
-        title={"View Course"}
+        title={"View Tag"}
         onClose={() => {
-          setViewOpen({ id: null, open: false, data: [] });
+          setViewOpen({ id: null, open: false });
         }}
       >
-        <ViewCourse id={viewOpen?.id} singleData={viewOpen?.data} />
+        <ViewCategory id={viewOpen?.id} categoryData={data?.tags ?? []} />
       </Modal>
       <Modal
-        title={"Delete Course"}
+        title={"Delete Tag"}
         open={deleteModal.open}
         onClose={() => {
           setDeleteModal({ id: null, open: false });
         }}
       >
-        <DeleteCourse
+        <DeleteCategory
           id={deleteModal?.id}
-          text={"Are you sure you want to delete this course?"}
+          text={"Are you sure you want to delete this tag?"}
           handleGetData={handleGetData}
           onClose={() => {
             setDeleteModal({ id: null, open: false });
@@ -148,15 +149,15 @@ export default function CoursePage() {
         />
       </Modal>
       <Modal
-        title={"Change Course Status"}
+        title={"Change Category Status"}
         open={statusModal.open}
         onClose={() => {
           setStatusModal({ id: null, open: false });
         }}
       >
-        <CourseStatus
+        <CategoryStatus
           id={statusModal?.id}
-          text={"Are you sure you want to change this course status?"}
+          text={"Are you sure you want to change this category status?"}
           handleGetData={handleGetData}
           singleData={statusModal?.data}
           onClose={() => {
@@ -164,6 +165,8 @@ export default function CoursePage() {
           }}
         />
       </Modal>
-    </PageLayout>
+    </>
   );
 }
+
+export default AdminCategory;

@@ -3,17 +3,17 @@ import { Base_URL, getToken } from "./api-helpers";
 
 const token = getToken();
 
-export const categoryServices = {
-  getAllCategory,
-  createCategory,
-  updateCategory,
-  updateStatusCategory,
-  deleteCategory,
+export const tagsServices = {
+  getAllTags,
+  createTag,
+  updateTag,
+  updateStatusTag,
+  deleteTag,
 };
 
-async function getAllCategory(page, rowPerPage, searchText, sortOrder) {
+async function getAllTags(page, rowPerPage, searchText, sortOrder) {
   return await axios.get(
-    `${Base_URL}/category?page=${page + 1}&limit=${rowPerPage}&search=${
+    `${Base_URL}/tag?page=${page + 1}&limit=${rowPerPage}&search=${
       searchText ? searchText : ""
     }&sortBy=${sortOrder?.name ? sortOrder?.name : "title"}$orderBy=${
       sortOrder?.direction ? sortOrder?.direction : "asc"
@@ -28,8 +28,8 @@ async function getAllCategory(page, rowPerPage, searchText, sortOrder) {
     }
   );
 }
-async function createCategory(data) {
-  return await axios.post(`${Base_URL}/category`, data, {
+async function createTag(data) {
+  return await axios.post(`${Base_URL}/tag`, data, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -38,9 +38,9 @@ async function createCategory(data) {
     },
   });
 }
-async function updateCategory(id, data) {
+async function updateTag(id, data) {
   const updateData = { name: data };
-  return await axios.put(`${Base_URL}/category/${id}`, updateData, {
+  return await axios.put(`${Base_URL}/tag/${id}`, updateData, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -50,9 +50,9 @@ async function updateCategory(id, data) {
   });
 }
 
-async function updateStatusCategory(id, data) {
+async function updateStatusTag(id, data) {
   const isActive = { isActive: data };
-  return await axios.put(`${Base_URL}/category/change-status/${id}`, isActive, {
+  return await axios.put(`${Base_URL}/tag/change-status/${id}`, isActive, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -62,8 +62,8 @@ async function updateStatusCategory(id, data) {
   });
 }
 
-async function deleteCategory(id) {
-  return await axios.delete(`${Base_URL}/category/${id}`, {
+async function deleteTag(id) {
+  return await axios.delete(`${Base_URL}/tag/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
