@@ -21,7 +21,7 @@ import { toast } from "react-toastify";
 import { setToken } from "@/service/api-helpers";
 import { useRouter } from "next/navigation";
 
-function SignIn() {
+function LogIn() {
   const router = useRouter();
   const {
     handleSubmit,
@@ -46,7 +46,7 @@ function SignIn() {
           setToken(data?.token);
           localStorage.setItem("role", JSON.stringify(data?.role));
           if (data?.role === 1) {
-            router.replace("admin/dashboard");
+            router.replace("/admin/dashboard");
           } else {
             router.replace("/dashboard");
           }
@@ -91,7 +91,7 @@ function SignIn() {
             <Card className={authStyle.cardBox}>
               <CardHeader
                 className={authStyle.cardHeader}
-                title={"Sign in Your Account"}
+                title={"Log in Your Account"}
               />
               <CardContent
                 component={"form"}
@@ -155,4 +155,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default LogIn;

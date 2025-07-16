@@ -38,7 +38,7 @@ const Header = ({
 
   const handleLogOut = () => {
     removeToken();
-    router.replace("/signin");
+    router.replace("/login");
     toast.success("Logout Successfully!");
   };
 

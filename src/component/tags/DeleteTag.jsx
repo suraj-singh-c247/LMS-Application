@@ -5,6 +5,9 @@ import { toast } from "react-toastify";
 import styles from "@/style/page.module.css";
 import { tagsServices } from "@/service/apiTags";
 const DeleteTag = ({ text, id, handleGetData, onClose }) => {
+  const [isSubmited, setIsSubmited] = useState(false);
+
+  // delete funcitons
   const handleDelete = (e, id) => {
     e.preventDefault();
     tagsServices
@@ -15,6 +18,7 @@ const DeleteTag = ({ text, id, handleGetData, onClose }) => {
           toast.success(message);
           handleGetData();
           onClose();
+          setIsSubmited(true);
         }
       })
       .catch((error) => {
@@ -39,7 +43,12 @@ const DeleteTag = ({ text, id, handleGetData, onClose }) => {
       </Typography>
 
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button type="submit" variant={"error"} label={"Delete"} />
+        <Button
+          type="submit"
+          variant={"error"}
+          label={"Delete"}
+          disabled={isSubmited}
+        />
       </Box>
     </Box>
   );

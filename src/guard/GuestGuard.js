@@ -11,21 +11,23 @@ export const GuestGuard = ({ children }) => {
   const router = useRouter();
   const token = getToken();
   const role = panelRole();
+
   useEffect(() => {
     authCheck();
-  }, []);
+  }, [checked]);
 
   const authCheck = useCallback(() => {
-    if (token) {
+    if (token && role) {
       if (role === 1) {
-        router.replace("admin/dashboard");
-      } else {
+        router.replace("/admin/dashboard");
+      }
+      if (role === 2) {
         router.replace("/dashboard");
       }
     } else {
       setChecked(true);
     }
-  }, [token]);
+  }, [token, role]);
 
   if (!checked) {
     return null;

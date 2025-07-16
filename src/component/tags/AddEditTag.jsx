@@ -13,7 +13,7 @@ const AddEditTag = ({ id, tagData, getDataTable, onClose }) => {
     handleSubmit,
     setValue,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm({
     resolver: yupResolver(tagSchema),
@@ -111,6 +111,7 @@ const AddEditTag = ({ id, tagData, getDataTable, onClose }) => {
           type="submit"
           variant={"primary"}
           label={`${id ? "Update" : "Save"}`}
+          disbaled={Boolean(!!isSubmitting)}
         />
       </Box>
     </Box>

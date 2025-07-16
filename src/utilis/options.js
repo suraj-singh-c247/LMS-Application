@@ -12,6 +12,8 @@ export function getTableOptions({
 } = {}) {
   return {
     filter: false,
+    print: false,
+    selectableRows: false,
     count,
     search,
     searchText,

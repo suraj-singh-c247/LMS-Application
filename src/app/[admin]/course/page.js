@@ -95,6 +95,7 @@ export default function CoursePage() {
       setAddOpen={setAddOpen}
     >
       <MuiDataTable
+        title={"Courses List"}
         data={data?.courses ?? []}
         columns={columns}
         options={options}

@@ -13,7 +13,7 @@ const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
     handleSubmit,
     setValue,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm({
     resolver: yupResolver(catergorySchema),
@@ -109,6 +109,7 @@ const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
           type="submit"
           variant={"primary"}
           label={`${id ? "Update" : "Save"}`}
+          disbaled={Boolean(!!isSubmitting)}
         />
       </Box>
     </Box>

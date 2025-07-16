@@ -1,5 +1,9 @@
+import { Typography } from "@mui/material";
 import ActionCell from "../common/actioncell/ActionCell";
 import Button from "../common/button/Button";
+import { formattedDate } from "@/utilis/date";
+
+import styles from "@/style/table.module.css";
 
 export function getTagTableColumns({
   setAddOpen,
@@ -16,7 +20,21 @@ export function getTagTableColumns({
 
   return [
     { name: "name", label: "Name", options: { sort: true } },
-    { name: "createdAt", label: "CreatedAt", options: { sort: false } },
+    {
+      name: "createdAt",
+      label: "CreatedAt",
+      options: {
+        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          const rowData = tableData[tableMeta.rowIndex];
+          return (
+            <Typography variant="span" className={styles.dateText}>
+              {formattedDate(rowData?.createdAt)}
+            </Typography>
+          );
+        },
+      },
+    },
     {
       name: "isActive",
       label: "Active",
@@ -31,7 +49,6 @@ export function getTagTableColumns({
               }}
               variant={rowData?.isActive ? "active" : "InActive"}
               label={rowData?.isActive ? "Active" : "InActive"}
-              sx={{ backgroundColor: `${rowData?.isActive ? "green" : ""}` }}
             />
           );
         },

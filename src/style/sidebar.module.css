@@ -36,8 +36,12 @@
   font-size: 14px;
   line-height: 18px;
 }
-.sideBarActive {
-  background-color: #ccc !important;
+.sideBarMain .sideBarActive {
+  background-color: #702dff !important;
+  color: #fff !important;
+}
+.sideBarMain .activeListIcon {
+  color: #fff;
 }
 [data-theme="dark"] .sideBarMain {
   background-color: rgba(51, 51, 51, 1);

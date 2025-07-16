@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import Button from "../common/button/Button";
 import { Box, Typography } from "@mui/material";
 import { toast } from "react-toastify";
@@ -6,6 +6,9 @@ import styles from "@/style/page.module.css";
 import { courseServices } from "@/service/apiCourse";
 
 const DeleteCourse = ({ text, id, handleGetData, onClose }) => {
+  const [isSubmited, setIsSubmited] = useState(false);
+
+  // delete function
   const handleDelete = (e, id) => {
     e.preventDefault();
     courseServices
@@ -16,6 +19,7 @@ const DeleteCourse = ({ text, id, handleGetData, onClose }) => {
           toast.success(message);
           handleGetData();
           onClose();
+          setIsSubmited(true);
         }
       })
       .catch((error) => {
@@ -40,7 +44,12 @@ const DeleteCourse = ({ text, id, handleGetData, onClose }) => {
       </Typography>
 
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button type="submit" variant={"error"} label={"Delete"} />
+        <Button
+          type="submit"
+          variant={"error"}
+          label={"Delete"}
+          disabled={isSubmited}
+        />
       </Box>
     </Box>
   );

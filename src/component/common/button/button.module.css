@@ -10,14 +10,14 @@
   justify-content: center;
 }
 .buttonContainer .primaryButton {
-  background: #202020;
-  box-shadow: #202020 0 10px 20px -10px;
+  background: #702dff;
+  box-shadow: #702dff 0 10px 20px -10px;
   color: #ffffff;
 }
 .buttonContainer .secondaryButton {
   width: 100%;
-  background: #202020;
-  box-shadow: #202020 0 10px 20px -10px;
+  background: #702dff;
+  box-shadow: #702dff 0 10px 20px -10px;
   color: #ffffff;
 }
 .buttonContainer .errorButton {

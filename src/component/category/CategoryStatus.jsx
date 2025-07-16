@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import Button from "../common/button/Button";
 import { Box, Typography } from "@mui/material";
 import { toast } from "react-toastify";
@@ -6,6 +6,7 @@ import styles from "@/style/page.module.css";
 import { categoryServices } from "@/service/apiCategory";
 
 const CategoryStatus = ({ text, id, handleGetData, singleData, onClose }) => {
+  const [isSubmited, setIsSubmited] = useState(false);
   // handle status change
   const handleStatusChange = (e, id) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ const CategoryStatus = ({ text, id, handleGetData, singleData, onClose }) => {
           handleGetData();
           toast.success(message);
           onClose();
+          setIsSubmited(true);
         }
       })
       .catch((error) => {
@@ -42,7 +44,12 @@ const CategoryStatus = ({ text, id, handleGetData, singleData, onClose }) => {
       </Typography>
 
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button type="submit" variant={"primary"} label={"Okay"} />
+        <Button
+          type="submit"
+          variant={"primary"}
+          label={"Okay"}
+          disabled={isSubmited}
+        />
       </Box>
     </Box>
   );

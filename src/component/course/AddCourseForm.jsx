@@ -25,7 +25,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
     register,
     setValue,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm({
     resolver: yupResolver(courseSchema),
@@ -50,7 +50,6 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response);
           toast.error(error.response.data?.message);
           return;
         } else if (error.request) {
@@ -256,6 +255,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
           type="submit"
           variant={"primary"}
           label={`${id ? "Update" : "Save"}`}
+          disabled={!!isSubmitting}
         />
       </Box>
     </Box>

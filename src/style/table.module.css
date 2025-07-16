@@ -46,4 +46,30 @@
   color: #fff;
 }
 
+/* date css start */
+.dateText {
+  font-size: 13px;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+}
 
+/* date css end */
+
+.muiDataTable div {
+  box-shadow: none;
+}
+.muiDataTable div div table thead {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: rgb(112, 45, 255);
+}
+
+.muiDataTable div th button div div,
+.muiDataTable div th div {
+  background-color: transparent;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.03em;
+  color: #000;
+  border-color: #e9edf5;
+}

@@ -94,6 +94,7 @@ function AdminCategory() {
         setAddOpen={setAddOpen}
       >
         <MuiDataTable
+          title={"Categories List"}
           data={data?.categories ?? []}
           columns={columns}
           options={options}

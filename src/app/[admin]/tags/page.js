@@ -94,6 +94,7 @@ function Tags() {
         setAddOpen={setAddOpen}
       >
         <MuiDataTable
+          title={"Tags List"}
           data={data?.tags ?? []}
           columns={columns}
           options={options}

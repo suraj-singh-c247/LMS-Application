@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import btnStyles from "./button.module.css";
 
-function CustomButton({ label, variant, onClick, ...props }) {
+function CustomButton({ label, variant, onClick, disabled, ...props }) {
   return (
     <Box className={btnStyles.buttonContainer}>
       <Button
@@ -19,6 +19,7 @@ function CustomButton({ label, variant, onClick, ...props }) {
             : btnStyles.inActiveButton
         }`}
         onClick={onClick}
+        disabled={disabled}
         {...props}
       >
         {label}

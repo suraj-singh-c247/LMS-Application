@@ -54,7 +54,11 @@ const SideBar = ({ sideBarToggle }) => {
             }`}
           >
             <ListItemIcon>
-              <DashboardIcon className={styles.listIcon} />
+              <DashboardIcon
+                className={`${styles.listIcon} ${
+                  pathname === getPath("dashboard") && styles.activeListIcon
+                }`}
+              />
             </ListItemIcon>
             <ListItemText primary="Dashboard" className={styles.listText} />
           </ListItemButton>
@@ -78,7 +82,11 @@ const SideBar = ({ sideBarToggle }) => {
                 }`}
               >
                 <ListItemIcon>
-                  <CategoryOutlinedIcon className={styles.listIcon} />
+                  <CategoryOutlinedIcon
+                    className={`${styles.listIcon} ${
+                      pathname === getPath("category") && styles.sideBarActive
+                    }`}
+                  />
                 </ListItemIcon>
                 <ListItemText primary="Category" className={styles.listText} />
               </ListItemButton>
@@ -91,7 +99,11 @@ const SideBar = ({ sideBarToggle }) => {
                 }`}
               >
                 <ListItemIcon>
-                  <TagOutlinedIcon className={styles.listIcon} />
+                  <TagOutlinedIcon
+                    className={`${styles.listIcon} ${
+                      pathname === getPath("tags") && styles.activeListIcon
+                    }`}
+                  />
                 </ListItemIcon>
                 <ListItemText primary="Tags" className={styles.listText} />
               </ListItemButton>
@@ -104,7 +116,11 @@ const SideBar = ({ sideBarToggle }) => {
                 }`}
               >
                 <ListItemIcon>
-                  <MenuBookOutlinedIcon className={styles.listIcon} />
+                  <MenuBookOutlinedIcon
+                    className={`${styles.listIcon} ${
+                      pathname === getPath("course") && styles.activeListIcon
+                    }`}
+                  />
                 </ListItemIcon>
                 <ListItemText primary="Courses" className={styles.listText} />
               </ListItemButton>

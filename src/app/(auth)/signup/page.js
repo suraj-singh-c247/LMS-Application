@@ -199,7 +199,7 @@ export default function SignUp() {
                 <Typography variant="body1" className={authStyle.footerText}>
                   Already have an account?{" "}
                   <Link
-                    href={"/signin"}
+                    href={"/login"}
                     component="button"
                     className={authStyle.linkText}
                   >
