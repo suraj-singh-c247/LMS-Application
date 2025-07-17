@@ -1,5 +1,9 @@
+import { formattedDate } from "@/utilis/date";
 import ActionCell from "../common/actioncell/ActionCell";
 import Button from "../common/button/Button";
+import { Typography } from "@mui/material";
+
+import styles from "@/style/table.module.css";
 
 export function getCourseTableColumns({
   setAddOpen,
@@ -16,13 +20,33 @@ export function getCourseTableColumns({
 
   return [
     { name: "title", label: "Title", options: { sort: true } },
+    {
+      name: "createdAt",
+      label: "Date",
+      options: {
+        sort: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          const rowData = tableData[tableMeta.rowIndex];
+          return (
+            <Typography variant="span" className={styles.dateText}>
+              {formattedDate(rowData?.createdAt)}
+            </Typography>
+          );
+        },
+      },
+    },
     { name: "description", label: "Description", options: { sort: false } },
 
     { name: "visibility", label: "Visibility", options: { sort: false } },
     {
-      name: "category title",
-      label: "Category Title",
-      options: { sort: false },
+      name: "category",
+      label: "Category",
+      options: {
+        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return value?.title || "N/A";
+        },
+      },
     },
     { name: "slug", label: "Slug", options: { sort: false } },
     { name: "tags", label: "Tags", options: { sort: false } },

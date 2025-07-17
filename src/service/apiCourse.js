@@ -15,8 +15,8 @@ async function getAllCourse(page, rowPerPage, searchText, sortOrder) {
   return await axios.get(
     `${Base_URL}/course?page=${page + 1}&limit=${rowPerPage}&search=${
       searchText ? searchText : ""
-    }&sortBy=${sortOrder?.name ? sortOrder?.name : "title"}$orderBy=${
-      sortOrder?.direction ? sortOrder?.direction : "asc"
+    }&sortBy=${sortOrder?.name ? sortOrder?.name : "createdAt"}&orderBy=${
+      sortOrder?.direction ? sortOrder?.direction : "desc"
     }`,
     {
       method: "GET",

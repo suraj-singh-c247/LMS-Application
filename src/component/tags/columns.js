@@ -22,9 +22,9 @@ export function getTagTableColumns({
     { name: "name", label: "Name", options: { sort: true } },
     {
       name: "createdAt",
-      label: "CreatedAt",
+      label: "Date",
       options: {
-        sort: false,
+        sort: true,
         customBodyRender: (value, tableMeta, updateValue) => {
           const rowData = tableData[tableMeta.rowIndex];
           return (

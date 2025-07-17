@@ -15,8 +15,8 @@ async function getAllCategory(page, rowPerPage, searchText, sortOrder) {
   return await axios.get(
     `${Base_URL}/category?page=${page + 1}&limit=${rowPerPage}&search=${
       searchText ? searchText : ""
-    }&sortBy=${sortOrder?.name ? sortOrder?.name : "title"}$orderBy=${
-      sortOrder?.direction ? sortOrder?.direction : "asc"
+    }&sortBy=${sortOrder?.name ? sortOrder?.name : "createdAt"}&orderBy=${
+      sortOrder?.direction ? sortOrder?.direction : "desc"
     }`,
     {
       method: "GET",
