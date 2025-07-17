@@ -11,14 +11,8 @@ export default function UserDashBoardLayout({ children }) {
     <AuthGuard>
       {" "}
       <ThemeProviderWrapper>
-        <Header
-        // searchTerm={searchText}
-        // setSearchTerm={setSearchText}
-        // handleSearch={handleSearch}
-        />
-        <section className={`${styles.page} ${styles.pageExpand}`}>
-          {children}
-        </section>
+        <Header />
+        <main className={styles.userMain}>{children}</main>
       </ThemeProviderWrapper>
     </AuthGuard>
   );

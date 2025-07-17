@@ -25,15 +25,15 @@ import { panelRole, removeToken } from "@/service/api-helpers";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-const Header = ({
-  searchText,
-  setSearchText,
-  handleSearch,
-  setSideBarToggle,
-}) => {
+import Link from "next/link";
+import { headerRoutes } from "@/utilis/routes";
+
+const Header = ({ setSideBarToggle }) => {
   const router = useRouter();
   const role = panelRole();
+
   const [anchorElUser, setAnchorElUser] = useState(false);
+
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
   const handleLogOut = () => {
@@ -68,17 +68,27 @@ const Header = ({
           )}{" "}
         </Grid>
         <Grid size={7}>
-          {/* <Box
-            className={`${searchStyles.searchContainer} ${headerStyle.searchFlex}`}
-          >
-            <Search
-              type={"text"}
-              // searchText={searchText}
-              // setSearchText={setSearchText}
-              // handleSearch={handleSearch}
-              className={searchStyles.searchControl}
-            />
-          </Box> */}
+          {role === 2 && (
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                gap: { xs: "none", md: 5 },
+                alignItems: { xs: "none", md: "center" },
+                justifyContent: { xs: "none", md: "center" },
+              }}
+            >
+              {headerRoutes.map((item) => (
+                <Link
+                  key={item?.page}
+                  className={headerStyle.navLinks}
+                  href={item?.route}
+                >
+                  {item?.page}
+                </Link>
+              ))}
+            </Box>
+          )}
         </Grid>
         <Grid size={2.7} textAlign={"end"}>
           <Box className={headerStyle.rightBox}>

@@ -36,41 +36,6 @@ const DashBoard = () => {
   const role = panelRole();
   return (
     <>
-      <Box component={"section"} className={styles.dashBoardSection}>
-        <Grid container spacing={1} flexDirection={"column"}>
-          <Grid size={12}>
-            <Typography component={"h6"} className={styles.subHeading}>
-              Online Course
-            </Typography>
-          </Grid>
-          <Grid size={12}>
-            <Typography component={"h1"} className={styles.mainHeading}>
-              {`${
-                role === 1
-                  ? "Welcome To Admin"
-                  : "Sharpen Your Skills With Professional Online Courses"
-              }`}
-            </Typography>
-          </Grid>
-          <Grid size={12}>
-            {role === 1 ? (
-              <Button
-                type="button"
-                variant={"primary"}
-                label={"Let's See"}
-                endIcon={<ArrowOutwardIcon />}
-              />
-            ) : (
-              <Button
-                type="button"
-                variant={"primary"}
-                label={"Join Now"}
-                endIcon={<ArrowOutwardIcon />}
-              />
-            )}
-          </Grid>
-        </Grid>
-      </Box>
       {role === 1 ? (
         <Grid container spacing={2} mb={3}>
           {categoryList.map((item) => {

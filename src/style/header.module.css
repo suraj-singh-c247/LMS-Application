@@ -27,6 +27,32 @@
   justify-self: flex-end;
 }
 
+.header .navLinks {
+  position: relative;
+  font-size: 14px;
+  line-height: normal;
+  font-weight: 500;
+  color: #702dff;
+  padding: 5px 6px;
+}
+
+.header .navLinks::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #702dff, #9c27b0);
+  border-radius: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.header .navLinks:hover::before {
+  width: 100%;
+  border-radius: 50%;
+}
+
 [data-theme="dark"] .header {
   background-color: rgba(51, 51, 51, 0.5);
   color: #ffffff;

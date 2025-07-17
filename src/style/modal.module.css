@@ -10,14 +10,25 @@
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 24px;
+  padding: 16px 0;
 }
 .modalStyle .modalHeader {
   margin-bottom: 16px;
+  border-bottom: 1.5px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 18px;
+  padding-bottom: 8px;
+}
+.modalStyle .modalHeader .modalHeadingIcon {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px;
 }
 .modalStyle .modalHeading {
   font-weight: 600;
-  font-size: 24px;
+  font-size: 16px;
   line-height: 28px;
 }
 .modalStyle .deleteText {
@@ -25,6 +36,9 @@
   line-height: 24px;
   color: #1c1c1c;
   margin-bottom: 8px;
+}
+.modalStyle .modalContent {
+  padding-inline: 18px;
 }
 [data-theme="dark"] .modalStyle {
   background-color: #333;

@@ -22,6 +22,18 @@
     --button-secondary-hover: #1a1a1a;
   }
 }
+
+.primaryColor {
+  color: #702dff;
+}
+.secondaryColor {
+  color: rgb(20, 99, 255);
+}
+
+.userMain {
+  padding-top: 100px;
+  padding-inline: 20px;
+}
 .mainBody {
   background-color: #fff;
 }
@@ -39,15 +51,17 @@
 .dashBoardSection {
   background-color: #702dff;
   border-radius: 20px;
-  padding-block: 20px;
-  padding-inline: 24px;
-  background-image: url("../../public/star.png");
+  background-image: url("/userHeroBannerImage.png");
   background-repeat: no-repeat;
-  background-position: right 0%;
-  background-size: contain;
-  margin-bottom: 24px;
+  background-position: 90% 0%;
+  background-size: 25% 75%;
+  padding-inline: 40px;
+  padding-block: 80px;
 }
-
+.dashBoardSection .mainContentBox {
+  width: 100%;
+  max-width: 500px;
+}
 .dashBoardSection .subHeading {
   font-size: 12px;
   font-weight: 400;
@@ -55,13 +69,60 @@
   color: #fff;
 }
 .dashBoardSection .mainHeading {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 600;
   line-height: auto;
   color: #fff;
-  width: 100%;
-  max-width: 358px;
   margin-bottom: 16px;
+}
+.dashBoardSection .mainPara {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0.003em;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.heroBottomBox {
+  background-color: #fff;
+  padding-inline: 100px;
+  padding-block: 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 1033px;
+  margin: 0 auto;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  position: relative;
+  bottom: 100px;
+}
+.heroBottomBox div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.heroBottomBox .textHeading {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+  position: relative;
+  padding-inline: 10px;
+}
+.heroBottomBox .textHeading::after {
+  content: "";
+  width: 2px;
+  height: 12px;
+  position: absolute;
+  top: 7px;
+  right: 0px;
+  background-color: #ccc;
+}
+.heroBottomBox .textHeading:last-child:after {
+  content: none;
+}
+.heroBottomBox .imageBox {
+  gap: 24px;
 }
 .productBox {
   margin-bottom: 20px;
@@ -86,7 +147,7 @@
   padding-inline: 16px;
   padding-block: 32px !important;
   border-radius: 24px !important;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
 }
 .paperMainBox .mainHeadingBox {
   display: flex;
@@ -199,6 +260,7 @@
   color: #1c1c1c;
   margin-bottom: 8px;
 }
+
 .courseMainBox .courseMainHeading {
   font-size: 2rem;
   line-height: normal;
@@ -211,13 +273,16 @@
   line-height: normal;
   font-weight: 400;
   color: #595c73;
+  margin-bottom: 1.2rem;
 }
 .courseTabBox .courseTabSubBox {
   margin-bottom: 20px;
 }
 .courseTabBox .courseTabSubBox .courseTabValue {
-  color: #1c1c1c;
   text-transform: capitalize;
+  font-size: 14px;
+  font-weight: 600;
+  color: #702dff;
 }
 .courseTabBox .courseTabSubBox .courseTabValue[aria-selected="true"] {
   color: #1976d2;
@@ -249,6 +314,6 @@
 [data-theme="dark"] .cardMainBox .cardBox .statusTitle,
 [data-theme="dark"] .cardMainBox .cardBox .categoryTitle,
 [data-theme="dark"] .courseMainBox .courseMainHeading,
-[data-them="dark"] .courseMainBox .courseMainPara {
+[data-theme="dark"] .courseMainBox .courseMainPara {
   color: #fff;
 }

@@ -1,0 +1,64 @@
+.footer {
+  padding-block: 30px;
+  background-color: #2a2b3f;
+  border-radius: 12px;
+}
+.footer .footerFirstBox {
+  padding-inline: 40px;
+  border-bottom: 1px solid #fff;
+}
+.footer .footerBox .footerHeading {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.footer .footerBox .footerLink {
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 5px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+.footer .footerBox .footerLink:hover {
+  color: rgba(255, 255, 255, 1);
+}
+.footer .footerLink::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #702dff, #9c27b0);
+  border-radius: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.footer .footerLink:hover::before {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.footer .footerBottomBox {
+  padding-inline: 40px;
+  padding-block: 20px;
+  padding-bottom: 0px;
+}
+.footer .footerLogoBox {
+  display: flex;
+  align-items: center;
+}
+.footer .footerBottomBox .footerBottomText strong,
+.footer .footerBottomBox .footerBottomText span {
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 1);
+}

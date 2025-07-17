@@ -10,7 +10,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import { memo } from "react";
 import styles from "@/style/modal.module.css";
 
+import CreateNewFolderOutlinedIcon from "@mui/icons-material/CreateNewFolderOutlined";
+import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+import PreviewOutlinedIcon from "@mui/icons-material/PreviewOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+
 const CustomModal = ({ open, onClose, title, children }) => {
+  console.log(title.includes("Add"), "title");
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -28,23 +35,34 @@ const CustomModal = ({ open, onClose, title, children }) => {
       <Fade in={open}>
         <Box className={styles.modalStyle}>
           <Box className={styles.modalHeader}>
-            <Typography
-              className={styles.modalHeading}
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-            >
-              {title}
-            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <IconButton className={styles.modalHeadingIcon}>
+                {title.includes("Add") ? (
+                  <CreateNewFolderOutlinedIcon />
+                ) : title.includes("Edit") ? (
+                  <DriveFileRenameOutlineOutlinedIcon />
+                ) : title?.includes("View") ? (
+                  <PreviewOutlinedIcon />
+                ) : (
+                  <DeleteOutlineOutlinedIcon />
+                )}
+              </IconButton>
+              <Typography
+                className={styles.modalHeading}
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+              >
+                {title}
+              </Typography>
+            </Box>
+
             <IconButton
               aria-label="close"
               onClick={() => {
                 onClose();
               }}
               sx={{
-                position: "absolute",
-                right: 8,
-                top: 8,
                 color: (theme) => theme.palette.grey[500],
               }}
             >

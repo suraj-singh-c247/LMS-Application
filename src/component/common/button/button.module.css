@@ -35,3 +35,8 @@
   box-shadow: #c85000 0 10px 20px -10px;
   color: #ffffff;
 }
+.buttonContainer .infoButton {
+  background: #ffffff;
+  box-shadow: #ffffff 0 10px 20px -10px;
+  color: #702dff;
+}

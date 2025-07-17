@@ -17,9 +17,6 @@ export default function AdminDashBoardLayout({ children }) {
       <ThemeProviderWrapper>
         <SideBar sideBarToggle={sideBarToggle} />
         <Header
-          // searchTerm={searchText}
-          // setSearchTerm={setSearchText}
-          // handleSearch={handleSearch}
           setSideBarToggle={setSideBarToggle}
           sideBarToggle={sideBarToggle}
         />

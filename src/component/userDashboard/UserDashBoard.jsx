@@ -3,12 +3,21 @@ import { memo, useEffect, useState } from "react";
 import styles from "@/style/page.module.css";
 import Button from "../common/button/Button";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-
-import Card from "../card/Card";
 import { categoryServices } from "@/service/apiCategory";
 import { toast } from "react-toastify";
 import { courseServices } from "@/service/apiCourse";
 import CourseList from "./CourseList";
+import Image from "next/image";
+
+import CollegeDekhoImage from "@/images/collegeDekho.png";
+import InfsImage from "@/images/infs.png";
+import GrawHillImage from "@/images/grawHill.png";
+import IskonImage from "@/images/iskcon.png";
+import AdityaBirlaImage from "@/images/adityaBirla.png";
+import LearnBayImage from "@/images/learnBay.png";
+import LawSikhoImage from "@/images/lawsikho.png";
+import Footer from "../common/footer/Footer";
+import { footerRoutes } from "@/utilis/routes";
 
 const UserDashBoard = () => {
   const [value, setValue] = useState("1");
@@ -16,22 +25,31 @@ const UserDashBoard = () => {
   const [course, setCourse] = useState([]);
   const [page, setPage] = useState(0);
   const [rowPerPage, setRowsPerPage] = useState(10);
+  const [searchText, setSearchText] = useState("");
+  const [sorting, setSorting] = useState({
+    name: "createdAt",
+    direction: "desc",
+  });
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     // handleGetCategory();
     handleGetCourse();
-  }, [page, rowPerPage, value]);
+  }, [page, rowPerPage, value, searchText, sorting]);
 
   // const handleGetCategory = () => {
   //   categoryServices
-  //     .getAllCategory(page, rowPerPage)
+  //     .getAllCategory(page, rowPerPage, searchText, sorting)
   //     .then((response) => {
+  //       console.log(response, "response");
+
   //       if (response?.status === 200) {
   //         const { data } = response?.data;
   //         setTabList(data);
   //       }
   //     })
   //     .catch((error) => {
+  //       console.log(error, "error");
+
   //       if (error.response) {
   //         toast.error(error.response.data?.message);
   //         return;
@@ -80,7 +98,12 @@ const UserDashBoard = () => {
   return (
     <>
       <Box component={"section"} className={styles.dashBoardSection}>
-        <Grid container spacing={1} flexDirection={"column"}>
+        <Grid
+          container
+          spacing={1}
+          flexDirection={"column"}
+          className={styles.mainContentBox}
+        >
           <Grid size={12}>
             <Typography component={"h6"} className={styles.subHeading}>
               Online Course
@@ -90,16 +113,76 @@ const UserDashBoard = () => {
             <Typography component={"h1"} className={styles.mainHeading}>
               "Sharpen Your Skills With Professional Online Courses"
             </Typography>
+            <Typography component={"p"} className={styles.mainPara}>
+              Deliver training programs, convert insights into profit, and build
+              lasting learner loyalty—all under your brand.
+            </Typography>
           </Grid>
           <Grid size={12}>
             <Button
               type="button"
-              variant={"primary"}
+              variant={"info"}
               label={"Join Now"}
               endIcon={<ArrowOutwardIcon />}
             />
           </Grid>
         </Grid>
+      </Box>
+      <Box className={styles.heroBottomBox}>
+        <Box>
+          <Typography
+            variant="strong"
+            className={`${styles.textHeading} ${styles.primaryColor}`}
+          >
+            5000+ training businesses
+          </Typography>
+          <Typography
+            variant="strong"
+            className={`${styles.textHeading} ${styles.secondaryColor}`}
+          >
+            serving more than 5.5M students
+          </Typography>
+          <Typography
+            variant="strong"
+            className={`${styles.textHeading} ${styles.primaryColor}`}
+          >
+            across 160+ countries
+          </Typography>
+        </Box>
+        <Box className={styles.imageBox}>
+          <Image
+            src={CollegeDekhoImage}
+            width={140}
+            height={70}
+            alt="CollegeDekhoImage"
+          />
+          <Image src={InfsImage} width={50} height={57} alt="InfsImage" />
+          <Image
+            src={GrawHillImage}
+            width={60}
+            height={60}
+            alt="GrawHillImage"
+          />
+          <Image src={IskonImage} width={60} height={60} alt="IskonImage" />
+          <Image
+            src={AdityaBirlaImage}
+            width={100}
+            height={79}
+            alt="AdityaBirlaImage"
+          />
+          <Image
+            src={LearnBayImage}
+            width={130}
+            height={25}
+            alt="LearnBayImage"
+          />
+          <Image
+            src={LawSikhoImage}
+            width={130}
+            height={32}
+            alt="LawSikhoImage"
+          />
+        </Box>
       </Box>
       <Box
         display={"flex"}
@@ -156,6 +239,7 @@ const UserDashBoard = () => {
         )}
         {value === "2" && "Others"}
       </Box>
+      <Footer footerRoutes={footerRoutes} />
     </>
   );
 };
