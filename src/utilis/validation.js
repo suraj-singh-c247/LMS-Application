@@ -59,13 +59,19 @@ export const tagSchema = yup.object().shape({
       "Tag name should not contain multiple consecutive spaces"
     ),
 });
-
-export const courseSchema = yup.object().shape({
+// for course
+const commonCourseObj = {
   title: yup.string().required("Name is required"),
   description: yup
     .string()
     .required("Description is required")
-    .max(50, "Description cannot exceed 50 characters."),
+    .max(1000, "Description cannot exceed 1000 characters."),
+  visibility: yup.string().required("Visibility is required"),
+  categoryId: yup.string().required("CategoryId is required"),
+};
+
+export const addcourseSchema = yup.object().shape({
+  ...commonCourseObj,
   coverImage: yup
     .mixed()
     .required("Cover image is required")
@@ -79,6 +85,14 @@ export const courseSchema = yup.object().shape({
         return ["jpg", "jpeg", "png"].includes(ext);
       }
     ),
+});
+
+export const editcourseSchema = yup.object().shape({
+  title: yup.string().required("Name is required"),
+  description: yup
+    .string()
+    .required("Description is required")
+    .max(1000, "Description cannot exceed 1000 characters."),
   visibility: yup.string().required("Visibility is required"),
   categoryId: yup.string().required("CategoryId is required"),
 });

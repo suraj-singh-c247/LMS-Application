@@ -19,7 +19,7 @@ const footerRoutes = [
     title: "Discover Udemy",
     routes: [
       { label: "Get the app", path: "/get-the-app" },
-      { label: "Teach on Udemy", path: "/teach-on-udemy" },
+      { label: "Teach on coursue", path: "/teach-on-coursue" },
       { label: "Plans and Pricing", path: "/plans-pricing" },
       { label: "Affiliate", path: "/affiliate" },
     ],
@@ -27,8 +27,8 @@ const footerRoutes = [
   {
     title: "Help and Support",
     routes: [
-      { label: "Udemy for Business", path: "/udemy-for-business" },
-      { label: "Udemy Business", path: "/udemy-business" },
+      { label: "Coursue for Business", path: "/coursue-for-business" },
+      { label: "Coursue Business", path: "/coursue-business" },
     ],
   },
   {

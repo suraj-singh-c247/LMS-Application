@@ -42,7 +42,7 @@ function Tags() {
   useEffect(() => {
     handleGetData();
   }, [page, rowsPerPage, searchText, sortOrder]);
-  
+
   const handleGetData = () => {
     tagsServices
       .getAllTags(page, rowsPerPage, searchText, sortOrder)
@@ -94,7 +94,6 @@ function Tags() {
         setAddOpen={setAddOpen}
       >
         <MuiDataTable
-          title={"Tags List"}
           data={data?.tags ?? []}
           columns={columns}
           options={options}

@@ -1,16 +1,19 @@
 .formControl div,
 .formControl {
-  border-radius: 12px !important;
+  border-radius: 8px !important;
 }
 .formControl label {
   font-size: 14px;
   color: #000;
 }
-.formControl input {
+.formControl input,
+.formControl textarea,
+.formControl div {
   font-size: 14px;
   color: #702dff;
   font-weight: 600;
 }
+
 [data-theme="dark"] .formControl div,
 [data-theme="dark"] .formControl {
   border: 1px solid #fff;

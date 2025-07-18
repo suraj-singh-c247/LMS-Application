@@ -14,10 +14,9 @@ import CreateNewFolderOutlinedIcon from "@mui/icons-material/CreateNewFolderOutl
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import PreviewOutlinedIcon from "@mui/icons-material/PreviewOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import DomainVerificationOutlinedIcon from "@mui/icons-material/DomainVerificationOutlined";
 
 const CustomModal = ({ open, onClose, title, children }) => {
-  console.log(title.includes("Add"), "title");
-
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -36,17 +35,19 @@ const CustomModal = ({ open, onClose, title, children }) => {
         <Box className={styles.modalStyle}>
           <Box className={styles.modalHeader}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <IconButton className={styles.modalHeadingIcon}>
+              <Box className={styles.modalHeadingIcon}>
                 {title.includes("Add") ? (
                   <CreateNewFolderOutlinedIcon />
                 ) : title.includes("Edit") ? (
                   <DriveFileRenameOutlineOutlinedIcon />
                 ) : title?.includes("View") ? (
                   <PreviewOutlinedIcon />
-                ) : (
+                ) : title?.includes("Delete") ? (
                   <DeleteOutlineOutlinedIcon />
+                ) : (
+                  <DomainVerificationOutlinedIcon />
                 )}
-              </IconButton>
+              </Box>
               <Typography
                 className={styles.modalHeading}
                 id="modal-modal-title"

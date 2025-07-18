@@ -1,123 +1,154 @@
-import { Avatar, Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Typography } from "@mui/material";
 import { memo } from "react";
 import styles from "@/style/page.module.css";
-import Button from "../common/button/Button";
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-import { panelRole } from "@/service/api-helpers";
-import Card from "../card/Card";
 
-// images
-import ChatGptImage from "@/images/chatGPTCourse.jpg";
-import JavaScriptImage from "@/images/JavaScript_Course.jpg";
-import backendDevelopment from "@/images/backend_development.jpg";
-const categoryList = [
-  {
-    id: 1,
-    image: ChatGptImage,
-    cartText: "The Complete AI Guide: Learn ChatGPT, Generative AI & More",
-    subTitle: "AI",
-  },
-  {
-    id: 2,
-    image: JavaScriptImage,
-    cartText: "Modern JavaScript From The Beginning 2.0 (2024)",
-    subTitle: "Web Development",
-  },
-  {
-    id: 3,
-    image: backendDevelopment,
-    cartText: "Fundamentals of Backend Engineering",
-    subTitle: "Web Development",
-  },
-];
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
+
+import { panelRole } from "@/service/api-helpers";
+
 const DashBoard = () => {
   const role = panelRole();
   return (
-    <>
-      {role === 1 ? (
-        <Grid container spacing={2} mb={3}>
-          {categoryList.map((item) => {
-            return (
-              <Grid key={item?.id} size={4} className={styles.cardMainBox}>
-                <Card
-                  image={item?.image.src}
-                  cartText={item?.cartText}
-                  subTitle={item?.subTitle}
-                  isActive={false}
-                />
-              </Grid>
-            );
-          })}
+    <Box component={"article"} className={styles.productBox}>
+      <Grid container spacing={2}>
+        <Grid size={12}>
+          <Typography component={"h1"} className={styles.mainHeading}>
+            Dashboard
+          </Typography>
         </Grid>
-      ) : (
-        <Box component={"article"} className={styles.productBox}>
-          <Grid container spacing={1}>
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid size={8}>
+          <Grid container spacing={3}>
             <Grid size={4}>
-              <Box className={styles.productDesign}>
-                <Avatar className={styles.productAvatar}>
-                  <NotificationsNoneOutlinedIcon className={styles.icon} />
-                </Avatar>
-                <Box display={"flex"} flexDirection={"column"}>
-                  <Typography component={"span"} fontSize={"12px"}>
-                    2/8 Watched
-                  </Typography>
-                  <Typography
-                    component={"strong"}
-                    fontWeight={"bold"}
-                    fontSize={"12px"}
-                  >
-                    Product Design
-                  </Typography>
+              <Box className={styles.productMainBox}>
+                <Box className={styles.productDesign}>
+                  <Box display={"flex"} alignItems={"center"}>
+                    <Typography
+                      component={"strong"}
+                      className={styles.productHeading}
+                    >
+                      Sales
+                    </Typography>
+                    <Typography
+                      component={"span"}
+                      className={styles.productSubHeading}
+                    >
+                      Today
+                    </Typography>
+                  </Box>
+                  <IconButton className={styles.filter}>
+                    <MoreHorizOutlinedIcon />
+                  </IconButton>
                 </Box>
-                <MoreVertOutlinedIcon />
+                <Box className={styles.productSalesBox}>
+                  <IconButton size="large" className={styles.bgPrimary300}>
+                    <ShoppingCartOutlinedIcon />
+                  </IconButton>
+                  <Box className={styles.productDescription}>
+                    <Typography component={"h5"}>125</Typography>
+                    <Box className={styles.productSubDesc}>
+                      <Typography
+                        component={"strong"}
+                        className={styles.infoColor}
+                      >
+                        12%
+                      </Typography>
+                      <Typography component={"span"}>increase</Typography>
+                    </Box>
+                  </Box>
+                </Box>
               </Box>
             </Grid>
             <Grid size={4}>
-              <Box className={styles.productDesign}>
-                <Avatar className={styles.productAvatar}>
-                  <NotificationsNoneOutlinedIcon className={styles.icon} />
-                </Avatar>
-                <Box display={"flex"} flexDirection={"column"}>
-                  <Typography component={"span"} fontSize={"12px"}>
-                    2/8 Watched
-                  </Typography>
-                  <Typography
-                    component={"strong"}
-                    fontWeight={"bold"}
-                    fontSize={"12px"}
-                  >
-                    Product Design
-                  </Typography>
+              <Box className={styles.productMainBox}>
+                <Box className={styles.productDesign}>
+                  <Box display={"flex"} alignItems={"center"}>
+                    <Typography
+                      component={"strong"}
+                      className={styles.productHeading}
+                    >
+                      Revenue
+                    </Typography>
+                    <Typography
+                      component={"span"}
+                      className={styles.productSubHeading}
+                    >
+                      This Month
+                    </Typography>
+                  </Box>
+                  <IconButton className={styles.filter}>
+                    <MoreHorizOutlinedIcon />
+                  </IconButton>
                 </Box>
-                <MoreVertOutlinedIcon />
+                <Box className={styles.productSalesBox}>
+                  <IconButton size="large" className={`${styles.bgGreen300} `}>
+                    <PaidOutlinedIcon className={`${styles.infoColor}`} />
+                  </IconButton>
+                  <Box className={styles.productDescription}>
+                    <Typography component={"h5"}>$3,264</Typography>
+                    <Box className={styles.productSubDesc}>
+                      <Typography
+                        component={"strong"}
+                        className={styles.infoColor}
+                      >
+                        8%
+                      </Typography>
+                      <Typography component={"span"}>increase</Typography>
+                    </Box>
+                  </Box>
+                </Box>
               </Box>
             </Grid>
             <Grid size={4}>
-              <Box className={styles.productDesign}>
-                <Avatar className={styles.productAvatar}>
-                  <NotificationsNoneOutlinedIcon className={styles.icon} />
-                </Avatar>
-                <Box display={"flex"} flexDirection={"column"}>
-                  <Typography component={"span"} fontSize={"12px"}>
-                    2/8 Watched
-                  </Typography>
-                  <Typography
-                    component={"strong"}
-                    fontWeight={"bold"}
-                    fontSize={"12px"}
-                  >
-                    Product Design
-                  </Typography>
+              <Box className={styles.productMainBox}>
+                <Box className={styles.productDesign}>
+                  <Box display={"flex"} alignItems={"center"}>
+                    <Typography
+                      component={"strong"}
+                      className={styles.productHeading}
+                    >
+                      Customers
+                    </Typography>
+                    <Typography
+                      component={"span"}
+                      className={styles.productSubHeading}
+                    >
+                      This Year
+                    </Typography>
+                  </Box>
+                  <IconButton className={styles.filter}>
+                    <MoreHorizOutlinedIcon />
+                  </IconButton>
                 </Box>
-                <MoreVertOutlinedIcon />
+                <Box className={styles.productSalesBox}>
+                  <IconButton size="large" className={styles.bgOrange300}>
+                    <SupervisorAccountOutlinedIcon
+                      className={styles.orangeColor}
+                    />
+                  </IconButton>
+                  <Box className={styles.productDescription}>
+                    <Typography component={"h5"}>1244</Typography>
+                    <Box className={styles.productSubDesc}>
+                      <Typography
+                        component={"strong"}
+                        className={styles.dangerColor}
+                      >
+                        8%
+                      </Typography>
+                      <Typography component={"span"}>decrease</Typography>
+                    </Box>
+                  </Box>
+                </Box>
               </Box>
             </Grid>
           </Grid>
-        </Box>
-      )}
-    </>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

@@ -1,7 +1,7 @@
 import { formattedDate } from "@/utilis/date";
 import ActionCell from "../common/actioncell/ActionCell";
 import Button from "../common/button/Button";
-import { Typography } from "@mui/material";
+import { Chip, List, ListItem, Typography } from "@mui/material";
 
 import styles from "@/style/table.module.css";
 
@@ -49,7 +49,29 @@ export function getCourseTableColumns({
       },
     },
     { name: "slug", label: "Slug", options: { sort: false } },
-    { name: "tags", label: "Tags", options: { sort: false } },
+    {
+      name: "tags",
+      label: "Tags",
+      options: {
+        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          console.log(tableData[tableMeta.rowIndex]?.tags);
+          const rowData = tableData[tableMeta.rowIndex]?.tags;
+          return (
+            (
+              <List sx={{ display: "inline-flex", flexWrap: "wrap" }}>
+                {rowData &&
+                  rowData?.map((item) => (
+                    <ListItem key={item?.id} sx={{ flexBasis: "50%" }}>
+                      <Chip label={item?.title} />
+                    </ListItem>
+                  ))}
+              </List>
+            ) || "N/A"
+          );
+        },
+      },
+    },
     {
       name: "learningOutcomes",
       label: "Learning Outcomes",

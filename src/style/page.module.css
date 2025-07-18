@@ -22,14 +22,32 @@
     --button-secondary-hover: #1a1a1a;
   }
 }
-
+/* colors */
 .primaryColor {
   color: #702dff;
 }
 .secondaryColor {
   color: rgb(20, 99, 255);
 }
-
+.infoColor {
+  color: #198754 !important;
+}
+.orangeColor {
+  color: #ff771d !important;
+}
+.dangerColor {
+  color: #dc3545 !important;
+}
+.bgPrimary300 {
+  background-color: rgba(112, 45, 255, 0.3) !important;
+}
+.bgGreen300 {
+  background-color: #e0f8e9 !important;
+}
+.bgOrange300 {
+  background-color: #ffecdf !important;
+}
+/* colors */
 .userMain {
   padding-top: 100px;
   padding-inline: 20px;
@@ -127,15 +145,91 @@
 .productBox {
   margin-bottom: 20px;
 }
-.productBox .productDesign {
-  padding-inline: 40px;
+
+.productBox .mainHeading {
+  font-size: 24px;
+  font-weight: 600;
+  color: #702dff;
+  margin-bottom: 30px;
+}
+
+.productBox .productMainBox {
+  box-shadow: 0 3px 8px #0000003d;
+  background-color: #fff;
   padding-block: 12px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  display: flex;
-  gap: 40px;
+  padding-inline: 20px;
+  border-radius: 8px;
+}
+.productBox .productDesign {
+  justify-content: space-between;
   align-items: center;
-  border-radius: 16px;
-  justify-content: flex-start;
+  display: flex;
+  margin-bottom: 30px;
+  position: relative;
+}
+.productBox .filter {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 0;
+}
+.productBox .productDesign .productHeading {
+  font-size: 18px;
+  font-weight: 600;
+  color: #702dff;
+  position: relative;
+  padding-right: 8px;
+  margin-right: 5px;
+}
+.productBox .productDesign .productHeading::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 0;
+  width: 2px;
+  height: 20px;
+  background-color: #899bbd;
+}
+.productBox .productDesign .productSubHeading {
+  font-size: 14px;
+  font-weight: 400;
+  color: #899bbd;
+  position: relative;
+  padding-right: 8px;
+  margin-right: 5px;
+}
+.productBox .productSalesBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+.productBox .productMainBox .productDescription {
+  display: flex;
+  flex-direction: column;
+}
+.productBox .productMainBox .productSalesBox button svg {
+  font-size: 36px;
+  color: #702dff;
+}
+.productBox .productMainBox .productDescription h5 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #702dff;
+}
+.productBox .productMainBox .productDescription .productSubDesc {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.productBox .productMainBox .productDescription .productSubDesc strong {
+  font-size: 16px;
+  font-weight: 600;
+}
+.productBox .productMainBox .productDescription .productSubDesc span {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6c757d;
 }
 .productBox .productDesign .productAvatar {
   background-color: rgba(112, 45, 255, 0.3);
@@ -143,6 +237,7 @@
 .productBox .productDesign .productAvatar .icon {
   color: rgba(112, 45, 255, 1);
 }
+
 .paperMainBox {
   padding-inline: 16px;
   padding-block: 32px !important;

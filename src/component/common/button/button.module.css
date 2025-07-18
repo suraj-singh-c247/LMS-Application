@@ -40,3 +40,8 @@
   box-shadow: #ffffff 0 10px 20px -10px;
   color: #702dff;
 }
+.buttonContainer .cancelButton {
+  background: #ffffff;
+  color: #8c8c8c;
+  border: 1px solid #8c8c8c;
+}

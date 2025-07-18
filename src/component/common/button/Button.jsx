@@ -18,6 +18,8 @@ function CustomButton({ label, variant, onClick, disabled, ...props }) {
             ? btnStyles.activeButton
             : variant === "info"
             ? btnStyles.infoButton
+            : variant === "cancel"
+            ? btnStyles.cancelButton
             : btnStyles.inActiveButton
         }`}
         onClick={onClick}
