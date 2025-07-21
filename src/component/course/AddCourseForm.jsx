@@ -112,6 +112,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
       setValue("categoryId", findUser?.category?.id || "");
       setValue("tagIds", findUser?.tags?.map((tag) => tag?.id) || []);
       // setValue("prerequisites", findUser?.prerequisites?.map((id) => id) || []);
+      setValue("learningOutcomes", findUser?.learningOutcomes || []);
     } else {
       reset();
     }
@@ -119,16 +120,19 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
 
   const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("description", data.description);
-    if (data.coverImage && data.coverImage[0]) {
-      formData.append("coverImage", data.coverImage[0]);
+    formData.append("title", data?.title);
+    formData.append("description", data?.description);
+    if (data?.coverImage && data?.coverImage[0]) {
+      formData.append("coverImage", data?.coverImage[0]);
     }
-    formData.append("visibility", data.visibility);
-    formData.append("categoryId", data.categoryId);
-    formData.append("tagIds", data.tagIds);
+    formData.append("visibility", data?.visibility);
+    formData.append("categoryId", data?.categoryId);
+    formData.append("tagIds", data?.tagIds);
     formData.append("prerequisites", data?.prerequisites);
-
+    formData.append(
+      "learningOutcomes",
+      data?.learningOutcomes?.map((item) => item?.value)
+    );
     if (!id) {
       courseServices
         .createCourse(formData)
@@ -180,16 +184,24 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
   const handleLearingAdd = () => {
     if (learningInput.trim()) {
       append({
-        id: `${Date.now()}`,
+        id: `${Date.now()}-${Math.floor(Math.random() * 10000)}`,
         value: learningInput.trim(),
       });
       setLearningInput("");
     }
   };
+
   const handleLearningEdit = (id) => {
-    console.log(id, "id");
-    
+    setEditIdx(id);
+    setEditLearning(fields[id]?.value);
   };
+
+  const handleLearningSave = (id) => {
+    update(id, { ...fields[id], value: editLearning.trim() });
+    setEditIdx(null);
+    setEditLearning("");
+  };
+
   return (
     <Box
       component="form"
@@ -457,11 +469,14 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
             <List>
               {fields.map((field, idx) => (
                 <ListItem
-                  key={field.id}
+                  key={field?.id}
                   secondaryAction={
                     <>
                       {editIdx === idx ? (
-                        <IconButton onClick={() => handleSave(idx)} edge="end">
+                        <IconButton
+                          onClick={() => handleLearningSave(idx)}
+                          edge="end"
+                        >
                           <SaveIcon />
                         </IconButton>
                       ) : (
@@ -485,7 +500,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
                       size="small"
                     />
                   ) : (
-                    field.value
+                    field?.value
                   )}
                 </ListItem>
               ))}
