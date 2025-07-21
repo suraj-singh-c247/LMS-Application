@@ -47,7 +47,7 @@ export const catergorySchema = yup.object().shape({
   description: yup
     .string()
     .required("Description is required")
-    .max(1000, "Description cannot exceed 1000 characters."),
+    .max(200, "Description cannot exceed 200 characters."),
 });
 
 export const tagSchema = yup.object().shape({
