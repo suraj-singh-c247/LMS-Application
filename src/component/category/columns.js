@@ -4,6 +4,7 @@ import Button from "../common/button/Button";
 import { Typography } from "@mui/material";
 
 import styles from "@/style/table.module.css";
+import { TextEllipsis } from "@/utilis/utilities";
 
 export function getCategoryTableColumns({
   setAddOpen,
@@ -20,6 +21,21 @@ export function getCategoryTableColumns({
 
   return [
     { name: "name", label: "Name", options: { sort: true } },
+    {
+      name: "description",
+      label: "Description",
+      options: {
+        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          const rowData = tableData[tableMeta.rowIndex];
+          return (
+            <Typography variant="span" className={styles.dateText}>
+              {TextEllipsis(rowData?.description)}
+            </Typography>
+          );
+        },
+      },
+    },
     {
       name: "createdAt",
       label: "Date",

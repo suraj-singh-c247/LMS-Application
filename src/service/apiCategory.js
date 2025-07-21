@@ -5,6 +5,7 @@ const token = getToken();
 
 export const categoryServices = {
   getAllCategory,
+  getEachCategory,
   createCategory,
   updateCategory,
   updateStatusCategory,
@@ -28,6 +29,16 @@ async function getAllCategory(page, rowPerPage, searchText, sortOrder) {
     }
   );
 }
+async function getEachCategory(id) {
+  return await axios.get(`${Base_URL}/category/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
 async function createCategory(data) {
   return await axios.post(`${Base_URL}/category`, data, {
     method: "POST",
@@ -39,8 +50,7 @@ async function createCategory(data) {
   });
 }
 async function updateCategory(id, data) {
-  const updateData = { name: data };
-  return await axios.put(`${Base_URL}/category/${id}`, updateData, {
+  return await axios.put(`${Base_URL}/category/${id}`, data, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
