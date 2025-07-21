@@ -55,7 +55,6 @@ export function getCourseTableColumns({
       options: {
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
-          console.log(tableData[tableMeta.rowIndex]?.tags);
           const rowData = tableData[tableMeta.rowIndex]?.tags;
           return (
             (
@@ -77,7 +76,28 @@ export function getCourseTableColumns({
       label: "Learning Outcomes",
       options: { sort: false },
     },
-    { name: "prerequisites", label: "Prerequisites", options: { sort: false } },
+    // {
+    //   name: "prerequisites",
+    //   label: "Prerequisites",
+    //   options: {
+    //     sort: false,
+    //     customBodyRender: (value, tableMeta, updateValue) => {
+    //       const rowData = tableData[tableMeta.rowIndex]?.prerequisites;
+    //       return (
+    //         (
+    //           <List sx={{ display: "inline-flex", flexWrap: "wrap" }}>
+    //             {rowData &&
+    //               rowData?.map((item) => (
+    //                 <ListItem key={item?.id} sx={{ flexBasis: "50%" }}>
+    //                   <Chip label={item?.id} />
+    //                 </ListItem>
+    //               ))}
+    //           </List>
+    //         ) || "N/A"
+    //       );
+    //     },
+    //   },
+    // },
     {
       name: "isActive",
       label: "Active",

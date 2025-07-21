@@ -2,14 +2,17 @@ import {
   Box,
   Chip,
   FormControl,
+  IconButton,
   InputLabel,
+  List,
+  ListItem,
   MenuItem,
   OutlinedInput,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import formStyles from "@/style/form.module.css";
 import errorStyles from "@/style/error.module.css";
 import { memo, useEffect, useState } from "react";
@@ -21,9 +24,17 @@ import { toast } from "react-toastify";
 import { courseServices } from "@/service/apiCourse";
 import { tagsServices } from "@/service/apiTags";
 
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
+
 const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
   const [getCatergoryId, setCategoryId] = useState([]);
   const [tagsId, setTagsId] = useState([]);
+  const [learningInput, setLearningInput] = useState("");
+  const [editIdx, setEditIdx] = useState(null);
+  const [editLearning, setEditLearning] = useState("");
+
   const {
     handleSubmit,
     register,
@@ -40,9 +51,14 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
       visibility: "",
       categoryId: "",
       tagIds: [],
+      prerequisites: [],
+      learningOutcomes: [],
     },
   });
-
+  const { fields, append, remove, update } = useFieldArray({
+    control,
+    name: "learningOutcomes",
+  });
   // get categories id
   useEffect(() => {
     categoryServices
@@ -50,7 +66,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
       .then((response) => {
         if (response?.status === 200) {
           const { data } = response?.data;
-          setCategoryId(data);
+          setCategoryId(data?.categories);
         }
       })
       .catch((error) => {
@@ -71,7 +87,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
       .then((response) => {
         if (response?.status === 200) {
           const { data } = response?.data;
-          setTagsId(data);
+          setTagsId(data?.tags);
         }
       })
       .catch((error) => {
@@ -83,20 +99,19 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
           return;
         }
       });
-  }, []);
+  }, [id]);
 
   // It's use for edit
 
   useEffect(() => {
     if (data && id) {
       const findUser = data.find((user) => user?.id === id);
-      console.log(findUser?.tags, "edit");
-
       setValue("title", findUser?.title || "");
       setValue("description", findUser?.description || "");
       setValue("visibility", findUser?.visibility || "");
       setValue("categoryId", findUser?.category?.id || "");
-      setValue("tagIds", []);
+      setValue("tagIds", findUser?.tags?.map((tag) => tag?.id) || []);
+      // setValue("prerequisites", findUser?.prerequisites?.map((id) => id) || []);
     } else {
       reset();
     }
@@ -104,8 +119,6 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
 
   const onSubmit = (data) => {
     const formData = new FormData();
-    console.log(data.coverImage[0], "coverImage[0]");
-
     formData.append("title", data.title);
     formData.append("description", data.description);
     if (data.coverImage && data.coverImage[0]) {
@@ -114,6 +127,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
     formData.append("visibility", data.visibility);
     formData.append("categoryId", data.categoryId);
     formData.append("tagIds", data.tagIds);
+    formData.append("prerequisites", data?.prerequisites);
 
     if (!id) {
       courseServices
@@ -162,6 +176,20 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
     }
   };
 
+  // learning outcomes
+  const handleLearingAdd = () => {
+    if (learningInput.trim()) {
+      append({
+        id: `${Date.now()}`,
+        value: learningInput.trim(),
+      });
+      setLearningInput("");
+    }
+  };
+  const handleLearningEdit = (id) => {
+    console.log(id, "id");
+    
+  };
   return (
     <Box
       component="form"
@@ -272,7 +300,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
               label="Select Category ID*"
               className={formStyles.formControl}
             >
-              {getCatergoryId?.categories?.map((item) => (
+              {getCatergoryId?.map((item) => (
                 <MenuItem key={item?.id} value={item?.id}>
                   {item?.name}
                 </MenuItem>
@@ -302,6 +330,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
             <InputLabel id="tagId-label">Select Tag ID</InputLabel>
             <Select
               {...field}
+              value={field.value || []}
               labelId="tagId-label"
               label="Select Tag ID"
               className={formStyles.formControl}
@@ -311,16 +340,14 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
                 return (
                   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                     {selected.map((value) => {
-                      const tag = tagsId?.tags.find(
-                        (item) => item?.id === value
-                      );
+                      const tag = tagsId?.find((item) => item?.id === value);
                       return <Chip key={value} label={tag?.name} />;
                     })}
                   </Box>
                 );
               }}
             >
-              {tagsId?.tags?.map((item) => (
+              {tagsId?.map((item) => (
                 <MenuItem key={item?.id} value={item?.id}>
                   {item?.name}
                 </MenuItem>
@@ -334,6 +361,138 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
           </FormControl>
         )}
       />
+      <Controller
+        name="prerequisites"
+        control={control}
+        defaultValue={[]}
+        render={({ field }) => (
+          <FormControl
+            fullWidth
+            margin="normal"
+            error={!!errors.prerequisites}
+            size="small"
+            sx={{ mb: 2 }}
+            className={formStyles.formControl}
+          >
+            <InputLabel id="Prerequisites-label">
+              Select Prerequisites ID
+            </InputLabel>
+            <Select
+              {...field}
+              value={field.value || []}
+              labelId="prerequisites-label"
+              label="Select Prerequisites ID"
+              className={formStyles.formControl}
+              multiple
+              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+              renderValue={(selected) => {
+                return (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((value) => {
+                      const prerequisites = data?.find(
+                        (item) => item?.id === value
+                      );
+                      return <Chip key={value} label={prerequisites?.name} />;
+                    })}
+                  </Box>
+                );
+              }}
+            >
+              {data?.map((item) => (
+                <MenuItem key={item?.id} value={item?.id}>
+                  {item?.title}
+                </MenuItem>
+              ))}
+            </Select>
+            {errors.tagId && (
+              <Typography component={"span"} className={errorStyles.error}>
+                {errors.prerequisites.message}
+              </Typography>
+            )}
+          </FormControl>
+        )}
+      />
+      <Controller
+        name="learningOutcomes"
+        control={control}
+        render={({ field }) => (
+          <FormControl
+            fullWidth
+            margin="normal"
+            error={!!errors.prerequisites}
+            size="small"
+            sx={{ mb: 2, position: "relative" }}
+            className={formStyles.formControl}
+          >
+            {" "}
+            <TextField
+              {...field}
+              value={learningInput}
+              className={formStyles.formControl}
+              label="Learning Outcomes"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              error={!!errors.learningOutcomes}
+              helperText={errors.learningOutcomes?.message}
+              size="small"
+              sx={{ mb: 2 }}
+              onChange={(e) => setLearningInput(e.target.value)}
+            />
+            <Box
+              sx={{
+                position: "absolute",
+                top: "11px",
+                zIndex: "9",
+                right: "0px",
+              }}
+              className={formStyles.learningFieldBox}
+            >
+              <Button
+                label={"Add"}
+                variant={"primary"}
+                onClick={handleLearingAdd}
+              />
+            </Box>
+            <List>
+              {fields.map((field, idx) => (
+                <ListItem
+                  key={field.id}
+                  secondaryAction={
+                    <>
+                      {editIdx === idx ? (
+                        <IconButton onClick={() => handleSave(idx)} edge="end">
+                          <SaveIcon />
+                        </IconButton>
+                      ) : (
+                        <IconButton
+                          onClick={() => handleLearningEdit(idx)}
+                          edge="end"
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      )}
+                      <IconButton onClick={() => remove(idx)} edge="end">
+                        <DeleteIcon />
+                      </IconButton>
+                    </>
+                  }
+                >
+                  {editIdx === idx ? (
+                    <TextField
+                      value={editLearning}
+                      onChange={(e) => setEditLearning(e.target.value)}
+                      size="small"
+                    />
+                  ) : (
+                    field.value
+                  )}
+                </ListItem>
+              ))}
+            </List>
+          </FormControl>
+        )}
+      />{" "}
       <Box
         sx={{
           display: "flex",
