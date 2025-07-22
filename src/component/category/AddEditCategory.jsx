@@ -7,6 +7,7 @@ import { memo, useEffect } from "react";
 import Button from "../common/button/Button";
 import { catergorySchema } from "@/utilis/validation";
 import { categoryServices } from "@/service/apiCategory";
+import CustomTextField from "../common/input/CustomTextField";
 
 const AddEditCategory = ({ id, getDataTable, onClose }) => {
   const {
@@ -108,17 +109,11 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
         name="name"
         control={control}
         render={({ field }) => (
-          <TextField
-            {...field}
-            className={formStyles.formControl}
+          <CustomTextField
             label="Name*"
-            variant="outlined"
-            fullWidth
-            margin="normal"
             error={!!errors.name}
             helperText={errors.name?.message}
-            size="small"
-            sx={{ mb: 2 }}
+            {...field}
           />
         )}
       />{" "}
@@ -126,18 +121,12 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
         name="description"
         control={control}
         render={({ field }) => (
-          <TextField
-            {...field}
-            className={formStyles.formControl}
+          <CustomTextField
+            field={field}
             label="Description*"
-            variant="outlined"
-            fullWidth
-            multiline
-            margin="normal"
             error={!!errors.description}
             helperText={errors.description?.message}
-            size="small"
-            sx={{ mb: 2 }}
+            multiline
             minRows={2}
             maxRows={4}
           />
@@ -153,13 +142,13 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
       >
         <Button
           type="button"
-          variant={"cancel"}
-          label={"Cancel"}
+          variant="cancel"
+          label="Cancel"
           onClick={onClose}
         />
         <Button
           type="submit"
-          variant={"primary"}
+          variant="primary"
           label={`${id ? "Update" : "Save"}`}
           disbaled={Boolean(!!isSubmitting)}
         />

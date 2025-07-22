@@ -23,7 +23,7 @@ function CustomButton({ label, variant, onClick, disabled, ...props }) {
             : btnStyles.inActiveButton
         }`}
         onClick={onClick}
-        disabled={disabled}
+        disabled={disabled ? disabled : undefined}
         {...props}
       >
         {label}

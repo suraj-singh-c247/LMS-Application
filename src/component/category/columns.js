@@ -29,8 +29,11 @@ export function getCategoryTableColumns({
         customBodyRender: (value, tableMeta, updateValue) => {
           const rowData = tableData[tableMeta.rowIndex];
           return (
-            <Typography variant="span" className={styles.dateText}>
-              {TextEllipsis(rowData?.description)}
+            <Typography
+              variant="span"
+              className={`${styles.dateText} ${styles.description}`}
+            >
+              {rowData?.description}
             </Typography>
           );
         },

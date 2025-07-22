@@ -46,8 +46,8 @@ const CategoryStatus = ({ text, id, handleGetData, singleData, onClose }) => {
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           type="submit"
-          variant={"primary"}
-          label={"Okay"}
+          variant="primary"
+          label="Okay"
           disabled={isSubmited}
         />
       </Box>

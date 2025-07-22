@@ -1,4 +1,7 @@
 "use client";
+
+import axios from "axios";
+
 const Base_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const getToken = () => {
@@ -31,5 +34,63 @@ const panelRole = () => {
   return null;
 };
 
+const token = getToken();
 
-export { Base_URL, getToken, setToken, removeToken, panelRole };
+const getApi = async (url, config = {}) => {
+  return await axios.get(url, {
+    ...config,
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const postApi = async (url, data, config = {}) => {
+  return await axios.post(url, data, {
+    ...config,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const putApi = async (url, data, config = {}) => {
+  return await axios.put(url, data, {
+    ...config,
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+const deleteApi = async (url, config = {}) => {
+  return await axios.delete(url, {
+    ...config,
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export {
+  Base_URL,
+  getToken,
+  setToken,
+  removeToken,
+  panelRole,
+  getApi,
+  postApi,
+  putApi,
+  deleteApi,
+};
