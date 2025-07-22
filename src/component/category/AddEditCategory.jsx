@@ -26,11 +26,11 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
   // It's use for edit
   useEffect(() => {
     if (id) {
-      handleGetEachData();
+      getCategoryData();
     }
   }, []);
 
-  const handleGetEachData = () => {
+  const getCategoryData = () => {
     categoryServices
       .getEachCategory(id)
       .then((response) => {

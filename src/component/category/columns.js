@@ -4,7 +4,6 @@ import Button from "../common/button/Button";
 import { Typography } from "@mui/material";
 
 import styles from "@/style/table.module.css";
-import { TextEllipsis } from "@/utilis/utilities";
 
 export function getCategoryTableColumns({
   setAddOpen,

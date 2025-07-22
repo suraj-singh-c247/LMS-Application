@@ -42,12 +42,31 @@ export const signUpSchema = yup.object().shape({
 export const catergorySchema = yup.object().shape({
   name: yup
     .string()
-    .required("Name is required")
-    .max(50, "Category name cannot exceed 50 characters."),
+    .required("Category name is required")
+    .trim()
+    .min(2, "Category name must be at least 2 characters")
+    .max(50, "Category name cannot exceed 50 characters.")
+    .matches(
+      /^[^\s].*[^\s]$/,
+      "Category name should not start or end with a space"
+    )
+    .matches(
+      /^[\S ]+$/,
+      "Category name should not contain multiple consecutive spaces"
+    ),
   description: yup
     .string()
-    .required("Description is required")
-    .max(200, "Description cannot exceed 200 characters."),
+    .required("Category description is required")
+    .trim()
+    .max(200, "Category description cannot exceed 200 characters.")
+    .matches(
+      /^[^\s].*[^\s]$/,
+      "Category description should not start or end with a space"
+    )
+    .matches(
+      /^[\S ]+$/,
+      "Category description should not contain multiple consecutive spaces"
+    ),
 });
 
 export const tagSchema = yup.object().shape({
