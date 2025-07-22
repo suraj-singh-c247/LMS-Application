@@ -14,7 +14,7 @@ const apiURL = Base_URL + "/category";
 
 export const categoryServices = {
   getAllCategory,
-  getEachCategory,
+  getCategoryById,
   createCategory,
   updateCategory,
   updateStatusCategory,
@@ -30,7 +30,7 @@ async function getAllCategory(page, rowPerPage, searchText, sortOrder) {
   return await getApi(url);
 }
 
-async function getEachCategory(id) {
+async function getCategoryById(id) {
   const url = `${apiURL}/${id}`;
   return await getApi(url);
 }

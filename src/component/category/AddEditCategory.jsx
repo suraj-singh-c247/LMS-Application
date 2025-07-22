@@ -32,7 +32,7 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
 
   const getCategoryData = () => {
     categoryServices
-      .getEachCategory(id)
+      .getCategoryById(id)
       .then((response) => {
         if (response?.status === 200) {
           const { data } = response?.data;
