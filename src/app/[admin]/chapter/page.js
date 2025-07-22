@@ -13,10 +13,12 @@ import { courseServices } from "@/service/apiCourse";
 import { chapterServices } from "@/service/apiChapter";
 import AddEditChapter from "@/component/chapter/AddEditChapter";
 import DeleteChapter from "@/component/chapter/DeleteChapter";
+import ChapterStatus from "@/component/chapter/ChapterStatus";
 
 function ChapterPage() {
   const [data, setData] = useState([]);
   const [courseId, setCourseId] = useState([]);
+  const [eachCourseId, setEachCourseId] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchText, setSearchText] = useState("");
@@ -43,16 +45,15 @@ function ChapterPage() {
 
   useEffect(() => {
     handleGetData();
-  }, [page, rowsPerPage, searchText, sortOrder]);
+  }, [page, rowsPerPage, searchText, eachCourseId, sortOrder]);
 
   const handleGetData = () => {
     chapterServices
-      .getAllChapter(page, rowsPerPage, searchText, sortOrder)
+      .getAllChapter(page, rowsPerPage, searchText, eachCourseId, sortOrder)
       .then((response) => {
         if (response?.status === 200) {
           const { data } = response?.data;
-          console.log(data, "chapter");
-          setData(data?.chapters);
+          setData(data);
           setLoader(false);
         }
       })
@@ -93,6 +94,7 @@ function ChapterPage() {
   };
 
   const options = getTableOptions({
+    filter: true,
     count: data?.total,
     page: page,
     rowsPerPage: rowsPerPage,
@@ -102,6 +104,7 @@ function ChapterPage() {
     setPage: setPage,
     setRowsPerPage: setRowsPerPage,
     setSortOrder: setSortOrder,
+    setEachCourseId: setEachCourseId,
   });
 
   const columns = getChapterTableColumns({
@@ -109,7 +112,9 @@ function ChapterPage() {
     setViewOpen: setViewOpen,
     setDeleteModal: setDeleteModal,
     setStatusModal: setStatusModal,
-    tableData: data?.categories ?? [],
+    setEachCourseId: setEachCourseId,
+    tableData: data?.chapters ?? [],
+    courseId: courseId,
   });
 
   return (
@@ -121,7 +126,7 @@ function ChapterPage() {
         setAddOpen={setAddOpen}
       >
         <MuiDataTable
-          data={data?.categories ?? []}
+          data={data?.chapters ?? []}
           columns={columns}
           options={options}
         />
@@ -175,7 +180,7 @@ function ChapterPage() {
           setStatusModal({ id: null, open: false });
         }}
       >
-        <CategoryStatus
+        <ChapterStatus
           id={statusModal?.id}
           text={"Are you sure you want to change this chapter status?"}
           handleGetData={handleGetData}

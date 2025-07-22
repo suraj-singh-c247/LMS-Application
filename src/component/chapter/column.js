@@ -4,14 +4,15 @@ import Button from "../common/button/Button";
 import { Typography } from "@mui/material";
 
 import styles from "@/style/table.module.css";
-import { TextEllipsis } from "@/utilis/utilities";
 
 export function getChapterTableColumns({
   setAddOpen,
   setViewOpen,
   setDeleteModal,
   setStatusModal,
+  setEachCourseId,
   tableData,
+  courseId,
 } = {}) {
   // handle modal toggle
   const handleView = (row) =>
@@ -20,19 +21,50 @@ export function getChapterTableColumns({
   const handleDelete = (row) => setDeleteModal({ id: row.id, open: true });
 
   return [
-    { name: "name", label: "Name", options: { sort: true } },
+    { name: "title", label: "Title", options: { sort: true, filter: false } },
     {
       name: "description",
       label: "Description",
       options: {
         sort: false,
+        filter: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           const rowData = tableData[tableMeta.rowIndex];
           return (
-            <Typography variant="span" className={styles.dateText}>
-              {TextEllipsis(rowData?.description)}
+            <Typography
+              variant="span"
+              className={`${styles.dateText} ${styles.description}`}
+            >
+              {rowData?.description}
             </Typography>
           );
+        },
+      },
+    },
+    {
+      name: "courseTitle",
+      label: "Course",
+      options: {
+        sort: false,
+        filter: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          const rowData = tableData[tableMeta.rowIndex]?.course;
+          return (
+            <Typography variant="span" className={styles.dateText}>
+              {rowData?.title}
+            </Typography>
+          );
+        },
+        filterType: "dropdown",
+        filterOptions: {
+          names: courseId.map((item) => item?.title),
+        },
+        customFilterListOptions: {
+          render: (v) => {
+            const course = courseId.find((c) => c?.title === v);
+            setEachCourseId(course?.id);
+            return v;
+          },
         },
       },
     },
@@ -41,6 +73,7 @@ export function getChapterTableColumns({
       label: "Date",
       options: {
         sort: true,
+        filter: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           const rowData = tableData[tableMeta.rowIndex];
           return (
@@ -52,10 +85,19 @@ export function getChapterTableColumns({
       },
     },
     {
+      name: "sortOrder",
+      label: "Sort Order",
+      options: {
+        sort: true,
+        filter: false,
+      },
+    },
+    {
       name: "isActive",
       label: "Active",
       options: {
         sort: false,
+        filter: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           const rowData = tableData[tableMeta.rowIndex];
           return (
@@ -76,6 +118,7 @@ export function getChapterTableColumns({
       label: "Actions",
       options: {
         sort: false,
+        filter: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           const rowData = tableData[tableMeta.rowIndex];
           return (

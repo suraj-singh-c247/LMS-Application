@@ -34,7 +34,7 @@ const Header = ({ setSideBarToggle }) => {
 
   const [anchorElUser, setAnchorElUser] = useState(false);
 
-  const settings = ["Profile", "Account", "Dashboard", "Logout"];
+  const settings = ["Logout"];
 
   const handleLogOut = () => {
     removeToken();
@@ -93,11 +93,11 @@ const Header = ({ setSideBarToggle }) => {
         <Grid size={2.7} textAlign={"end"}>
           <Box className={headerStyle.rightBox}>
             <ThemeToggle />
-            <IconButton className={headerStyle.notificationMenu}>
+            {/* <IconButton className={headerStyle.notificationMenu}>
               <Badge badgeContent={100} color="secondary">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
 
             <Tooltip title="Open settings">
               <IconButton onClick={() => setAnchorElUser((user) => !user)}>

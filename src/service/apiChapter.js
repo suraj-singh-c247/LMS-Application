@@ -12,13 +12,19 @@ export const chapterServices = {
   deleteChapter,
 };
 
-async function getAllChapter(page, rowPerPage, searchText, sortOrder) {
+async function getAllChapter(
+  page,
+  rowPerPage,
+  searchText,
+  courseId,
+  sortOrder
+) {
   return await axios.get(
     `${Base_URL}/chapter?page=${page + 1}&limit=${rowPerPage}&search=${
       searchText ? searchText : ""
-    }&sortBy=${sortOrder?.name ? sortOrder?.name : "createdAt"}&orderBy=${
-      sortOrder?.direction ? sortOrder?.direction : "desc"
-    }`,
+    }&courseId=${courseId ? courseId : ""}&sortBy=${
+      sortOrder?.name ? sortOrder?.name : "createdAt"
+    }&orderBy=${sortOrder?.direction ? sortOrder?.direction : "desc"}`,
     {
       method: "GET",
       headers: {
@@ -52,8 +58,7 @@ async function createChapter(data) {
   });
 }
 async function updateChapter(id, data) {
-  const updateData = { name: data };
-  return await axios.put(`${Base_URL}/chapter/${id}`, updateData, {
+  return await axios.put(`${Base_URL}/chapter/${id}`, data, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

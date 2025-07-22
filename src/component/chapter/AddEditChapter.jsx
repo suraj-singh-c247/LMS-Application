@@ -46,9 +46,11 @@ const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
       .getEachChapter(id)
       .then((response) => {
         if (response?.status === 200) {
-          const { data } = response?.data;
-          setValue("name", data?.name || "");
+          const { data } = response?.data;          
+          setValue("courseId", data?.course?.id || "");
+          setValue("title", data?.title || "");
           setValue("description", data?.description || "");
+          setValue("sortOrder", data?.sortOrder || "");
         }
       })
       .catch((error) => {
@@ -231,15 +233,15 @@ const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
       >
         <Button
           type="button"
-          variant={"cancel"}
-          label={"Cancel"}
+          variant="cancel"
+          label="Cancel"
           onClick={onClose}
         />
         <Button
           type="submit"
-          variant={"primary"}
+          variant="primary"
           label={`${id ? "Update" : "Save"}`}
-          //   disbaled={Boolean(!!isSubmitting)}
+          disbaled={Boolean(!!isSubmitting)}
         />
       </Box>
     </Box>
