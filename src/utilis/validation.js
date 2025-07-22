@@ -96,3 +96,13 @@ export const editcourseSchema = yup.object().shape({
   visibility: yup.string().required("Visibility is required"),
   categoryId: yup.string().required("CategoryId is required"),
 });
+
+export const chapterSchema = yup.object().shape({
+  courseId: yup.string().required("CourseId is required"),
+  title: yup.string().required("Title is required"),
+  description: yup
+    .string()
+    .required("Description is required")
+    .max(200, "Description cannot exceed 200 characters."),
+  sortOrder: yup.string().required("Sort order is required"),
+});

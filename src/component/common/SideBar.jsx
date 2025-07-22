@@ -125,6 +125,23 @@ const SideBar = ({ sideBarToggle }) => {
                 <ListItemText primary="Courses" className={styles.listText} />
               </ListItemButton>
             </Link>
+            <Link href={getPath("chapter")}>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                className={`${styles.listButton} ${
+                  pathname === getPath("chapter") && styles.sideBarActive
+                }`}
+              >
+                <ListItemIcon>
+                  <MenuBookOutlinedIcon
+                    className={`${styles.listIcon} ${
+                      pathname === getPath("chapter") && styles.activeListIcon
+                    }`}
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Chapter" className={styles.listText} />
+              </ListItemButton>
+            </Link>
           </List>
         </Collapse>
       </List>
