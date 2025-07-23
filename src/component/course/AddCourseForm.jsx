@@ -239,8 +239,6 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
     setEditLearning("");
   };
 
-  console.log(singleCourseData?.coverImage, "singleCourseData");
-
   return (
     <Box
       component="form"
@@ -554,6 +552,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
           justifyContent: "flex-end",
           gap: "16px",
         }}
+        className={formStyles.formFooter}
       >
         <Button
           type="button"

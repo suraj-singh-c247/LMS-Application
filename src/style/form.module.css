@@ -10,10 +10,13 @@
 .formControl textarea,
 .formControl div {
   font-size: 14px;
-  color: #702dff;
+  color: #000;
   font-weight: 600;
 }
-
+.formControl fieldset:hover,
+.formControl div:hover {
+  border-color: #635bff;
+}
 .formControl .learningFieldBox button {
   padding: 5px;
   min-width: 60px;
@@ -25,14 +28,25 @@
   font-weight: 500;
   color: #2c2c2c;
 }
+.formFooter {
+  border-top: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: "16px";
+  padding-top: 10px;
+}
 
 [data-theme="dark"] .formControl div,
-[data-theme="dark"] .formControl {
-  border: 1px solid #fff;
+[data-theme="dark"] .formControl fieldset,
+[data-theme="dark"] .formControl input,
+[data-theme="dark"] .formControl textarea {
+  border-color: #fff;
   color: #fff;
 }
 
-[data-theme="dark"] .formControl label {
+[data-theme="dark"] .formControl label,
+[data-theme="dark"] .formControl p {
   color: #fff;
 }
 
