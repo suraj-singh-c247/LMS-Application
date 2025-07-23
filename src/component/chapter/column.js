@@ -10,7 +10,6 @@ export function getChapterTableColumns({
   setViewOpen,
   setDeleteModal,
   setStatusModal,
-  setEachCourseId,
   tableData,
   courseId,
 } = {}) {
@@ -58,13 +57,6 @@ export function getChapterTableColumns({
         filterType: "dropdown",
         filterOptions: {
           names: courseId.map((item) => item?.title),
-        },
-        customFilterListOptions: {
-          render: (v) => {
-            const course = courseId.find((c) => c?.title === v);
-            setEachCourseId(course?.id);
-            return v;
-          },
         },
       },
     },

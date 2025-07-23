@@ -104,7 +104,6 @@ function ChapterPage() {
     setPage: setPage,
     setRowsPerPage: setRowsPerPage,
     setSortOrder: setSortOrder,
-    setEachCourseId: setEachCourseId,
   });
 
   const columns = getChapterTableColumns({
@@ -112,7 +111,6 @@ function ChapterPage() {
     setViewOpen: setViewOpen,
     setDeleteModal: setDeleteModal,
     setStatusModal: setStatusModal,
-    setEachCourseId: setEachCourseId,
     tableData: data?.chapters ?? [],
     courseId: courseId,
   });
@@ -128,7 +126,26 @@ function ChapterPage() {
         <MuiDataTable
           data={data?.chapters ?? []}
           columns={columns}
-          options={options}
+          options={{
+            ...options,
+            onFilterChange: (changedColumn, filterList, type) => {
+              if (changedColumn === "courseTitle") {
+                const columnIndex = columns.findIndex(
+                  (c) => c.name === "courseTitle"
+                );
+                const selectedCourseTitle = filterList[columnIndex]?.[0];
+                const selectedCourseId = courseId.find(
+                  (item) => item?.title === selectedCourseTitle
+                );
+                if (selectedCourseId) {
+                  setEachCourseId(selectedCourseId?.id);
+                }
+              }
+              if (type === "reset") {
+                setEachCourseId(null);
+              }
+            },
+          }}
         />
       </PageLayout>
       {/* This modal for add user */}

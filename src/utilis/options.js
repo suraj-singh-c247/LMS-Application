@@ -9,7 +9,6 @@ export function getTableOptions({
   search = true,
   searchText,
   setSearchText,
-  setEachCourseId,
   count,
 } = {}) {
   return {
@@ -47,11 +46,6 @@ export function getTableOptions({
           break;
         default:
           break;
-      }
-    },
-    onFilterChange: (changedColumn, filterList, type) => {
-      if (type === "reset") {
-        setEachCourseId(null); // Reset your state as needed
       }
     },
   };
