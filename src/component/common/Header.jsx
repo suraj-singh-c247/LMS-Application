@@ -14,7 +14,6 @@ import {
 import { memo, useState } from "react";
 //icons
 import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 
 // style
 import headerStyle from "@/style/header.module.css";
@@ -34,7 +33,7 @@ const Header = ({ setSideBarToggle }) => {
 
   const [anchorElUser, setAnchorElUser] = useState(false);
 
-  const settings = ["Profile", "Account", "Dashboard", "Logout"];
+  const settings = ["Logout"];
 
   const handleLogOut = () => {
     removeToken();
@@ -93,11 +92,11 @@ const Header = ({ setSideBarToggle }) => {
         <Grid size={2.7} textAlign={"end"}>
           <Box className={headerStyle.rightBox}>
             <ThemeToggle />
-            <IconButton className={headerStyle.notificationMenu}>
+            {/* <IconButton className={headerStyle.notificationMenu}>
               <Badge badgeContent={100} color="secondary">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
 
             <Tooltip title="Open settings">
               <IconButton onClick={() => setAnchorElUser((user) => !user)}>
@@ -105,6 +104,7 @@ const Header = ({ setSideBarToggle }) => {
               </IconButton>
             </Tooltip>
             <Menu
+              className={headerStyle.menuItem}
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}

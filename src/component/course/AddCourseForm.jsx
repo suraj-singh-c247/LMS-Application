@@ -24,6 +24,8 @@ import { toast } from "react-toastify";
 import { courseServices } from "@/service/apiCourse";
 import { tagsServices } from "@/service/apiTags";
 
+import Image from "next/image";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
@@ -34,7 +36,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
   const [learningInput, setLearningInput] = useState("");
   const [editIdx, setEditIdx] = useState(null);
   const [editLearning, setEditLearning] = useState("");
-
+  const [singleCourseData, setSingleCourseData] = useState(null);
   const {
     handleSubmit,
     register,
@@ -104,19 +106,52 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
   // It's use for edit
 
   useEffect(() => {
-    if (data && id) {
-      const findUser = data.find((user) => user?.id === id);
-      setValue("title", findUser?.title || "");
-      setValue("description", findUser?.description || "");
-      setValue("visibility", findUser?.visibility || "");
-      setValue("categoryId", findUser?.category?.id || "");
-      setValue("tagIds", findUser?.tags?.map((tag) => tag?.id) || []);
-      // setValue("prerequisites", findUser?.prerequisites?.map((id) => id) || []);
-      setValue("learningOutcomes", findUser?.learningOutcomes || []);
-    } else {
-      reset();
+    if (id) {
+      getCourseDataById();
     }
-  }, [open, data, id]);
+  }, []);
+
+  const getCourseDataById = () => {
+    courseServices
+      .getCourseById(id)
+      .then((response) => {
+        if (response?.status === 200) {
+          const { data } = response?.data;
+          setValue("title", data?.title || "");
+          setValue("description", data?.description || "");
+          setValue("visibility", data?.visibility || "");
+          setValue("categoryId", data?.category?.id || "");
+          setValue("tagIds", data?.tags?.map((tag) => tag?.id) || []);
+          setValue(
+            "prerequisites",
+            data?.prerequisites?.map((item) => item?.id) || []
+          );
+          setValue(
+            "learningOutcomes",
+            (data.learningOutcomes || []).map((item, index) => ({
+              id: index + 1,
+              value: item,
+            }))
+          );
+          setSingleCourseData(data);
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          toast.error(error.response.data?.message);
+          return;
+        } else if (error.request) {
+          toast.error(error.request);
+          return;
+        }
+      });
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+      e.preventDefault();
+    }
+  };
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -181,13 +216,15 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
   };
 
   // learning outcomes
-  const handleLearingAdd = () => {
-    if (learningInput.trim()) {
-      append({
-        id: `${Date.now()}-${Math.floor(Math.random() * 10000)}`,
-        value: learningInput.trim(),
-      });
-      setLearningInput("");
+  const handleLearingAdd = (e) => {
+    if (e.key === "Enter") {
+      if (learningInput.trim()) {
+        append({
+          id: `${Date.now()}-${Math.floor(Math.random() * 10000)}`,
+          value: learningInput.trim(),
+        });
+        setLearningInput("");
+      }
     }
   };
 
@@ -202,12 +239,15 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
     setEditLearning("");
   };
 
+  console.log(singleCourseData?.coverImage, "singleCourseData");
+
   return (
     <Box
       component="form"
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit(onSubmit)}
+      onKeyDown={handleKeyDown}
     >
       <Controller
         name="title"
@@ -251,20 +291,32 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
         name="coverImage"
         control={control}
         render={() => (
-          <TextField
-            type="file"
-            className={formStyles.formControl}
-            variant="outlined"
-            name="coverImage"
-            label="CoverImage*"
-            {...register("coverImage")}
-            fullWidth
-            margin="normal"
-            size="small"
-            sx={{ mb: 2 }}
-            error={!!errors.coverImage}
-            helperText={errors.coverImage?.message}
-          />
+          <>
+            {id && (
+              <Image
+                aria-hidden
+                src={`http://localhost:8000/${singleCourseData?.coverImage}`}
+                alt="Logo"
+                width={100}
+                height={100}
+              />
+            )}
+
+            <TextField
+              type="file"
+              className={formStyles.formControl}
+              variant="outlined"
+              name="coverImage"
+              label="CoverImage*"
+              {...register("coverImage")}
+              fullWidth
+              margin="normal"
+              size="small"
+              sx={{ mb: 2, mt: 0 }}
+              error={!!errors.coverImage}
+              helperText={errors.coverImage?.message}
+            />
+          </>
         )}
       />{" "}
       {/* Select Dropdown */}
@@ -404,7 +456,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
                       const prerequisites = data?.find(
                         (item) => item?.id === value
                       );
-                      return <Chip key={value} label={prerequisites?.name} />;
+                      return <Chip key={value} label={prerequisites?.title} />;
                     })}
                   </Box>
                 );
@@ -446,26 +498,13 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
               fullWidth
               margin="normal"
               error={!!errors.learningOutcomes}
-              helperText={errors.learningOutcomes?.message}
+              helperText=" Type a learning outcome and press Enter to add it. Repeat for
+              multiple outcomes."
               size="small"
               sx={{ mb: 2 }}
               onChange={(e) => setLearningInput(e.target.value)}
+              onKeyDown={handleLearingAdd}
             />
-            <Box
-              sx={{
-                position: "absolute",
-                top: "11px",
-                zIndex: "9",
-                right: "0px",
-              }}
-              className={formStyles.learningFieldBox}
-            >
-              <Button
-                label={"Add"}
-                variant={"primary"}
-                onClick={handleLearingAdd}
-              />
-            </Box>
             <List>
               {fields.map((field, idx) => (
                 <ListItem

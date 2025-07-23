@@ -1,5 +1,5 @@
 .sideBarMain {
-  background-color: #fff;
+  background-color: #121621;
   flex-direction: column;
   width: 100%;
   max-width: 250px;
@@ -30,27 +30,57 @@
 .sideBarMain .listButton {
   border-radius: 12px;
   margin-bottom: 8px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+.sideBarMain .listButton svg {
+  color: #8a94a6;
+}
+.sideBarMain .listButton:hover {
+  background-color: rgba(255, 255, 255, 0.04);
 }
 .sideBarMain .listText span,
 .sideBarMain .listButton span {
   font-size: 14px;
   line-height: 18px;
+  color: #8a94a6;
+  font-weight: 500;
 }
 .sideBarMain .sideBarActive {
-  background-color: #702dff !important;
+  background-color: #635bff !important;
+  color: #fff !important;
+  position: relative;
+}
+.sideBarMain .sideBarActive::before {
+  background-color: #9fa6ad;
+  border-radius: 2px;
+  content: " ";
+  height: 20px;
+  left: -18px;
+  position: absolute;
+  width: 3px;
+}
+.sideBarMain .activeListIcon,
+.sideBarMain .sideBarActive span {
   color: #fff !important;
 }
-.sideBarMain .activeListIcon {
-  color: #fff;
-}
 [data-theme="dark"] .sideBarMain {
-  background-color: rgba(51, 51, 51, 1);
-  box-shadow: rgba(255, 255, 255, 0.16) 0px 10px 36px 0px,
-    rgba(255, 255, 255, 0.06) 0px 0px 0px 1px;
+  background-color: #202427;
 }
 [data-theme="dark"] .sideBarMain .listButton:hover {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.04);
 }
-[data-theme="dark"] .sideBarMain .listIcon {
-  color: rgba(255, 255, 255, 1);
+
+[data-theme="dark"] .sideBarMain .listText span,
+[data-theme="dark"] .sideBarMain .listButton span {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="dark"] .sideBarMain .activeListIcon,
+[data-theme="dark"] .sideBarMain .sideBarActive span {
+  color: #000 !important;
+}
+[data-theme="dark"] .sideBarMain .sideBarActive {
+  background-color: #7578ff !important;
 }
