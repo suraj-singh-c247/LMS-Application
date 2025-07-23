@@ -47,7 +47,6 @@ const AddEditTag = ({ id, tagData, getDataTable, onClose }) => {
           }
         })
         .catch((error) => {
-          console.log();
           if (error.response) {
             toast.error(error.response.data?.message);
             return;
