@@ -279,6 +279,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
             minRows={2}
             maxRows={4}
             size="small"
+            sx={{ mb: 3 }}
             error={!!errors.description}
             helperText={errors.description?.message}
             className={formStyles.formControl}
@@ -483,14 +484,13 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
             margin="normal"
             error={!!errors.prerequisites}
             size="small"
-            sx={{ mb: 2, position: "relative" }}
+            sx={{ mt: 0, position: "relative" }}
             className={formStyles.formControl}
           >
             {" "}
             <TextField
               {...field}
               value={learningInput}
-              className={formStyles.formControl}
               label="Learning Outcomes"
               variant="outlined"
               fullWidth
