@@ -66,6 +66,7 @@ function AdminCategory() {
   };
 
   const options = getTableOptions({
+    filter: false,
     count: data?.total,
     page: page,
     rowsPerPage: rowsPerPage,
@@ -101,15 +102,14 @@ function AdminCategory() {
       </PageLayout>
       {/* This modal for add user */}
       <Modal
-        open={addOpen.open}
+        open={addOpen?.open}
         onClose={() => {
           setAddOpen({ id: null, open: false });
         }}
         title={addOpen?.id ? "Edit Category" : "Add Category"}
       >
         <AddEditCategory
-          id={addOpen.id}
-          categoryData={data.categories ?? []}
+          id={addOpen?.id}
           getDataTable={handleGetData}
           onClose={() => {
             setAddOpen({ id: null, open: false });

@@ -21,6 +21,24 @@ export function getCategoryTableColumns({
   return [
     { name: "name", label: "Name", options: { sort: true } },
     {
+      name: "description",
+      label: "Description",
+      options: {
+        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          const rowData = tableData[tableMeta.rowIndex];
+          return (
+            <Typography
+              variant="span"
+              className={`${styles.dateText} ${styles.description}`}
+            >
+              {rowData?.description}
+            </Typography>
+          );
+        },
+      },
+    },
+    {
       name: "createdAt",
       label: "Date",
       options: {

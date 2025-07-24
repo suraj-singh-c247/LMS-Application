@@ -46,8 +46,8 @@ const DeleteCategory = ({ text, id, handleGetData, onClose }) => {
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           type="submit"
-          variant={"error"}
-          label={"Delete"}
+          variant="error"
+          label="Delete"
           disabled={isSubmited}
         />
       </Box>

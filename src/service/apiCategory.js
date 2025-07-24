@@ -1,10 +1,20 @@
 import axios from "axios";
-import { Base_URL, getToken } from "./api-helpers";
+import {
+  Base_URL,
+  deleteApi,
+  getApi,
+  getToken,
+  postApi,
+  putApi,
+} from "./api-helpers";
 
 const token = getToken();
 
+const apiURL = Base_URL + "/category";
+
 export const categoryServices = {
   getAllCategory,
+  getCategoryById,
   createCategory,
   updateCategory,
   updateStatusCategory,
@@ -12,63 +22,36 @@ export const categoryServices = {
 };
 
 async function getAllCategory(page, rowPerPage, searchText, sortOrder) {
-  return await axios.get(
-    `${Base_URL}/category?page=${page + 1}&limit=${rowPerPage}&search=${
-      searchText ? searchText : ""
-    }&sortBy=${sortOrder?.name ? sortOrder?.name : "createdAt"}&orderBy=${
-      sortOrder?.direction ? sortOrder?.direction : "desc"
-    }`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const url = `${apiURL}?page=${page + 1}&limit=${rowPerPage}&search=${
+    searchText ? searchText : ""
+  }&sortBy=${sortOrder?.name ? sortOrder?.name : "createdAt"}&orderBy=${
+    sortOrder?.direction ? sortOrder?.direction : "desc"
+  }`;
+  return await getApi(url);
 }
+
+async function getCategoryById(id) {
+  const url = `${apiURL}/${id}`;
+  return await getApi(url);
+}
+
 async function createCategory(data) {
-  return await axios.post(`${Base_URL}/category`, data, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const url = `${apiURL}`;
+  return await postApi(url, data);
 }
+
 async function updateCategory(id, data) {
-  const updateData = { name: data };
-  return await axios.put(`${Base_URL}/category/${id}`, updateData, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const url = `${apiURL}/${id}`;
+  return await putApi(url, data);
 }
 
 async function updateStatusCategory(id, data) {
+  const url = `${apiURL}/change-status/${id}`;
   const isActive = { isActive: data };
-  return await axios.put(`${Base_URL}/category/change-status/${id}`, isActive, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  return await putApi(url, isActive);
 }
 
 async function deleteCategory(id) {
-  return await axios.delete(`${Base_URL}/category/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const url = `${apiURL}/${id}`;
+  return await deleteApi(url);
 }

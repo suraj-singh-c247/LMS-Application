@@ -1,14 +1,15 @@
 import { Box, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 import formStyles from "@/style/form.module.css";
 import { memo, useEffect } from "react";
 import Button from "../common/button/Button";
 import { catergorySchema } from "@/utilis/validation";
 import { categoryServices } from "@/service/apiCategory";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { toast } from "react-toastify";
+import CustomTextField from "../common/input/CustomTextField";
 
-const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
+const AddEditCategory = ({ id, getDataTable, onClose }) => {
   const {
     handleSubmit,
     setValue,
@@ -19,18 +20,36 @@ const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
     resolver: yupResolver(catergorySchema),
     defaultValues: {
       name: "",
+      description: "",
     },
   });
   // It's use for edit
-
   useEffect(() => {
-    if (categoryData && id) {
-      const findUser = categoryData.find((user) => user.id === id);
-      setValue("name", findUser?.name || "");
-    } else {
-      reset();
+    if (id) {
+      getCategoryData();
     }
-  }, [open, categoryData, id]);
+  }, []);
+
+  const getCategoryData = () => {
+    categoryServices
+      .getCategoryById(id)
+      .then((response) => {
+        if (response?.status === 200) {
+          const { data } = response?.data;
+          setValue("name", data?.name || "");
+          setValue("description", data?.description || "");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          toast.error(error.response.data?.message);
+          return;
+        } else if (error.request) {
+          toast.error(error.request);
+          return;
+        }
+      });
+  };
 
   const onSubmit = (data) => {
     if (!id) {
@@ -58,7 +77,7 @@ const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
 
     if (id) {
       categoryServices
-        .updateCategory(id, data?.name)
+        .updateCategory(id, data)
         .then((response) => {
           if (response?.status === 200) {
             const { message } = response?.data;
@@ -90,24 +109,46 @@ const AddEditCategory = ({ id, categoryData, getDataTable, onClose }) => {
         name="name"
         control={control}
         render={({ field }) => (
-          <TextField
-            {...field}
-            className={formStyles.formControl}
+          <CustomTextField
             label="Name*"
-            variant="outlined"
-            fullWidth
-            margin="normal"
             error={!!errors.name}
             helperText={errors.name?.message}
-            size="small"
-            sx={{ mb: 2 }}
+            {...field}
           />
         )}
       />{" "}
-      <Box sx={{ display: "flex", alignItems: "center", gap: "16px" }}>
+      <Controller
+        name="description"
+        control={control}
+        render={({ field }) => (
+          <CustomTextField
+            field={field}
+            label="Description*"
+            error={!!errors.description}
+            helperText={errors.description?.message}
+            multiline
+            minRows={2}
+            maxRows={4}
+          />
+        )}
+      />{" "}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          gap: "16px",
+        }}
+      >
+        <Button
+          type="button"
+          variant="cancel"
+          label="Cancel"
+          onClick={onClose}
+        />
         <Button
           type="submit"
-          variant={"primary"}
+          variant="primary"
           label={`${id ? "Update" : "Save"}`}
           disbaled={Boolean(!!isSubmitting)}
         />
