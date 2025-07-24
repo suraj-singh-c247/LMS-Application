@@ -53,19 +53,27 @@ const postApi = async (url, data, config = {}) => {
     ...config,
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": `${
+        config?.headers?.ContentType === "multipart/form-data"
+          ? config?.headers?.ContentType
+          : "application/json"
+      }`,
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
 };
 
-const putApi = async (url, data, config = {}) => {
+const putApi = async (url, data, config = {}) => {  
   return await axios.put(url, data, {
     ...config,
     method: "PUT",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": `${
+        config?.headers?.ContentType === "multipart/form-data"
+          ? config?.headers?.ContentType
+          : "application/json"
+      }`,
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },

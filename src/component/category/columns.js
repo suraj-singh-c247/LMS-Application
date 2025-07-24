@@ -89,6 +89,12 @@ export function getCategoryTableColumns({
             />
           );
         },
+        setCellHeaderProps: () => ({
+          style: { width: "180px" },
+        }),
+        setCellProps: () => ({
+          style: { width: "180px" },
+        }),
       },
     },
   ];

@@ -74,12 +74,11 @@
 .muiDataTable > div {
   border-radius: 16px;
   border: 1px solid #dcdfe4;
-
 }
 
 .muiDataTable div {
   box-shadow: none;
-  padding-inline: 0px;
+  padding-inline: 2px;
 }
 .muiDataTable div div table thead {
   border-top: 1px solid #dcdfe4;

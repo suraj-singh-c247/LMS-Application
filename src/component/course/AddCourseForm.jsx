@@ -29,6 +29,7 @@ import Image from "next/image";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
+import CustomTextField from "../common/input/CustomTextField";
 
 const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
   const [getCatergoryId, setCategoryId] = useState([]);
@@ -52,15 +53,17 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
       description: "",
       visibility: "",
       categoryId: "",
-      tagIds: [],
+      tagIds: "",
       prerequisites: [],
       learningOutcomes: [],
     },
   });
+
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: "learningOutcomes",
   });
+
   // get categories id
   useEffect(() => {
     categoryServices
@@ -251,17 +254,11 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
         name="title"
         control={control}
         render={({ field }) => (
-          <TextField
-            {...field}
-            className={formStyles.formControl}
+          <CustomTextField
+            field={field}
             label="Title*"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            error={!!errors.title}
-            helperText={errors.title?.message}
-            size="small"
-            sx={{ mb: 2 }}
+            error={!!errors?.title}
+            helperText={errors?.title?.message}
           />
         )}
       />{" "}
@@ -269,20 +266,14 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
         name="description"
         control={control}
         render={({ field }) => (
-          <TextField
-            {...field}
+          <CustomTextField
+            field={field}
             label="Description*"
-            variant="outlined"
-            fullWidth
-            margin="normal"
+            error={!!errors.description}
+            helperText={errors.description?.message}
             multiline
             minRows={2}
             maxRows={4}
-            size="small"
-            sx={{ mb: 3 }}
-            error={!!errors.description}
-            helperText={errors.description?.message}
-            className={formStyles.formControl}
           />
         )}
       />
@@ -300,20 +291,13 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
                 height={100}
               />
             )}
-
-            <TextField
+            <CustomTextField
               type="file"
-              className={formStyles.formControl}
-              variant="outlined"
               name="coverImage"
               label="CoverImage*"
               {...register("coverImage")}
-              fullWidth
-              margin="normal"
-              size="small"
-              sx={{ mb: 2, mt: 0 }}
-              error={!!errors.coverImage}
-              helperText={errors.coverImage?.message}
+              error={!!errors?.coverImage}
+              helperText={errors?.coverImage?.message}
             />
           </>
         )}
@@ -358,11 +342,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
             className={formStyles.formControl}
           >
             <InputLabel>Select Category ID*</InputLabel>
-            <Select
-              {...field}
-              label="Select Category ID*"
-              className={formStyles.formControl}
-            >
+            <Select {...field} label="Select Category ID*">
               {getCatergoryId?.map((item) => (
                 <MenuItem key={item?.id} value={item?.id}>
                   {item?.name}
@@ -396,7 +376,6 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
               value={field.value || []}
               labelId="tagId-label"
               label="Select Tag ID"
-              className={formStyles.formControl}
               multiple
               input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
               renderValue={(selected) => {
@@ -416,9 +395,9 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
                 </MenuItem>
               ))}
             </Select>
-            {errors.tagId && (
+            {errors?.tagIds && (
               <Typography component={"span"} className={errorStyles.error}>
-                {errors.tagId.message}
+                {errors?.tagIds.message}
               </Typography>
             )}
           </FormControl>
@@ -445,7 +424,6 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
               value={field.value || []}
               labelId="prerequisites-label"
               label="Select Prerequisites ID"
-              className={formStyles.formControl}
               multiple
               input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
               renderValue={(selected) => {
@@ -467,9 +445,9 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
                 </MenuItem>
               ))}
             </Select>
-            {errors.tagId && (
-              <Typography component={"span"} className={errorStyles.error}>
-                {errors.prerequisites.message}
+            {errors?.prerequisites && (
+              <Typography component={"span"} className={errorStyles?.error}>
+                {errors?.prerequisites?.message}
               </Typography>
             )}
           </FormControl>
@@ -488,24 +466,20 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
             className={formStyles.formControl}
           >
             {" "}
-            <TextField
-              {...field}
+            <CustomTextField
+              field={field}
               value={learningInput}
               label="Learning Outcomes"
-              variant="outlined"
-              fullWidth
-              margin="normal"
               error={!!errors.learningOutcomes}
-              size="small"
-              sx={{ mb: 0 }}
               onChange={(e) => setLearningInput(e.target.value)}
               onKeyDown={handleLearingAdd}
+              sx={{ mb: "0px !important" }}
             />
             <Typography component={"span"} className={formStyles.helperText}>
               Type a learning outcome and press Enter to add it. Repeat for
               multiple outcomes.
             </Typography>
-            <List>
+            <List sx={{ p: 0 }}>
               {fields.map((field, idx) => (
                 <ListItem
                   key={field?.id}
@@ -547,15 +521,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
           </FormControl>
         )}
       />{" "}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          gap: "16px",
-        }}
-        className={formStyles.formFooter}
-      >
+      <Box className={formStyles.formFooter}>
         <Button
           type="button"
           variant={"cancel"}

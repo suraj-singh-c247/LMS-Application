@@ -17,6 +17,7 @@ import Button from "../common/button/Button";
 import { chapterSchema } from "@/utilis/validation";
 import { chapterServices } from "@/service/apiChapter";
 import { sortOrderLists } from "@/utilis/utilities";
+import CustomTextField from "../common/input/CustomTextField";
 
 const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
   const {
@@ -43,10 +44,10 @@ const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
 
   const handleGetEachData = () => {
     chapterServices
-      .getEachChapter(id)
+      .getChapterById(id)
       .then((response) => {
         if (response?.status === 200) {
-          const { data } = response?.data;          
+          const { data } = response?.data;
           setValue("courseId", data?.course?.id || "");
           setValue("title", data?.title || "");
           setValue("description", data?.description || "");
@@ -64,9 +65,13 @@ const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
       });
   };
 
-  const onSubmit = (data) => {
-    console.log(data, "data");
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+      e.preventDefault();
+    }
+  };
 
+  const onSubmit = (data) => {
     if (!id) {
       chapterServices
         .createChapter(data)
@@ -119,6 +124,7 @@ const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit(onSubmit)}
+      onKeyDown={handleKeyDown}
     >
       <Controller
         name="courseId"
@@ -156,17 +162,11 @@ const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
         name="title"
         control={control}
         render={({ field }) => (
-          <TextField
-            {...field}
-            className={formStyles.formControl}
+          <CustomTextField
+            field={field}
             label="Title*"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            error={!!errors.title}
-            helperText={errors.title?.message}
-            size="small"
-            sx={{ mb: 2 }}
+            error={!!errors?.title}
+            helperText={errors?.title?.message}
           />
         )}
       />{" "}
@@ -174,18 +174,12 @@ const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
         name="description"
         control={control}
         render={({ field }) => (
-          <TextField
-            {...field}
-            className={formStyles.formControl}
+          <CustomTextField
+            field={field}
             label="Description*"
-            variant="outlined"
-            fullWidth
-            multiline
-            margin="normal"
             error={!!errors.description}
             helperText={errors.description?.message}
-            size="small"
-            sx={{ mb: 2 }}
+            multiline
             minRows={2}
             maxRows={4}
           />
@@ -223,14 +217,7 @@ const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
           </FormControl>
         )}
       />
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          gap: "16px",
-        }}
-      >
+      <Box className={formStyles.formFooter}>
         <Button
           type="button"
           variant="cancel"
@@ -241,7 +228,7 @@ const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
           type="submit"
           variant="primary"
           label={`${id ? "Update" : "Save"}`}
-          disbaled={Boolean(!!isSubmitting)}
+          disbaled={!!isSubmitting}
         />
       </Box>
     </Box>

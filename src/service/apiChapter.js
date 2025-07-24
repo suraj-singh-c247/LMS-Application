@@ -1,11 +1,11 @@
 import axios from "axios";
-import { Base_URL, getToken } from "./api-helpers";
+import { Base_URL, deleteApi, getApi, postApi, putApi } from "./api-helpers";
 
-const token = getToken();
+const apiURL = Base_URL + "/chapter";
 
 export const chapterServices = {
   getAllChapter,
-  getEachChapter,
+  getChapterById,
   createChapter,
   updateChapter,
   updateStatusChapter,
@@ -19,74 +19,36 @@ async function getAllChapter(
   courseId,
   sortOrder
 ) {
-  return await axios.get(
-    `${Base_URL}/chapter?page=${page + 1}&limit=${rowPerPage}&search=${
-      searchText ? searchText : ""
-    }&courseId=${courseId ? courseId : ""}&sortBy=${
-      sortOrder?.name ? sortOrder?.name : "createdAt"
-    }&orderBy=${sortOrder?.direction ? sortOrder?.direction : "desc"}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const url = `${apiURL}?page=${page + 1}&limit=${rowPerPage}&search=${
+    searchText ? searchText : ""
+  }&courseId=${courseId ? courseId : ""}&sortBy=${
+    sortOrder?.name ? sortOrder?.name : "createdAt"
+  }&orderBy=${sortOrder?.direction ? sortOrder?.direction : "desc"}`;
+  return await getApi(url);
 }
 
-async function getEachChapter(id) {
-  return await axios.get(`${Base_URL}/chapter/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+async function getChapterById(id) {
+  const url = `${apiURL}/${id}`;
+  return await getApi(url);
 }
 
 async function createChapter(data) {
-  return await axios.post(`${Base_URL}/chapter`, data, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const url = `${apiURL}`;
+  return await postApi(url, data);
 }
+
 async function updateChapter(id, data) {
-  return await axios.put(`${Base_URL}/chapter/${id}`, data, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const url = `${apiURL}/${id}`;
+  return await putApi(url, data);
 }
 
 async function updateStatusChapter(id, data) {
+  const url = `${apiURL}/change-status/${id}`;
   const isActive = { isActive: data };
-  return await axios.put(`${Base_URL}/chapter/change-status/${id}`, isActive, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  return await putApi(url, isActive);
 }
 
 async function deleteChapter(id) {
-  return await axios.delete(`${Base_URL}/chapter/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const url = `${apiURL}/${id}`;
+  return await deleteApi(url);
 }

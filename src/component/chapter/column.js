@@ -122,6 +122,12 @@ export function getChapterTableColumns({
             />
           );
         },
+        setCellHeaderProps: () => ({
+          style: { width: "180px" },
+        }),
+        setCellProps: () => ({
+          style: { width: "180px" },
+        }),
       },
     },
   ];

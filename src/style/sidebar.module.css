@@ -2,7 +2,7 @@
   background-color: #121621;
   flex-direction: column;
   width: 100%;
-  max-width: 250px;
+  max-width: 260px;
   margin-bottom: 12px;
   padding-block: 16px;
   display: flex;
@@ -26,14 +26,23 @@
 }
 .sideBarMain .sideListBox {
   padding-inline: 26px;
+  padding-left: 6px;
 }
 .sideBarMain .listButton {
-  border-radius: 12px;
+  border-radius: 8px;
   margin-bottom: 8px;
+  padding-block: 5px;
   transition: all 0.3s ease-in-out;
   position: relative;
 }
+.sideBarMain .listButton:has(+ div .sideBarActive) svg,
+.sideBarMain .listButton:has(+ div .sideBarActive) span {
+  color: #fff;
+}
 
+.sideBarMain .listButton div {
+  min-width: 30px;
+}
 .sideBarMain .listButton svg {
   color: #8a94a6;
 }

@@ -1,4 +1,4 @@
-import { Box, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import formStyles from "@/style/form.module.css";
 import { memo, useEffect } from "react";
@@ -7,6 +7,7 @@ import { tagSchema } from "@/utilis/validation";
 import { tagsServices } from "@/service/apiTags";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import CustomTextField from "../common/input/CustomTextField";
 
 const AddEditTag = ({ id, tagData, getDataTable, onClose }) => {
   const {
@@ -32,6 +33,12 @@ const AddEditTag = ({ id, tagData, getDataTable, onClose }) => {
       reset();
     }
   }, [open, tagData, id]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+      e.preventDefault();
+    }
+  };
 
   const onSubmit = (data) => {
     if (!id) {
@@ -59,7 +66,7 @@ const AddEditTag = ({ id, tagData, getDataTable, onClose }) => {
 
     if (id) {
       tagsServices
-        .updateTag(id, data?.name)
+        .updateTag(id, data)
         .then((response) => {
           if (response?.status === 200) {
             const { message } = response?.data;
@@ -86,31 +93,32 @@ const AddEditTag = ({ id, tagData, getDataTable, onClose }) => {
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit(onSubmit)}
+      onKeyDown={handleKeyDown}
     >
       <Controller
         name="name"
         control={control}
         render={({ field }) => (
-          <TextField
-            {...field}
-            className={formStyles.formControl}
+          <CustomTextField
             label="Name*"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            error={!!errors.name}
+            error={!!errors?.name}
             helperText={errors.name?.message}
-            size="small"
-            sx={{ mb: 2 }}
+            {...field}
           />
         )}
       />{" "}
-      <Box sx={{ display: "flex", alignItems: "center", gap: "16px" }}>
+      <Box className={formStyles.formFooter}>
+        <Button
+          type="button"
+          variant="cancel"
+          label="Cancel"
+          onClick={onClose}
+        />
         <Button
           type="submit"
           variant={"primary"}
           label={`${id ? "Update" : "Save"}`}
-          disbaled={Boolean(!!isSubmitting)}
+          disbaled={!!isSubmitting}
         />
       </Box>
     </Box>

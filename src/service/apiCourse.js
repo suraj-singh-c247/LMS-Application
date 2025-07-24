@@ -1,7 +1,6 @@
-import axios from "axios";
-import { Base_URL, getToken } from "./api-helpers";
+import { Base_URL, deleteApi, getApi, postApi, putApi } from "./api-helpers";
 
-const token = getToken();
+const apiURL = Base_URL + "/course";
 
 export const courseServices = {
   getAllCourse,
@@ -13,72 +12,43 @@ export const courseServices = {
 };
 
 async function getAllCourse(page, rowPerPage, searchText, sortOrder) {
-  return await axios.get(
-    `${Base_URL}/course?page=${page + 1}&limit=${rowPerPage}&search=${
-      searchText ? searchText : ""
-    }&sortBy=${sortOrder?.name ? sortOrder?.name : "createdAt"}&orderBy=${
-      sortOrder?.direction ? sortOrder?.direction : "desc"
-    }`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const url = `${apiURL}?page=${page + 1}&limit=${rowPerPage}&search=${
+    searchText ? searchText : ""
+  }&sortBy=${sortOrder?.name ? sortOrder?.name : "createdAt"}&orderBy=${
+    sortOrder?.direction ? sortOrder?.direction : "desc"
+  }`;
+  return await getApi(url);
 }
 
 async function getCourseById(id) {
-  return await axios.get(`${Base_URL}/course/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const url = `${apiURL}/${id}`;
+  return await getApi(url);
 }
 
 async function createCourse(data) {
-  return await axios.post(`${Base_URL}/course`, data, {
-    method: "POST",
+  const url = `${apiURL}`;
+  return await postApi(url, data, {
     headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`,
+      ContentType: "multipart/form-data",
     },
   });
 }
 async function updateCourse(id, data) {
-  return await axios.put(`${Base_URL}/course/${id}`, data, {
-    method: "PUT",
+  const url = `${apiURL}/${id}`;
+  return await putApi(url, data, {
     headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`,
+      ContentType: "multipart/form-data",
     },
   });
 }
 
 async function updateStatusCourse(id, data) {
+  const url = `${apiURL}/change-status/${id}`;
   const isActive = { isActive: data };
-  return await axios.put(`${Base_URL}/course/change-status/${id}`, isActive, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  return await putApi(url, isActive);
 }
 
 async function deleteCourse(id) {
-  return await axios.delete(`${Base_URL}/course/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const url = `${apiURL}/${id}`;
+  return await deleteApi(url);
 }

@@ -66,6 +66,7 @@ function Tags() {
   };
 
   const options = getTableOptions({
+    filter: false,
     count: data?.total,
     page: page,
     rowsPerPage: rowsPerPage,

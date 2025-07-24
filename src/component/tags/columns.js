@@ -70,6 +70,12 @@ export function getTagTableColumns({
             />
           );
         },
+        setCellHeaderProps: () => ({
+          style: { width: "180px" },
+        }),
+        setCellProps: () => ({
+          style: { width: "180px" },
+        }),
       },
     },
   ];

@@ -1,3 +1,7 @@
+.formControl {
+  margin-top: 0px !important;
+  margin-bottom: 16px !important;
+}
 .formControl div,
 .formControl {
   border-radius: 8px !important;
@@ -40,7 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: "16px";
+  gap: 16px;
   padding-top: 10px;
 }
 
