@@ -26,13 +26,11 @@
   color: #ffffff;
 }
 .buttonContainer .activeButton {
-  background: #15bd15;
-  box-shadow: #15bd15 0 10px 20px -10px;
+  background: #15b79f;
   color: #ffffff;
 }
 .buttonContainer .inActiveButton {
-  background: #c85000;
-  box-shadow: #c85000 0 10px 20px -10px;
+  background: #fb9c0c;
   color: #ffffff;
 }
 .buttonContainer .infoButton {

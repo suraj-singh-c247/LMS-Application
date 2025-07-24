@@ -13,6 +13,13 @@
   color: #000;
   font-weight: 600;
 }
+.formControl input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.formControl input[type="file"]::before {
+  content: "";
+}
+
 .formControl fieldset:hover,
 .formControl div:hover {
   border-color: #635bff;
@@ -44,6 +51,7 @@
   border-color: #fff;
   color: #fff;
 }
+
 [data-theme="dark"] .formControl label,
 [data-theme="dark"] .formControl label[id="tagId-label"],
 [data-theme="dark"] .formControl label[id="Prerequisites-label"],

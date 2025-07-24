@@ -241,7 +241,7 @@
 
 .page .paperMainBox {
   padding-inline: 16px;
-  padding-block: 32px !important;
+  padding-bottom: 8px;
   margin-bottom: 30px;
   box-shadow: none;
 }
