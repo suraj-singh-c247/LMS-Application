@@ -7,6 +7,7 @@
 .table .tableHead tr th {
   background-color: transparent;
   font-size: 14px;
+  font-weight: 500;
   line-height: 16px;
   letter-spacing: 0.03em;
   color: #464f60;
@@ -55,19 +56,39 @@
 
 /* date css end */
 
-.muiDataTable div {
-  box-shadow: none;
-  border-radius: 12px;
-  padding-inline: 0px;
+/* description css start */
+.description {
+  display: -webkit-box;
+  max-width: 200px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+/* description css end */
+.muiDataTable > div {
+  border-radius: 16px;
+  border: 1px solid #dcdfe4;
 }
 
-.muiDataTable div div table thead tr th {
-  background-color: rgb(112, 45, 255);
+.muiDataTable div {
+  box-shadow: none;
+  padding-inline: 0px;
 }
+.muiDataTable div div table thead {
+  border-top: 1px solid #dcdfe4;
+  border-bottom: 1px solid #dcdfe4;
+}
+.muiDataTable div div table thead tr th {
+  background-color: #f9fafb;
+  padding: 8px;
+}
+
 .muiDataTable div div table thead tr th button div div,
 .muiDataTable div div table thead tr th div,
 .muiDataTable div div table thead tr th button div div + div span svg {
-  color: #fff !important;
+  color: #667085;
 }
 .muiDataTable div th button div div,
 .muiDataTable div th div {
@@ -77,8 +98,83 @@
   letter-spacing: 0.03em;
   color: #000;
   border-color: #e9edf5;
+  text-transform: capitalize;
 }
 
 .muiDataTable div div h6 {
   font-weight: 600;
+}
+
+[data-theme="dark"] .muiDataTable > div {
+  background-color: #121517;
+  border-color: transparent;
+}
+
+[data-theme="dark"] .muiDataTable div div table thead tr th {
+  background-color: #202427;
+}
+[data-theme="dark"] .muiDataTable div div table thead tr th button div div,
+[data-theme="dark"] .muiDataTable div div table thead tr th div,
+[data-theme="dark"]
+  .muiDataTable
+  div
+  div
+  table
+  thead
+  tr
+  th
+  button
+  div
+  div
+  + div
+  span
+  svg,
+[data-theme="dark"] .muiDataTable div div div button[aria-label="Search"] svg,
+[data-theme="dark"]
+  .muiDataTable
+  div
+  div
+  div
+  button[aria-label="Download CSV"]
+  svg,
+[data-theme="dark"]
+  .muiDataTable
+  div
+  div
+  div
+  button[aria-label="View Columns"]
+  svg {
+  color: #9fa6ad;
+}
+[data-theme="dark"] .muiDataTable div th button div div,
+[data-theme="dark"] .muiDataTable div th div {
+  border-color: #32383e;
+}
+
+[data-theme="dark"] .muiDataTable div div table tbody td {
+  color: #f0f4f8;
+}
+[data-theme="dark"] .muiDataTable div table tfoot tr td {
+  border-bottom: none;
+}
+[data-theme="dark"] .muiDataTable div table tfoot tr td div div p,
+[data-theme="dark"] .muiDataTable div table tfoot tr td div div p + div div,
+[data-theme="dark"] .muiDataTable div table tfoot tr td div div p + div svg {
+  color: #f0f4f8;
+}
+
+[data-theme="dark"]
+  .muiDataTable
+  div
+  table
+  tfoot
+  tr
+  td
+  div
+  div
+  p
+  + div
+  button[tabindex="-1"]
+  svg {
+  color: rgba(255, 255, 255, 0.3);
 }

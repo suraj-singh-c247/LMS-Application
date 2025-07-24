@@ -8,17 +8,17 @@
   margin-right: 10px;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding-block: 16px;
+  padding-block: 8px;
   z-index: 99;
 }
 .header .logoBox {
   padding-left: 20px;
 }
 .header .hamburgerMenu {
-  color: #702dff;
+  color: #635bff;
 }
 .header .notificationMenu {
-  color: #702dff;
+  color: #635bff;
 }
 
 .header .rightBox {
@@ -52,9 +52,29 @@
   width: 100%;
   border-radius: 50%;
 }
+.menuItem div + div + div {
+  min-width: 200px;
+}
+.menuItem div + div + div ul li:last-child {
+  display: flex;
+  justify-content: center;
+}
 
 [data-theme="dark"] .header {
-  background-color: rgba(51, 51, 51, 0.5);
+  background-color: #090a0b;
   color: #ffffff;
-  box-shadow: rgba(255, 255, 255, 0.15) 0px 48px 100px 0px;
+  border-bottom: 1px solid #32383e;
+}
+[data-theme="dark"] .header .hamburgerMenu {
+  color: #7578ff;
+}
+[data-theme="dark"] .header .notificationMenu {
+  color: #7578ff;
+}
+
+[data-theme="dark"] .menuItem div + div + div {
+  background-color: #121517;
+}
+[data-theme="dark"] .menuItem div + div + div ul li {
+  color: #fff;
 }
