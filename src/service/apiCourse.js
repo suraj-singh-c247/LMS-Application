@@ -5,6 +5,7 @@ const token = getToken();
 
 export const courseServices = {
   getAllCourse,
+  getCourseById,
   createCourse,
   updateCourse,
   updateStatusCourse,
@@ -27,6 +28,17 @@ async function getAllCourse(page, rowPerPage, searchText, sortOrder) {
       },
     }
   );
+}
+
+async function getCourseById(id) {
+  return await axios.get(`${Base_URL}/course/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }
 
 async function createCourse(data) {

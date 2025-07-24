@@ -10,14 +10,14 @@
   justify-content: center;
 }
 .buttonContainer .primaryButton {
-  background: #702dff;
-  box-shadow: #702dff 0 10px 20px -10px;
+  background: #635bff;
+  box-shadow: #635bff 0 10px 20px -10px;
   color: #ffffff;
 }
 .buttonContainer .secondaryButton {
   width: 100%;
-  background: #702dff;
-  box-shadow: #702dff 0 10px 20px -10px;
+  background: #635bff;
+  box-shadow: #635bff 0 10px 20px -10px;
   color: #ffffff;
 }
 .buttonContainer .errorButton {
@@ -26,13 +26,11 @@
   color: #ffffff;
 }
 .buttonContainer .activeButton {
-  background: #15bd15;
-  box-shadow: #15bd15 0 10px 20px -10px;
+  background: #15b79f;
   color: #ffffff;
 }
 .buttonContainer .inActiveButton {
-  background: #c85000;
-  box-shadow: #c85000 0 10px 20px -10px;
+  background: #fb9c0c;
   color: #ffffff;
 }
 .buttonContainer .infoButton {
@@ -41,7 +39,7 @@
   color: #702dff;
 }
 .buttonContainer .cancelButton {
-  background: #ffffff;
-  color: #8c8c8c;
-  border: 1px solid #8c8c8c;
+  background: transparent;
+  color: #635bff;
+  border: 1px solid #635bff;
 }

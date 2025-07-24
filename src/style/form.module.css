@@ -10,26 +10,53 @@
 .formControl textarea,
 .formControl div {
   font-size: 14px;
-  color: #702dff;
-  font-weight: 600;
+  color: #000;
+  font-weight: 400;
 }
-.formControl .learningFieldBox {
-  position: absolute;
-  top: 19px;
-  z-index: 9;
-  right: 3px;
+.formControl input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.formControl input[type="file"]::before {
+  content: "";
+}
+
+.formControl fieldset:hover,
+.formControl div:hover {
+  border-color: #635bff;
 }
 .formControl .learningFieldBox button {
   padding: 5px;
   min-width: 60px;
 }
+
+.formControl .helperText {
+  font-size: 12px;
+  font-weight: 400;
+  color: #667085;
+  padding-left: 5px;
+}
+.formFooter {
+  border-top: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: "16px";
+  padding-top: 10px;
+}
+
 [data-theme="dark"] .formControl div,
-[data-theme="dark"] .formControl {
-  border: 1px solid #fff;
+[data-theme="dark"] .formControl fieldset,
+[data-theme="dark"] .formControl input,
+[data-theme="dark"] .formControl textarea {
+  border-color: #fff;
   color: #fff;
 }
 
-[data-theme="dark"] .formControl label {
+[data-theme="dark"] .formControl label,
+[data-theme="dark"] .formControl label[id="tagId-label"],
+[data-theme="dark"] .formControl label[id="Prerequisites-label"],
+[data-theme="dark"] .formControl label[id="«r95»-label"],
+[data-theme="dark"] .formControl .helperText {
   color: #fff;
 }
 

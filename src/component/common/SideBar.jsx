@@ -69,60 +69,58 @@ const SideBar = ({ sideBarToggle }) => {
             {" "}
             <SubjectIcon className={styles.listIcon} />
           </ListItemIcon>
-          <ListItemText primary="Course Mangement" />
+          <ListItemText primary="Course mangement" />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse
+          in={open}
+          timeout="auto"
+          unmountOnExit
+          sx={{ pl: 2, ml: 3, borderLeft: "1px solid #32383e" }}
+        >
           <List component="div" disablePadding>
             <Link href={getPath("category")}>
               <ListItemButton
-                sx={{ pl: 4 }}
                 className={`${styles.listButton} ${
                   pathname === getPath("category") && styles.sideBarActive
                 }`}
               >
-                <ListItemIcon>
-                  <CategoryOutlinedIcon
-                    className={`${styles.listIcon} ${
-                      pathname === getPath("category") && styles.sideBarActive
-                    }`}
-                  />
-                </ListItemIcon>
                 <ListItemText primary="Category" className={styles.listText} />
               </ListItemButton>
             </Link>
             <Link href={getPath("tags")}>
               <ListItemButton
-                sx={{ pl: 4 }}
                 className={`${styles.listButton} ${
                   pathname === getPath("tags") && styles.sideBarActive
                 }`}
               >
-                <ListItemIcon>
-                  <TagOutlinedIcon
-                    className={`${styles.listIcon} ${
-                      pathname === getPath("tags") && styles.activeListIcon
-                    }`}
-                  />
-                </ListItemIcon>
                 <ListItemText primary="Tags" className={styles.listText} />
               </ListItemButton>
             </Link>
             <Link href={getPath("course")}>
               <ListItemButton
-                sx={{ pl: 4 }}
                 className={`${styles.listButton} ${
                   pathname === getPath("course") && styles.sideBarActive
+                }`}
+              >
+                <ListItemText primary="Courses" className={styles.listText} />
+              </ListItemButton>
+            </Link>
+            <Link href={getPath("chapter")}>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                className={`${styles.listButton} ${
+                  pathname === getPath("chapter") && styles.sideBarActive
                 }`}
               >
                 <ListItemIcon>
                   <MenuBookOutlinedIcon
                     className={`${styles.listIcon} ${
-                      pathname === getPath("course") && styles.activeListIcon
+                      pathname === getPath("chapter") && styles.activeListIcon
                     }`}
                   />
                 </ListItemIcon>
-                <ListItemText primary="Courses" className={styles.listText} />
+                <ListItemText primary="Chapter" className={styles.listText} />
               </ListItemButton>
             </Link>
           </List>

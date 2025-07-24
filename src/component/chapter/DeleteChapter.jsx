@@ -1,0 +1,58 @@
+import React, { memo, useState } from "react";
+import Button from "../common/button/Button";
+import { Box, Typography } from "@mui/material";
+import { toast } from "react-toastify";
+import styles from "@/style/page.module.css";
+import { chapterServices } from "@/service/apiChapter";
+
+const DeleteChapter = ({ text, id, handleGetData, onClose }) => {
+  const [isSubmited, setIsSubmited] = useState(false);
+
+  // Delete function
+  const handleDelete = (e, id) => {
+    e.preventDefault();
+    chapterServices
+      .deleteChapter(id)
+      .then((response) => {
+        if (response?.status === 200) {
+          const { message } = response?.data;
+          toast.success(message);
+          handleGetData();
+          onClose();
+          setIsSubmited(true);
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          toast.error(error.response.data?.message);
+          return;
+        } else if (error.request) {
+          toast.error(error.request);
+          return;
+        }
+      });
+  };
+  return (
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      onSubmit={(e) => handleDelete(e, id)}
+    >
+      <Typography variant="body1" className={styles.deleteText}>
+        {text}
+      </Typography>
+
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button
+          type="submit"
+          variant={"error"}
+          label={"Delete"}
+          disabled={isSubmited}
+        />
+      </Box>
+    </Box>
+  );
+};
+
+export default memo(DeleteChapter);
