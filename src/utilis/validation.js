@@ -96,3 +96,35 @@ export const editcourseSchema = yup.object().shape({
   visibility: yup.string().required("Visibility is required"),
   categoryId: yup.string().required("CategoryId is required"),
 });
+
+export const chapterSchema = yup.object().shape({
+  courseId: yup.string().required("CourseId is required"),
+  title: yup
+    .string()
+    .required("Chapter title is required")
+    .trim()
+    .min(2, "Chapter title must be at least 2 characters")
+    .max(100, "Chapter title cannot exceed 100 characters")
+    .matches(
+      /^[^\s].*[^\s]$/,
+      "Chapter title should not start or end with a space"
+    )
+    .matches(
+      /^[\S ]+$/,
+      "Chapter title should not contain multiple consecutive spaces"
+    ),
+  description: yup
+    .string()
+    .required("Description is required")
+    .trim()
+    .max(500, "Description cannot exceed 500 characters.")
+    .matches(
+      /^[^\s].*[^\s]$/,
+      "Chapter title should not start or end with a space"
+    )
+    .matches(
+      /^[\S ]+$/,
+      "Chapter title should not contain multiple consecutive spaces"
+    ),
+  sortOrder: yup.string().required("Sort order is required"),
+});

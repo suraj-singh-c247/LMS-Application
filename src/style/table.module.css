@@ -67,9 +67,14 @@
   white-space: normal;
 }
 /* description css end */
+
+.muiDataTable div div[tabindex="0"][role="button"] {
+  margin-bottom: 5px;
+}
 .muiDataTable > div {
   border-radius: 16px;
   border: 1px solid #dcdfe4;
+
 }
 
 .muiDataTable div {

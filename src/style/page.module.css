@@ -354,6 +354,7 @@
 }
 .deleteText {
   font-size: 16px;
+  font-weight: 500;
   line-height: 24px;
   color: #1c1c1c;
   margin-bottom: 8px;

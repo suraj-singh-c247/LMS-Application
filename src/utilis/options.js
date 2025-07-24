@@ -1,5 +1,6 @@
 // tableOptions.js
 export function getTableOptions({
+  filter,
   page,
   setPage,
   rowsPerPage,
@@ -11,7 +12,7 @@ export function getTableOptions({
   count,
 } = {}) {
   return {
-    filter: false,
+    filter: filter,
     print: false,
     selectableRows: false,
     count,
@@ -21,6 +22,7 @@ export function getTableOptions({
     rowsPerPage, // NOTE: Correct key is rowsPerPage, not rowPerPage
     rowsPerPageOptions: [5, 10, 25, 50, 100],
     responsive: "standard",
+    searchPlaceholder: "Search By Name, Title, and Description...",
     pagination: true,
     sort: true,
     rowHover: true,
