@@ -14,7 +14,6 @@ import {
 import { memo, useState } from "react";
 //icons
 import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 
 // style
 import headerStyle from "@/style/header.module.css";
@@ -105,6 +104,7 @@ const Header = ({ setSideBarToggle }) => {
               </IconButton>
             </Tooltip>
             <Menu
+              className={headerStyle.menuItem}
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}

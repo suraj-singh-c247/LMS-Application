@@ -56,11 +56,11 @@
   background-color: #fff;
 }
 .mainBody[data-theme="dark"] {
-  background-color: #333333;
+  background-color: #000;
   color: #ffffff;
 }
 .pageCollapse {
-  margin-left: 290px;
+  margin-left: 260px;
 }
 .pageExpand {
   margin-left: 20px;
@@ -144,12 +144,13 @@
 }
 .productBox {
   margin-bottom: 20px;
+  margin-left: 26px;
 }
 
 .productBox .mainHeading {
   font-size: 24px;
   font-weight: 600;
-  color: #702dff;
+  color: #212636;
   margin-bottom: 30px;
 }
 
@@ -176,7 +177,7 @@
 .productBox .productDesign .productHeading {
   font-size: 18px;
   font-weight: 600;
-  color: #702dff;
+  color: #212636;
   position: relative;
   padding-right: 8px;
   margin-right: 5px;
@@ -215,7 +216,7 @@
 .productBox .productMainBox .productDescription h5 {
   font-size: 24px;
   font-weight: 600;
-  color: #702dff;
+  color: #212636;
 }
 .productBox .productMainBox .productDescription .productSubDesc {
   display: inline-flex;
@@ -238,11 +239,11 @@
   color: rgba(112, 45, 255, 1);
 }
 
-.paperMainBox {
+.page .paperMainBox {
   padding-inline: 16px;
-  padding-block: 32px !important;
-  border-radius: 24px !important;
+  padding-bottom: 8px;
   margin-bottom: 30px;
+  box-shadow: none;
 }
 .paperMainBox .mainHeadingBox {
   display: flex;
@@ -253,7 +254,7 @@
 .paperMainBox .pageHeading {
   font-size: 32px;
   line-height: auto;
-  color: #702dff;
+  color: #212636;
   font-weight: 700;
   margin-bottom: 10px;
 }
@@ -278,6 +279,8 @@
 }
 .cardMainBox .cardBox .cardMedia {
   border-radius: 12px;
+  background-size: 100% 100%;
+  height: 200px;
 }
 .cardMainBox .cardBox .cardContent .cardSubTitle {
   border-radius: 12px;
@@ -384,10 +387,8 @@
   color: #1976d2;
 }
 
-[data-theme="dark"] .paperMainBox {
-  background-color: rgba(51, 51, 51, 0.5);
-  box-shadow: rgba(255, 255, 255, 0.16) 0px 10px 36px 0px,
-    rgba(255, 255, 255, 0.06) 0px 0px 0px 1px;
+[data-theme="dark"] .page .paperMainBox {
+  background-color: #000;
 }
 [data-theme="dark"] .paperMainBox .pageHeading,
 [data-theme="dark"] .cardMainBox .cardBox .cardContent .cardTitle,
@@ -412,4 +413,27 @@
 [data-theme="dark"] .courseMainBox .courseMainHeading,
 [data-theme="dark"] .courseMainBox .courseMainPara {
   color: #fff;
+}
+[data-theme="dark"] .productBox .mainHeading,
+[data-theme="dark"] .productBox .productMainBox .productDescription h5 {
+  color: #fff;
+}
+[data-theme="dark"] .productBox .productMainBox {
+  background-color: #121517;
+}
+[data-theme="dark"] .productBox .productDesign .productHeading {
+  color: #f0f4f8;
+}
+
+[data-theme="dark"] .productBox .productDesign .productSubHeading,
+[data-theme="dark"]
+  .productBox
+  .productMainBox
+  .productDescription
+  .productSubDesc
+  span {
+  color: #9fa6ad;
+}
+[data-theme="dark"] .productBox .filter {
+  color: #9fa6ad;
 }

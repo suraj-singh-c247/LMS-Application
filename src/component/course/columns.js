@@ -35,7 +35,24 @@ export function getCourseTableColumns({
         },
       },
     },
-    { name: "description", label: "Description", options: { sort: false } },
+    {
+      name: "description",
+      label: "Description",
+      options: {
+        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          const rowData = tableData[tableMeta.rowIndex];
+          return (
+            <Typography
+              variant="span"
+              className={`${styles.dateText} ${styles.description}`}
+            >
+              {rowData?.description}
+            </Typography>
+          );
+        },
+      },
+    },
 
     { name: "visibility", label: "Visibility", options: { sort: false } },
     {
@@ -49,33 +66,50 @@ export function getCourseTableColumns({
       },
     },
     { name: "slug", label: "Slug", options: { sort: false } },
-    {
-      name: "tags",
-      label: "Tags",
-      options: {
-        sort: false,
-        customBodyRender: (value, tableMeta, updateValue) => {
-          const rowData = tableData[tableMeta.rowIndex]?.tags;
-          return (
-            (
-              <List sx={{ display: "inline-flex", flexWrap: "wrap" }}>
-                {rowData &&
-                  rowData?.map((item) => (
-                    <ListItem key={item?.id} sx={{ flexBasis: "50%" }}>
-                      <Chip label={item?.title} />
-                    </ListItem>
-                  ))}
-              </List>
-            ) || "N/A"
-          );
-        },
-      },
-    },
-    {
-      name: "learningOutcomes",
-      label: "Learning Outcomes",
-      options: { sort: false },
-    },
+    // {
+    //   name: "tags",
+    //   label: "Tags",
+    //   options: {
+    //     sort: false,
+    //     customBodyRender: (value, tableMeta, updateValue) => {
+    //       const rowData = tableData[tableMeta.rowIndex]?.tags;
+    //       return (
+    //         (
+    //           <List sx={{ display: "inline-flex", flexWrap: "wrap" }}>
+    //             {rowData &&
+    //               rowData?.map((item) => (
+    //                 <ListItem key={item?.id} sx={{ flexBasis: "50%" }}>
+    //                   <Chip label={item?.title} />
+    //                 </ListItem>
+    //               ))}
+    //           </List>
+    //         ) || "N/A"
+    //       );
+    //     },
+    //   },
+    // },
+    // {
+    //   name: "learningOutcomes",
+    //   label: "Learning Outcomes",
+    //   options: {
+    //     sort: false,
+    //     customBodyRender: (value, tableMeta, updateValue) => {
+    //       const rowData = tableData[tableMeta.rowIndex]?.learningOutcomes;
+    //       return (
+    //         (
+    //           <List sx={{ display: "inline-flex", flexWrap: "wrap" }}>
+    //             {rowData &&
+    //               rowData?.map((item, index) => (
+    //                 <ListItem key={index + 1} sx={{ flexBasis: "50%" }}>
+    //                   <Chip label={item} />
+    //                 </ListItem>
+    //               ))}
+    //           </List>
+    //         ) || "N/A"
+    //       );
+    //     },
+    //   },
+    // },
     // {
     //   name: "prerequisites",
     //   label: "Prerequisites",
@@ -89,7 +123,7 @@ export function getCourseTableColumns({
     //             {rowData &&
     //               rowData?.map((item) => (
     //                 <ListItem key={item?.id} sx={{ flexBasis: "50%" }}>
-    //                   <Chip label={item?.id} />
+    //                   <Chip label={item?.title} />
     //                 </ListItem>
     //               ))}
     //           </List>
@@ -111,7 +145,7 @@ export function getCourseTableColumns({
                 setStatusModal({ id: rowData.id, open: true, data: rowData });
               }}
               variant={rowData.isActive ? "active" : "InActive"}
-              label={rowData.isActive ? "Active" : "InActive"}
+              label={rowData.isActive ? "Active" : "Inactive"}
               sx={{ backgroundColor: `${rowData.isActive ? "green" : ""}` }}
             />
           );
@@ -134,6 +168,12 @@ export function getCourseTableColumns({
             />
           );
         },
+        setCellHeaderProps: () => ({
+          style: { width: "180px" },
+        }),
+        setCellProps: () => ({
+          style: { width: "180px" },
+        }),
       },
     },
   ];
