@@ -496,13 +496,15 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
               fullWidth
               margin="normal"
               error={!!errors.learningOutcomes}
-              helperText=" Type a learning outcome and press Enter to add it. Repeat for
-              multiple outcomes."
               size="small"
-              sx={{ mb: 2 }}
+              sx={{ mb: 0 }}
               onChange={(e) => setLearningInput(e.target.value)}
               onKeyDown={handleLearingAdd}
             />
+            <Typography component={"span"} className={formStyles.helperText}>
+              Type a learning outcome and press Enter to add it. Repeat for
+              multiple outcomes.
+            </Typography>
             <List>
               {fields.map((field, idx) => (
                 <ListItem

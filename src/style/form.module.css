@@ -23,10 +23,10 @@
 }
 
 .formControl .helperText {
-  font-size: 14px;
-  line-height: 24px;
-  font-weight: 500;
-  color: #2c2c2c;
+  font-size: 12px;
+  font-weight: 400;
+  color: #667085;
+  padding-left: 5px;
 }
 .formFooter {
   border-top: 1px solid #ccc;
@@ -44,9 +44,11 @@
   border-color: #fff;
   color: #fff;
 }
-
 [data-theme="dark"] .formControl label,
-[data-theme="dark"] .formControl p {
+[data-theme="dark"] .formControl label[id="tagId-label"],
+[data-theme="dark"] .formControl label[id="Prerequisites-label"],
+[data-theme="dark"] .formControl label[id="«r95»-label"],
+[data-theme="dark"] .formControl .helperText {
   color: #fff;
 }
 
