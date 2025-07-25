@@ -16,6 +16,7 @@ export const loginSchema = yup.object().shape({
       "Password must contain at least one special character"
     ),
 });
+
 export const signUpSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup
@@ -39,7 +40,8 @@ export const signUpSchema = yup.object().shape({
   countryCode: yup.string().required("Country code is required"),
 });
 
-export const catergorySchema = yup.object().shape({
+// for category schema
+export const categorySchema = yup.object().shape({
   name: yup
     .string()
     .required("Category name is required")
@@ -58,39 +60,47 @@ export const catergorySchema = yup.object().shape({
     .string()
     .required("Category description is required")
     .trim()
-    .max(200, "Category description cannot exceed 200 characters.")
-    .matches(
-      /^[^\s].*[^\s]$/,
-      "Category description should not start or end with a space"
-    )
-    .matches(
-      /^[\S ]+$/,
-      "Category description should not contain multiple consecutive spaces"
-    ),
+    .max(200, "Category description cannot exceed 200 characters."),
 });
 
+// for tag schema
 export const tagSchema = yup.object().shape({
   name: yup
     .string()
     .required("Tag name is required")
     .trim()
     .min(2, "Tag name must be at least 2 characters")
-    .max(50, "Tag name cannot exceed 50 characters")
+    .max(30, "Tag name cannot exceed 30 characters")
     .matches(/^[^\s].*[^\s]$/, "Tag name should not start or end with a space")
     .matches(
       /^[\S ]+$/,
       "Tag name should not contain multiple consecutive spaces"
     ),
 });
+
 // for course
 const commonCourseObj = {
-  title: yup.string().required("Name is required"),
+  title: yup
+    .string()
+    .required("Course title is required")
+    .trim()
+    .min(2, "Course title must be at least 2 characters")
+    .max(100, "Course title cannot exceed 100 characters.")
+    .matches(
+      /^[^\s].*[^\s]$/,
+      "Course title should not start or end with a space"
+    )
+    .matches(
+      /^[\S ]+$/,
+      "Course title should not contain multiple consecutive spaces"
+    ),
   description: yup
     .string()
-    .required("Description is required")
-    .max(1000, "Description cannot exceed 1000 characters."),
+    .required("Course description is required")
+    .trim()
+    .max(1000, "Course description cannot exceed 1000 characters."),
   visibility: yup.string().required("Visibility is required"),
-  categoryId: yup.string().required("CategoryId is required"),
+  categoryId: yup.string().required("Category ID is required"),
 };
 
 export const addcourseSchema = yup.object().shape({
@@ -111,17 +121,32 @@ export const addcourseSchema = yup.object().shape({
 });
 
 export const editcourseSchema = yup.object().shape({
-  title: yup.string().required("Name is required"),
+  title: yup
+    .string()
+    .required("Course title is required")
+    .trim()
+    .min(2, "Course title must be at least 2 characters")
+    .max(100, "Course title cannot exceed 100 characters.")
+    .matches(
+      /^[^\s].*[^\s]$/,
+      "Course title should not start or end with a space"
+    )
+    .matches(
+      /^[\S ]+$/,
+      "Course title should not contain multiple consecutive spaces"
+    ),
   description: yup
     .string()
-    .required("Description is required")
-    .max(1000, "Description cannot exceed 1000 characters."),
+    .required("Course description is required")
+    .trim()
+    .max(1000, "Course description cannot exceed 1000 characters."),
   visibility: yup.string().required("Visibility is required"),
   categoryId: yup.string().required("CategoryId is required"),
 });
 
+// for chapter
 export const chapterSchema = yup.object().shape({
-  courseId: yup.string().required("CourseId is required"),
+  courseId: yup.string().required("Course ID is required"),
   title: yup
     .string()
     .required("Chapter title is required")
@@ -138,16 +163,8 @@ export const chapterSchema = yup.object().shape({
     ),
   description: yup
     .string()
-    .required("Description is required")
+    .required("Chapter description is required")
     .trim()
-    .max(500, "Description cannot exceed 500 characters.")
-    .matches(
-      /^[^\s].*[^\s]$/,
-      "Chapter title should not start or end with a space"
-    )
-    .matches(
-      /^[\S ]+$/,
-      "Chapter title should not contain multiple consecutive spaces"
-    ),
+    .max(500, "Chapter description cannot exceed 500 characters."),
   sortOrder: yup.string().required("Sort order is required"),
 });

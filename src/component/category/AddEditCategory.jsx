@@ -1,13 +1,14 @@
-import { Box, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import formStyles from "@/style/form.module.css";
 import { memo, useEffect } from "react";
 import Button from "../common/button/Button";
-import { catergorySchema } from "@/utilis/validation";
-import { categoryServices } from "@/service/apiCategory";
+import { categorySchema } from "@/utilis/validation";
+import { categoryServices } from "@/service/category";
 import CustomTextField from "../common/input/CustomTextField";
+
+import formStyles from "@/style/form.module.css";
 
 const AddEditCategory = ({ id, getDataTable, onClose }) => {
   const {
@@ -17,7 +18,7 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm({
-    resolver: yupResolver(catergorySchema),
+    resolver: yupResolver(categorySchema),
     defaultValues: {
       name: "",
       description: "",
@@ -51,6 +52,12 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
       });
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+      e.preventDefault();
+    }
+  };
+
   const onSubmit = (data) => {
     if (!id) {
       categoryServices
@@ -65,13 +72,7 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
 
@@ -88,13 +89,7 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
   };
@@ -104,16 +99,17 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit(onSubmit)}
+      onKeyDown={handleKeyDown}
     >
       <Controller
         name="name"
         control={control}
         render={({ field }) => (
           <CustomTextField
+            field={field}
             label="Name*"
             error={!!errors.name}
             helperText={errors.name?.message}
-            {...field}
           />
         )}
       />{" "}
@@ -132,14 +128,7 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
           />
         )}
       />{" "}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          gap: "16px",
-        }}
-      >
+      <Box className={formStyles.formFooter}>
         <Button
           type="button"
           variant="cancel"
@@ -150,7 +139,7 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
           type="submit"
           variant="primary"
           label={`${id ? "Update" : "Save"}`}
-          disbaled={Boolean(!!isSubmitting)}
+          disbaled={!!isSubmitting}
         />
       </Box>
     </Box>

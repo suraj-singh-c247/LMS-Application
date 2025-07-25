@@ -1,14 +1,4 @@
-import axios from "axios";
-import {
-  Base_URL,
-  deleteApi,
-  getApi,
-  getToken,
-  postApi,
-  putApi,
-} from "./api-helpers";
-
-const token = getToken();
+import { Base_URL, deleteApi, getApi, postApi, putApi } from "./api-helpers";
 
 const apiURL = Base_URL + "/category";
 

@@ -6,12 +6,12 @@ import Modal from "@/component/common/modal/Modal";
 import MuiDataTable from "@/component/common/table/MuiDataTable";
 import { getTableOptions } from "@/utilis/options";
 import { getTagTableColumns } from "@/component/tags/columns";
-import { tagsServices } from "@/service/apiTags";
+import { tagsServices } from "@/service/tags";
 import AddEditTag from "@/component/tags/AddEditTag";
 import ViewData from "@/component/common/viewData/ViewData";
 import DeleteTag from "@/component/tags/DeleteTag";
 import TagStatus from "@/component/tags/TagStatus";
-import { toast } from "react-toastify";
+import Loader from "@/component/common/Loader/Loader";
 
 function Tags() {
   const [data, setData] = useState([]);
@@ -54,18 +54,13 @@ function Tags() {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
         setLoader(false);
+        throw error;
       });
   };
 
   const options = getTableOptions({
+    filter: false,
     count: data?.total,
     page: page,
     rowsPerPage: rowsPerPage,
@@ -96,7 +91,18 @@ function Tags() {
         <MuiDataTable
           data={data?.tags ?? []}
           columns={columns}
-          options={options}
+          options={{
+            ...options,
+            textLabels: {
+              body: {
+                noMatch: loader ? (
+                  <Loader />
+                ) : (
+                  "Sorry, no matching records found"
+                ),
+              },
+            },
+          }}
         />
       </PageLayout>
 

@@ -1,9 +1,9 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import Button from "../common/button/Button";
 import { Box, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import styles from "@/style/page.module.css";
-import { tagsServices } from "@/service/apiTags";
+import { tagsServices } from "@/service/tags";
 const DeleteTag = ({ text, id, handleGetData, onClose }) => {
   const [isSubmited, setIsSubmited] = useState(false);
 
@@ -22,13 +22,7 @@ const DeleteTag = ({ text, id, handleGetData, onClose }) => {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
+        throw error;
       });
   };
   return (

@@ -3,7 +3,7 @@ import Button from "../common/button/Button";
 import { Box, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import styles from "@/style/page.module.css";
-import { chapterServices } from "@/service/apiChapter";
+import { chapterServices } from "@/service/chapter";
 
 const ChapterStatus = ({ text, id, handleGetData, singleData, onClose }) => {
   const [isSubmited, setIsSubmited] = useState(false);
@@ -23,13 +23,7 @@ const ChapterStatus = ({ text, id, handleGetData, singleData, onClose }) => {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
+        throw error;
       });
   };
   return (

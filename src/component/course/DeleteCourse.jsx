@@ -3,7 +3,7 @@ import Button from "../common/button/Button";
 import { Box, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import styles from "@/style/page.module.css";
-import { courseServices } from "@/service/apiCourse";
+import { courseServices } from "@/service/course";
 
 const DeleteCourse = ({ text, id, handleGetData, onClose }) => {
   const [isSubmited, setIsSubmited] = useState(false);
@@ -23,13 +23,7 @@ const DeleteCourse = ({ text, id, handleGetData, onClose }) => {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
+        throw error;
       });
   };
   return (

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   Box,
   Chip,
@@ -9,7 +10,6 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
@@ -17,14 +17,13 @@ import formStyles from "@/style/form.module.css";
 import errorStyles from "@/style/error.module.css";
 import { memo, useEffect, useState } from "react";
 import Button from "../common/button/Button";
+import CustomTextField from "../common/input/CustomTextField";
 import { addcourseSchema, editcourseSchema } from "@/utilis/validation";
-import { categoryServices } from "@/service/apiCategory";
+import { categoryServices } from "@/service/category";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import { courseServices } from "@/service/apiCourse";
-import { tagsServices } from "@/service/apiTags";
-
-import Image from "next/image";
+import { courseServices } from "@/service/course";
+import { tagsServices } from "@/service/tags";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -52,17 +51,24 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
       description: "",
       visibility: "",
       categoryId: "",
-      tagIds: [],
+      tagIds: "",
       prerequisites: [],
       learningOutcomes: [],
     },
   });
+
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: "learningOutcomes",
   });
-  // get categories id
+
   useEffect(() => {
+    getAllCategoryList();
+    getAllTagsList();
+  }, []);
+
+  // get all categories id
+  const getAllCategoryList = () => {
     categoryServices
       .getAllCategory()
       .then((response) => {
@@ -72,18 +78,12 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
+        throw error;
       });
-  }, []);
+  };
 
-  // get tags id
-  useEffect(() => {
+  // get all tags id
+  const getAllTagsList = () => {
     tagsServices
       .getAllTags()
       .then((response) => {
@@ -93,15 +93,9 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
+        throw error;
       });
-  }, [id]);
+  };
 
   // It's use for edit
 
@@ -137,13 +131,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
+        throw error;
       });
   };
 
@@ -181,13 +169,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
 
@@ -204,13 +186,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
   };
@@ -251,17 +227,11 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
         name="title"
         control={control}
         render={({ field }) => (
-          <TextField
-            {...field}
-            className={formStyles.formControl}
+          <CustomTextField
+            field={field}
             label="Title*"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            error={!!errors.title}
-            helperText={errors.title?.message}
-            size="small"
-            sx={{ mb: 2 }}
+            error={!!errors?.title}
+            helperText={errors?.title?.message}
           />
         )}
       />{" "}
@@ -269,20 +239,14 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
         name="description"
         control={control}
         render={({ field }) => (
-          <TextField
-            {...field}
+          <CustomTextField
+            field={field}
             label="Description*"
-            variant="outlined"
-            fullWidth
-            margin="normal"
+            error={!!errors.description}
+            helperText={errors.description?.message}
             multiline
             minRows={2}
             maxRows={4}
-            size="small"
-            sx={{ mb: 3 }}
-            error={!!errors.description}
-            helperText={errors.description?.message}
-            className={formStyles.formControl}
           />
         )}
       />
@@ -300,20 +264,13 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
                 height={100}
               />
             )}
-
-            <TextField
+            <CustomTextField
               type="file"
-              className={formStyles.formControl}
-              variant="outlined"
               name="coverImage"
               label="CoverImage*"
               {...register("coverImage")}
-              fullWidth
-              margin="normal"
-              size="small"
-              sx={{ mb: 2, mt: 0 }}
-              error={!!errors.coverImage}
-              helperText={errors.coverImage?.message}
+              error={!!errors?.coverImage}
+              helperText={errors?.coverImage?.message}
             />
           </>
         )}
@@ -358,11 +315,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
             className={formStyles.formControl}
           >
             <InputLabel>Select Category ID*</InputLabel>
-            <Select
-              {...field}
-              label="Select Category ID*"
-              className={formStyles.formControl}
-            >
+            <Select {...field} label="Select Category ID*">
               {getCatergoryId?.map((item) => (
                 <MenuItem key={item?.id} value={item?.id}>
                   {item?.name}
@@ -396,7 +349,6 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
               value={field.value || []}
               labelId="tagId-label"
               label="Select Tag ID"
-              className={formStyles.formControl}
               multiple
               input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
               renderValue={(selected) => {
@@ -416,9 +368,9 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
                 </MenuItem>
               ))}
             </Select>
-            {errors.tagId && (
+            {errors?.tagIds && (
               <Typography component={"span"} className={errorStyles.error}>
-                {errors.tagId.message}
+                {errors?.tagIds.message}
               </Typography>
             )}
           </FormControl>
@@ -445,7 +397,6 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
               value={field.value || []}
               labelId="prerequisites-label"
               label="Select Prerequisites ID"
-              className={formStyles.formControl}
               multiple
               input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
               renderValue={(selected) => {
@@ -467,9 +418,9 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
                 </MenuItem>
               ))}
             </Select>
-            {errors.tagId && (
-              <Typography component={"span"} className={errorStyles.error}>
-                {errors.prerequisites.message}
+            {errors?.prerequisites && (
+              <Typography component={"span"} className={errorStyles?.error}>
+                {errors?.prerequisites?.message}
               </Typography>
             )}
           </FormControl>
@@ -488,26 +439,23 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
             className={formStyles.formControl}
           >
             {" "}
-            <TextField
-              {...field}
+            <CustomTextField
+              field={field}
               value={learningInput}
               label="Learning Outcomes"
-              variant="outlined"
-              fullWidth
-              margin="normal"
               error={!!errors.learningOutcomes}
-              size="small"
-              sx={{ mb: 0 }}
               onChange={(e) => setLearningInput(e.target.value)}
               onKeyDown={handleLearingAdd}
+              sx={{ mb: "0px !important" }}
             />
             <Typography component={"span"} className={formStyles.helperText}>
               Type a learning outcome and press Enter to add it. Repeat for
               multiple outcomes.
             </Typography>
-            <List>
+            <List sx={{ p: 0 }}>
               {fields.map((field, idx) => (
                 <ListItem
+                  sx={{ pr: 10, div: { mb: "0px !important" } }}
                   key={field?.id}
                   secondaryAction={
                     <>
@@ -533,10 +481,11 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
                   }
                 >
                   {editIdx === idx ? (
-                    <TextField
+                    <CustomTextField
                       value={editLearning}
                       onChange={(e) => setEditLearning(e.target.value)}
                       size="small"
+                      sx={{ div: { marinBottom: 0 } }}
                     />
                   ) : (
                     field?.value
@@ -547,15 +496,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
           </FormControl>
         )}
       />{" "}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          gap: "16px",
-        }}
-        className={formStyles.formFooter}
-      >
+      <Box className={formStyles.formFooter}>
         <Button
           type="button"
           variant={"cancel"}

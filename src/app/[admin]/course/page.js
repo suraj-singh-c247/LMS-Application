@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import PageLayout from "@/component/common/PageLayout";
-import { courseServices } from "@/service/apiCourse";
+import { courseServices } from "@/service/course";
 import AddCourseForm from "@/component/course/AddCourseForm";
 import ViewCourse from "@/component/course/ViewCourse";
 import DeleteCourse from "@/component/course/DeleteCourse";
@@ -14,6 +14,7 @@ import Modal from "@/component/common/modal/Modal";
 import CourseStatus from "@/component/course/CourseStatus";
 
 import MuiDataTable from "@/component/common/table/MuiDataTable";
+import Loader from "@/component/common/Loader/Loader";
 
 export default function CoursePage() {
   const [data, setData] = useState([]);
@@ -56,18 +57,13 @@ export default function CoursePage() {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
         setLoader(false);
+        throw error;
       });
   };
 
   const options = getTableOptions({
+    filter: false,
     count: data?.total,
     page: page,
     rowsPerPage: rowsPerPage,
@@ -97,7 +93,14 @@ export default function CoursePage() {
       <MuiDataTable
         data={data?.courses ?? []}
         columns={columns}
-        options={options}
+        options={{
+          ...options,
+          textLabels: {
+            body: {
+              noMatch: loader ? <Loader /> : "Sorry, no matching records found",
+            },
+          },
+        }}
       />
 
       <Modal

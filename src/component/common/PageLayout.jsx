@@ -20,6 +20,7 @@ const PageLayout = ({ title, btnText, setAddOpen, children }) => {
             variant={"primary"}
             startIcon={<AddOutlinedIcon />}
             onClick={() => setAddOpen({ open: true })}
+            disabled={false}
           />
         )}
       </Box>

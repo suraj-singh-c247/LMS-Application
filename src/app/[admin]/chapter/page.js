@@ -2,18 +2,17 @@
 
 import { useEffect, useState } from "react";
 import PageLayout from "@/component/common/PageLayout";
-import { toast } from "react-toastify";
 import Modal from "@/component/common/modal/Modal";
 import MuiDataTable from "@/component/common/table/MuiDataTable";
 import { getTableOptions } from "@/utilis/options";
-import CategoryStatus from "@/component/category/CategoryStatus";
 import ViewData from "@/component/common/viewData/ViewData";
 import { getChapterTableColumns } from "@/component/chapter/column";
-import { courseServices } from "@/service/apiCourse";
-import { chapterServices } from "@/service/apiChapter";
+import { courseServices } from "@/service/course";
+import { chapterServices } from "@/service/chapter";
 import AddEditChapter from "@/component/chapter/AddEditChapter";
 import DeleteChapter from "@/component/chapter/DeleteChapter";
 import ChapterStatus from "@/component/chapter/ChapterStatus";
+import Loader from "@/component/common/Loader/Loader";
 
 function ChapterPage() {
   const [data, setData] = useState([]);
@@ -58,14 +57,8 @@ function ChapterPage() {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
         setLoader(false);
+        throw error;
       });
   };
 
@@ -83,13 +76,7 @@ function ChapterPage() {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
+        throw error;
       });
   };
 
@@ -144,6 +131,15 @@ function ChapterPage() {
               if (type === "reset") {
                 setEachCourseId(null);
               }
+            },
+            textLabels: {
+              body: {
+                noMatch: loader ? (
+                  <Loader />
+                ) : (
+                  "Sorry, no matching records found"
+                ),
+              },
             },
           }}
         />

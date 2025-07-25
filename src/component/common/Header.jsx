@@ -37,6 +37,7 @@ const Header = ({ setSideBarToggle }) => {
 
   const handleLogOut = () => {
     removeToken();
+    window.localStorage?.clear();
     router.replace("/login");
     toast.success("Logout Successfully!");
   };
@@ -100,7 +101,7 @@ const Header = ({ setSideBarToggle }) => {
 
             <Tooltip title="Open settings">
               <IconButton onClick={() => setAnchorElUser((user) => !user)}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" />
               </IconButton>
             </Tooltip>
             <Menu

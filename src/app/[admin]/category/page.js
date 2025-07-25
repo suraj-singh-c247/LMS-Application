@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import PageLayout from "@/component/common/PageLayout";
-import { categoryServices } from "@/service/apiCategory";
-import { toast } from "react-toastify";
+import { categoryServices } from "@/service/category";
 import AddEditCategory from "@/component/category/AddEditCategory";
 import DeleteCategory from "@/component/category/DeleteCategory";
 import Modal from "@/component/common/modal/Modal";
@@ -12,6 +11,7 @@ import { getCategoryTableColumns } from "@/component/category/columns";
 import { getTableOptions } from "@/utilis/options";
 import CategoryStatus from "@/component/category/CategoryStatus";
 import ViewData from "@/component/common/viewData/ViewData";
+import Loader from "@/component/common/Loader/Loader";
 
 function AdminCategory() {
   const [data, setData] = useState([]);
@@ -54,14 +54,8 @@ function AdminCategory() {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
         setLoader(false);
+        throw error;
       });
   };
 
@@ -97,7 +91,18 @@ function AdminCategory() {
         <MuiDataTable
           data={data?.categories ?? []}
           columns={columns}
-          options={options}
+          options={{
+            ...options,
+            textLabels: {
+              body: {
+                noMatch: loader ? (
+                  <Loader />
+                ) : (
+                  "Sorry, no matching records found"
+                ),
+              },
+            },
+          }}
         />
       </PageLayout>
       {/* This modal for add user */}
