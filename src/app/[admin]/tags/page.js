@@ -11,6 +11,7 @@ import AddEditTag from "@/component/tags/AddEditTag";
 import ViewData from "@/component/common/viewData/ViewData";
 import DeleteTag from "@/component/tags/DeleteTag";
 import TagStatus from "@/component/tags/TagStatus";
+import Loader from "@/component/common/Loader/Loader";
 
 function Tags() {
   const [data, setData] = useState([]);
@@ -90,7 +91,18 @@ function Tags() {
         <MuiDataTable
           data={data?.tags ?? []}
           columns={columns}
-          options={options}
+          options={{
+            ...options,
+            textLabels: {
+              body: {
+                noMatch: loader ? (
+                  <Loader />
+                ) : (
+                  "Sorry, no matching records found"
+                ),
+              },
+            },
+          }}
         />
       </PageLayout>
 

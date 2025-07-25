@@ -14,6 +14,7 @@ import Modal from "@/component/common/modal/Modal";
 import CourseStatus from "@/component/course/CourseStatus";
 
 import MuiDataTable from "@/component/common/table/MuiDataTable";
+import Loader from "@/component/common/Loader/Loader";
 
 export default function CoursePage() {
   const [data, setData] = useState([]);
@@ -92,7 +93,14 @@ export default function CoursePage() {
       <MuiDataTable
         data={data?.courses ?? []}
         columns={columns}
-        options={options}
+        options={{
+          ...options,
+          textLabels: {
+            body: {
+              noMatch: loader ? <Loader /> : "Sorry, no matching records found",
+            },
+          },
+        }}
       />
 
       <Modal

@@ -11,6 +11,7 @@ import { getCategoryTableColumns } from "@/component/category/columns";
 import { getTableOptions } from "@/utilis/options";
 import CategoryStatus from "@/component/category/CategoryStatus";
 import ViewData from "@/component/common/viewData/ViewData";
+import Loader from "@/component/common/Loader/Loader";
 
 function AdminCategory() {
   const [data, setData] = useState([]);
@@ -90,7 +91,18 @@ function AdminCategory() {
         <MuiDataTable
           data={data?.categories ?? []}
           columns={columns}
-          options={options}
+          options={{
+            ...options,
+            textLabels: {
+              body: {
+                noMatch: loader ? (
+                  <Loader />
+                ) : (
+                  "Sorry, no matching records found"
+                ),
+              },
+            },
+          }}
         />
       </PageLayout>
       {/* This modal for add user */}

@@ -12,6 +12,7 @@ import { chapterServices } from "@/service/chapter";
 import AddEditChapter from "@/component/chapter/AddEditChapter";
 import DeleteChapter from "@/component/chapter/DeleteChapter";
 import ChapterStatus from "@/component/chapter/ChapterStatus";
+import Loader from "@/component/common/Loader/Loader";
 
 function ChapterPage() {
   const [data, setData] = useState([]);
@@ -130,6 +131,15 @@ function ChapterPage() {
               if (type === "reset") {
                 setEachCourseId(null);
               }
+            },
+            textLabels: {
+              body: {
+                noMatch: loader ? (
+                  <Loader />
+                ) : (
+                  "Sorry, no matching records found"
+                ),
+              },
             },
           }}
         />
