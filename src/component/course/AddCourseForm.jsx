@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   Box,
   Chip,
@@ -9,7 +10,6 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
@@ -17,19 +17,17 @@ import formStyles from "@/style/form.module.css";
 import errorStyles from "@/style/error.module.css";
 import { memo, useEffect, useState } from "react";
 import Button from "../common/button/Button";
+import CustomTextField from "../common/input/CustomTextField";
 import { addcourseSchema, editcourseSchema } from "@/utilis/validation";
-import { categoryServices } from "@/service/apiCategory";
+import { categoryServices } from "@/service/category";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import { courseServices } from "@/service/apiCourse";
-import { tagsServices } from "@/service/apiTags";
-
-import Image from "next/image";
+import { courseServices } from "@/service/course";
+import { tagsServices } from "@/service/tags";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
-import CustomTextField from "../common/input/CustomTextField";
 
 const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
   const [getCatergoryId, setCategoryId] = useState([]);
@@ -64,8 +62,13 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
     name: "learningOutcomes",
   });
 
-  // get categories id
   useEffect(() => {
+    getAllCategoryList();
+    getAllTagsList();
+  }, []);
+
+  // get all categories id
+  const getAllCategoryList = () => {
     categoryServices
       .getAllCategory()
       .then((response) => {
@@ -75,18 +78,12 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
+        throw error;
       });
-  }, []);
+  };
 
-  // get tags id
-  useEffect(() => {
+  // get all tags id
+  const getAllTagsList = () => {
     tagsServices
       .getAllTags()
       .then((response) => {
@@ -96,15 +93,9 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
+        throw error;
       });
-  }, [id]);
+  };
 
   // It's use for edit
 
@@ -140,13 +131,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
+        throw error;
       });
   };
 
@@ -184,13 +169,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
 
@@ -207,13 +186,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
   };
@@ -482,6 +455,7 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
             <List sx={{ p: 0 }}>
               {fields.map((field, idx) => (
                 <ListItem
+                  sx={{ pr: 10, div: { mb: "0px !important" } }}
                   key={field?.id}
                   secondaryAction={
                     <>
@@ -507,10 +481,11 @@ const AddCourseForm = ({ id, data, getCourseData, onClose }) => {
                   }
                 >
                   {editIdx === idx ? (
-                    <TextField
+                    <CustomTextField
                       value={editLearning}
                       onChange={(e) => setEditLearning(e.target.value)}
                       size="small"
+                      sx={{ div: { marinBottom: 0 } }}
                     />
                   ) : (
                     field?.value

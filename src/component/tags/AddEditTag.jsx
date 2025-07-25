@@ -4,12 +4,12 @@ import formStyles from "@/style/form.module.css";
 import { memo, useEffect } from "react";
 import Button from "../common/button/Button";
 import { tagSchema } from "@/utilis/validation";
-import { tagsServices } from "@/service/apiTags";
+import { tagsServices } from "@/service/tags";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import CustomTextField from "../common/input/CustomTextField";
 
-const AddEditTag = ({ id, tagData, getDataTable, onClose }) => {
+const AddEditTag = ({ id, getDataTable, onClose }) => {
   const {
     handleSubmit,
     setValue,
@@ -23,16 +23,32 @@ const AddEditTag = ({ id, tagData, getDataTable, onClose }) => {
     },
   });
 
-  // It's use for edit
-
   useEffect(() => {
-    if (tagData && id) {
-      const findUser = tagData?.find((user) => user.id === id);
-      setValue("name", findUser?.name || "");
-    } else {
-      reset();
+    if (id) {
+      getTagData();
     }
-  }, [open, tagData, id]);
+  }, []);
+
+  // It's use for edit
+  const getTagData = () => {
+    tagsServices
+      .getTagById(id)
+      .then((response) => {
+        if (response?.status === 200) {
+          const { data } = response?.data;
+          setValue("name", data?.name || "");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          toast.error(error.response.data?.message);
+          return;
+        } else if (error.request) {
+          toast.error(error.request);
+          return;
+        }
+      });
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
@@ -54,13 +70,7 @@ const AddEditTag = ({ id, tagData, getDataTable, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
 
@@ -77,13 +87,7 @@ const AddEditTag = ({ id, tagData, getDataTable, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
   };

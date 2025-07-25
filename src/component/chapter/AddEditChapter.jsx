@@ -4,7 +4,6 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
@@ -15,7 +14,7 @@ import errorStyles from "@/style/error.module.css";
 import { memo, useEffect } from "react";
 import Button from "../common/button/Button";
 import { chapterSchema } from "@/utilis/validation";
-import { chapterServices } from "@/service/apiChapter";
+import { chapterServices } from "@/service/chapter";
 import { sortOrderLists } from "@/utilis/utilities";
 import CustomTextField from "../common/input/CustomTextField";
 
@@ -85,13 +84,7 @@ const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
 
@@ -108,13 +101,7 @@ const AddEditChapter = ({ id, courseId, getDataTable, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
   };

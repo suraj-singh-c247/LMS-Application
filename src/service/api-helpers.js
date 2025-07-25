@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Base_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -21,7 +22,7 @@ const setToken = (token) => {
 
 const removeToken = () => {
   if (typeof window !== "undefined") {
-    return window?.localStorage?.clear();
+    return window?.localStorage?.removeItem("accessToken");
   }
   return null;
 };
@@ -34,61 +35,107 @@ const panelRole = () => {
   return null;
 };
 
-const token = getToken();
-
 const getApi = async (url, config = {}) => {
-  return await axios.get(url, {
-    ...config,
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const token = getToken();
+  try {
+    const response = await axios.get(url, {
+      ...config,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    if (error.response) {
+      toast.error(error.response.data?.message || "Something went wrong!");
+    } else if (error.request) {
+      toast.error("Network error or no response from server");
+    } else {
+      toast.error(error.message);
+    }
+    throw error;
+  }
 };
 
 const postApi = async (url, data, config = {}) => {
-  return await axios.post(url, data, {
-    ...config,
-    method: "POST",
-    headers: {
-      "Content-Type": `${
-        config?.headers?.ContentType === "multipart/form-data"
-          ? config?.headers?.ContentType
-          : "application/json"
-      }`,
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const token = getToken();
+  try {
+    const response = await axios.post(url, data, {
+      ...config,
+      headers: {
+        "Content-Type": `${
+          config?.headers?.ContentType === "multipart/form-data"
+            ? config?.headers?.ContentType
+            : "application/json"
+        }`,
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    if (error.response) {
+      toast.error(error.response.data?.message || "Something went wrong!");
+    } else if (error.request) {
+      toast.error("Network error or no response from server");
+    } else {
+      toast.error(error.message);
+    }
+    throw error;
+  }
 };
 
-const putApi = async (url, data, config = {}) => {  
-  return await axios.put(url, data, {
-    ...config,
-    method: "PUT",
-    headers: {
-      "Content-Type": `${
-        config?.headers?.ContentType === "multipart/form-data"
-          ? config?.headers?.ContentType
-          : "application/json"
-      }`,
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const putApi = async (url, data, config = {}) => {
+  const token = getToken();
+  try {
+    const response = await axios.put(url, data, {
+      ...config,
+      headers: {
+        "Content-Type": `${
+          config?.headers?.ContentType === "multipart/form-data"
+            ? config?.headers?.ContentType
+            : "application/json"
+        }`,
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    if (error.response) {
+      toast.error(error.response.data?.message || "Something went wrong!");
+    } else if (error.request) {
+      toast.error("Network error or no response from server");
+    } else {
+      toast.error(error.message);
+    }
+    throw error;
+  }
 };
 const deleteApi = async (url, config = {}) => {
-  return await axios.delete(url, {
-    ...config,
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const token = getToken();
+  try {
+    const response = await axios.delete(url, {
+      ...config,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    if (error.response) {
+      toast.error(error.response.data?.message || "Something went wrong!");
+    } else if (error.request) {
+      toast.error("Network error or no response from server");
+    } else {
+      toast.error(error.message);
+    }
+    throw error;
+  }
 };
 
 export {

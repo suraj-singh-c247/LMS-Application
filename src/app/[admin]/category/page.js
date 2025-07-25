@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import PageLayout from "@/component/common/PageLayout";
-import { categoryServices } from "@/service/apiCategory";
-import { toast } from "react-toastify";
+import { categoryServices } from "@/service/category";
 import AddEditCategory from "@/component/category/AddEditCategory";
 import DeleteCategory from "@/component/category/DeleteCategory";
 import Modal from "@/component/common/modal/Modal";
@@ -54,14 +53,8 @@ function AdminCategory() {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
         setLoader(false);
+        throw error;
       });
   };
 

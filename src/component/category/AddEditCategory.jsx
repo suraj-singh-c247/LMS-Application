@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { memo, useEffect } from "react";
 import Button from "../common/button/Button";
 import { categorySchema } from "@/utilis/validation";
-import { categoryServices } from "@/service/apiCategory";
+import { categoryServices } from "@/service/category";
 import CustomTextField from "../common/input/CustomTextField";
 
 import formStyles from "@/style/form.module.css";
@@ -72,13 +72,7 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
 
@@ -95,13 +89,7 @@ const AddEditCategory = ({ id, getDataTable, onClose }) => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data?.message);
-            return;
-          } else if (error.request) {
-            toast.error(error.request);
-            return;
-          }
+          throw error;
         });
     }
   };

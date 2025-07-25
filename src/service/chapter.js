@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Base_URL, deleteApi, getApi, postApi, putApi } from "./api-helpers";
 
 const apiURL = Base_URL + "/chapter";

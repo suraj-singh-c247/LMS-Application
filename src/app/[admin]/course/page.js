@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import PageLayout from "@/component/common/PageLayout";
-import { courseServices } from "@/service/apiCourse";
+import { courseServices } from "@/service/course";
 import AddCourseForm from "@/component/course/AddCourseForm";
 import ViewCourse from "@/component/course/ViewCourse";
 import DeleteCourse from "@/component/course/DeleteCourse";
@@ -56,14 +56,8 @@ export default function CoursePage() {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data?.message);
-          return;
-        } else if (error.request) {
-          toast.error(error.request);
-          return;
-        }
         setLoader(false);
+        throw error;
       });
   };
 

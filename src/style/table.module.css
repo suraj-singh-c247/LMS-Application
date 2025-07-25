@@ -1,52 +1,3 @@
-.table .tableHeading {
-  font-size: 18px;
-  font-weight: 600;
-  color: #000;
-}
-
-.table .tableHead tr th {
-  background-color: transparent;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 16px;
-  letter-spacing: 0.03em;
-  color: #464f60;
-  border-color: #e9edf5;
-}
-.table .tableHead tr th:first-child,
-.table .tableBody tr td:first-child {
-  padding-left: 24px;
-}
-.table .tableBody {
-  background-color: #fff;
-}
-.table .tableBody tr td {
-  padding-block: 6px;
-  font-size: 14px;
-  line-height: 16px;
-  font-weight: 500;
-}
-.table .tableBody tr td:first-child {
-  font-weight: 600;
-  color: #171c26;
-}
-
-.table .tablePagination div + p {
-  font-size: 14px;
-  line-height: 16px;
-  font-weight: 500;
-  color: #171c26;
-}
-
-[data-theme="dark"] .table .tableBody {
-  background-color: #333;
-}
-[data-theme="dark"] .table .tableHeading,
-[data-theme="dark"] .table .tableHead tr th,
-[data-theme="dark"] .table .tableBody tr td {
-  color: #fff;
-}
-
 /* date css start */
 .dateText {
   font-size: 13px;
@@ -88,7 +39,17 @@
   background-color: #f9fafb;
   padding: 8px;
 }
-
+.muiDataTable div div table thead tr th button {
+  padding: 6px 0px;
+  justify-content: flex-start;
+}
+.muiDataTable div div table tbody td {
+  padding: 6px 8px;
+}
+.muiDataTable div div table tbody td button {
+  padding: 2px;
+  margin-right: 4px;
+}
 .muiDataTable div div table thead tr th button div div,
 .muiDataTable div div table thead tr th div,
 .muiDataTable div div table thead tr th button div div + div span svg {
